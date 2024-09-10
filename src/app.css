@@ -1,3 +1,21 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
+@layer base {
+	@font-face {
+		font-family: Headlines;
+		font-style: normal;
+		font-weight: bold;
+		src: url('/assets/fonts/charcoal/Charcoal.ttf');
+	}
+
+	.headline {
+		font-family: Headlines;
+		font-size: 12px;
+		font-style: normal;
+		font-weight: 400;
+		line-height: 98%; /* 11.76px */
+		letter-spacing: 0.42px;
+	}
+}
