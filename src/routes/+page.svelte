@@ -1,5 +1,6 @@
 <script>
 	import Window from '$lib/components/window/Window.svelte';
+	import ControlPantel from '$lib/components/control_panel/ControlPanel.svelte';
 </script>
 
 <Window name="FAQs">
@@ -9,3 +10,5 @@
 
 	<div class="px-1" style="width: 350px; height: 200px;">testing</div>
 </Window>
+
+<ControlPantel />
