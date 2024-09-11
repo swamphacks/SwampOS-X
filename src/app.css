@@ -27,3 +27,9 @@ body {
 		letter-spacing: 0.42px;
 	}
 }
+
+@layer utilities {
+	.sticky-note-resizable-clip {
+		clip-path: polygon(50% 0, 100% 0, 100% 100%, 0 100%, 0 50%, 50% 50%);
+	}
+}
