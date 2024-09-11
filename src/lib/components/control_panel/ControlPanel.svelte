@@ -1,64 +1,119 @@
-<script>
+<script lang="ts">
 	let apps = [
-		{ src: 'apple_talk.svg', clicked: false },
-		{ src: 'cd.svg', clicked: false },
-		{ src: 'file_sharing.svg' },
-		{ src: 'itunes.svg', clicked: false },
-		{ src: 'keychain_strip.svg', clicked: false },
-		{ src: 'monitor_resolution.svg', clicked: false },
-		{ src: 'remote_access.svg', clicked: false },
-		{ src: 'monitor_bitdepth.svg', clicked: false },
-		{ src: 'printer.svg', clicked: false },
-		{ src: 'sound_volume.svg', clicked: false },
-		{ src: 'web_sharing.svg', clicked: false }
+		{ src: 'apple_talk.svg', clicked: false, display: true },
+		{ src: 'cd.svg', clicked: false, display: true },
+		{ src: 'file_sharing.svg', clicked: false, display: true },
+		{ src: 'itunes.svg', clicked: false, display: true },
+		{ src: 'keychain_strip.svg', clicked: false, display: true },
+		{ src: 'monitor_resolution.svg', clicked: false, display: true },
+		{ src: 'remote_access.svg', clicked: false, display: true },
+		{ src: 'monitor_bitdepth.svg', clicked: false, display: true },
+		{ src: 'printer.svg', clicked: false, display: true },
+		{ src: 'sound_volume.svg', clicked: false, display: true },
+		{ src: 'web_sharing.svg', clicked: false, display: true }
 	];
+
+	let appsClosed = false;
+
+	let controlElement: HTMLButtonElement;
+	let closeElement: HTMLButtonElement;
+	let leftArrowElement: HTMLButtonElement;
+	let rightArrowElement: HTMLButtonElement;
+
+	const toggleApps = () => {
+		appsClosed = !appsClosed;
+		apps = apps.map((app) => ({ ...app, display: !appsClosed }));
+	};
 </script>
 
-<section
-	class="relative grid grid-cols-[repeat(2,16px)_repeat(11,33px)_repeat(2,17px)] items-center"
->
-	<button>
-		<img
-			src="assets/control_strip/controls/inactive/close.svg"
-			class="h-[35px] w-[16px]"
-			alt="close"
-		/>
-	</button>
+<section class="relative mt-5 flex flex-row items-center">
+	<button
+		class="h-[26px] w-[16px] bg-center bg-no-repeat"
+		style="background-image: url(assets/control_strip/controls/inactive/close.svg)"
+		bind:this={closeElement}
+		on:mousedown={() => {
+			closeElement.style.backgroundImage = 'url(assets/control_strip/controls/active/close.svg)';
+		}}
+		on:mouseup={() => {
+			toggleApps();
+			closeElement.style.backgroundImage = 'url(assets/control_strip/controls/inactive/close.svg)';
+		}}
+	/>
 
-	<button>
-		<img
-			src="assets/control_strip/controls/inactive/left-arrow.svg"
-			class="h-[26px] w-[16px]"
-			alt="left arrow"
+	{#if !appsClosed}
+		<button
+			class="h-[26px] w-[16px] bg-center bg-no-repeat"
+			style="background-image: url(assets/control_strip/controls/inactive/left-arrow.svg)"
+			bind:this={leftArrowElement}
+			on:mousedown={() => {
+				leftArrowElement.style.backgroundImage =
+					'url(assets/control_strip/controls/active/left-arrow.svg)';
+			}}
+			on:mouseup={() => {
+				leftArrowElement.style.backgroundImage =
+					'url(assets/control_strip/controls/inactive/left-arrow.svg)';
+			}}
 		/>
-	</button>
+	{/if}
 
 	{#each apps as app, idx}
-		<button
-			class="relative h-[26px] w-[33px] bg-center bg-no-repeat"
-			style="left: -{idx + 1}px; background-image: url(assets/control_strip/controls/{app.clicked
-				? 'active'
-				: 'inactive'}/icon-container.svg)"
-			on:click={() => {
-				apps = apps.map((a, i) =>
-					i === idx ? { ...a, clicked: !a.clicked } : { ...a, clicked: false }
-				);
-			}}
-		>
-			<img
-				src={`assets/control_strip/app_icons/${app.src}`}
-				class="relative h-[16px] w-[16px]"
-				style={app.clicked ? 'top: 1px; left: 4px;' : 'left: 3px'}
-				alt="control panel icon"
-			/>
-		</button>
+		{#if app.display}
+			<button
+				class="relative h-[26px] w-[33px] bg-center bg-no-repeat"
+				style="left: -{idx + 1}px; background-image: url(assets/control_strip/controls/{app.clicked
+					? 'active'
+					: 'inactive'}/icon-container.svg)"
+				on:click={() => {
+					apps = apps.map((a, i) =>
+						i === idx ? { ...a, clicked: !a.clicked } : { ...a, clicked: false }
+					);
+				}}
+			>
+				<img
+					src={`assets/control_strip/app_icons/${app.src}`}
+					class="relative h-[16px] w-[16px]"
+					style={app.clicked ? 'top: 1px; left: 4px;' : 'left: 3px'}
+					alt="control panel icon"
+				/>
+			</button>
+		{/if}
 	{/each}
 
-	<button class="relative h-[26px] w-[17px]" style="left: -{apps.length + 1}px">
-		<img src="assets/control_strip/controls/inactive/right-arrow.svg" alt="right arrow" />
-	</button>
+	{#if !appsClosed}
+		<button
+			class="relative h-[26px] w-[17px] bg-center bg-no-repeat"
+			style="{!appsClosed &&
+				'left: -' +
+					(apps.length + 1) +
+					'px'}; background-image: url(assets/control_strip/controls/inactive/right-arrow.svg)"
+			bind:this={rightArrowElement}
+			on:mousedown={() => {
+				rightArrowElement.style.backgroundImage =
+					'url(assets/control_strip/controls/active/right-arrow.svg)';
+			}}
+			on:mouseup={() => {
+				rightArrowElement.style.backgroundImage =
+					'url(assets/control_strip/controls/inactive/right-arrow.svg)';
+			}}
+		/>
+	{/if}
 
-	<button class="relative h-[26px] w-[17px]" style="left: -{apps.length + 1}px">
-		<img src="assets/control_strip/controls/inactive/control.svg" alt="control" />
-	</button>
+	<button
+		class="relative h-[26px] w-[17px] bg-center bg-no-repeat"
+		style="{appsClosed
+			? 'left: 0'
+			: 'left: -' +
+				(apps.length + 1) +
+				'px'}; background-image: url(assets/control_strip/controls/inactive/control.svg)"
+		bind:this={controlElement}
+		on:mousedown={() => {
+			controlElement.style.backgroundImage =
+				'url(assets/control_strip/controls/active/control.svg)';
+		}}
+		on:mouseup={() => {
+			toggleApps();
+			controlElement.style.backgroundImage =
+				'url(assets/control_strip/controls/inactive/control.svg)';
+		}}
+	/>
 </section>
