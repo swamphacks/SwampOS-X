@@ -26,6 +26,14 @@ body {
 		line-height: 98%; /* 11.76px */
 		letter-spacing: 0.42px;
 	}
+<<<<<<< HEAD
+=======
+
+	.disable-blur {
+		image-rendering: pixelated;
+	}
+
+>>>>>>> got store working
 }
 
 @layer utilities {
