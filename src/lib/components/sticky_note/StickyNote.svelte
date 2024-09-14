@@ -1,39 +1,25 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
 	import { draggable } from '@neodrag/svelte';
-
+	import { setActiveApp, zindexApp } from '$lib/stores/apps.store';
 
 	export let initialMessage: string;
-	let active: boolean = false;
+	export let appID: string;
+
 	let message: string = initialMessage;
-	let noteElement: HTMLElement;
-	let zIndex: number = 1;
+	let stickyNoteElement: HTMLElement;
 
-	const handleClick = (event: MouseEvent) => {
-		const target = event.target as HTMLElement;
-		if (noteElement && noteElement.contains(target)) {
-			active = true;
-		} else {
-			active = false;
-		}
-
-		console.log("The zindex is ", zIndex)
+	const focusApp = () => {
+		setActiveApp(appID);
 	};
-
-	const onDragStart = () => {
-		active = true;
-	};
-
-	document.addEventListener('click', handleClick);
 </script>
 
 <div
 	class="relative h-[200px] w-[200px] bg-plum shadow-sticky-note"
-	bind:this={noteElement}
-	use:draggable={{ grid: [6, 6], handle: '.header', onDragStart: onDragStart, bounds: 'body' }}
-	style="z-index: {zIndex};"
+	bind:this={stickyNoteElement}
+	style:z-index={$zindexApp[appID]}
+	use:draggable={{ grid: [6, 6], handle: '.header', bounds: 'body', onDragStart: focusApp }}
 >
-	<div class="header h-[6%] w-full {active ? 'bg-magenta' : 'bg-plum'}"></div>
+	<div class="header h-[6%] w-full bg-magenta"></div>
 	<textarea
 		bind:value={message}
 		class="m-0 min-h-[90%] w-full resize-none border-none bg-plum p-1 text-xs leading-none focus:outline-none focus:ring-0"

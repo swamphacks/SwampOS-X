@@ -32,8 +32,11 @@ body {
 	.disable-blur {
 		image-rendering: pixelated;
 	}
+<<<<<<< HEAD
 
 >>>>>>> got store working
+=======
+>>>>>>> the shit was some bum but it works now
 }
 
 @layer utilities {
