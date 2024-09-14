@@ -22,7 +22,6 @@
 	.disable-blur {
 		image-rendering: pixelated;
 	}
-
 }
 
 @layer utilities {
