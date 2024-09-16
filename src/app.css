@@ -10,6 +10,13 @@
 		src: url('/assets/fonts/charcoal/Charcoal.ttf');
 	}
 
+	@font-face {
+		font-family: Content;
+		font-style: normal;
+		font-weight: normal;
+		src: url('/assets/fonts/geneva/geneva.ttf');
+	}
+
 	.headline {
 		font-family: Headlines;
 		font-size: 12px;
