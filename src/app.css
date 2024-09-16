@@ -14,8 +14,16 @@ body {
 		src: url('/assets/fonts/charcoal/Charcoal.ttf');
 	}
 
+<<<<<<< HEAD
 	body {
 		image-rendering: pixelated;
+=======
+	@font-face {
+		font-family: Content;
+		font-style: normal;
+		font-weight: normal;
+		src: url('/assets/fonts/geneva/geneva.ttf');
+>>>>>>> styling n shi
 	}
 
 	.headline {
