@@ -29,31 +29,14 @@
 <section class="relative mt-5 flex flex-row items-center">
 	{#if !appsClosed}
 		<button
-			class="h-[26px] w-[16px] bg-center bg-no-repeat"
-			style="background-image: url(assets/control_strip/controls/inactive/close.svg)"
+			class="h-[26px] w-[16px] bg-[url(assets/control_strip/controls/inactive/close.svg)] bg-center bg-no-repeat active:bg-[url(assets/control_strip/controls/active/close.svg)]"
 			bind:this={closeElement}
-			on:mousedown={() => {
-				closeElement.style.backgroundImage = 'url(assets/control_strip/controls/active/close.svg)';
-			}}
-			on:mouseup={() => {
-				toggleApps();
-				closeElement.style.backgroundImage =
-					'url(assets/control_strip/controls/inactive/close.svg)';
-			}}
+			on:click={toggleApps}
 		/>
 
 		<button
-			class="relative left-[-1px] h-[26px] w-[17px] bg-center bg-no-repeat"
-			style="background-image: url(assets/control_strip/controls/inactive/left-arrow.svg)"
+			class="relative left-[-1px] h-[26px] w-[17px] bg-[url(assets/control_strip/controls/inactive/left-arrow.svg)] bg-center bg-no-repeat active:bg-[url(assets/control_strip/controls/active/left-arrow.svg)]"
 			bind:this={leftArrowElement}
-			on:mousedown={() => {
-				leftArrowElement.style.backgroundImage =
-					'url(assets/control_strip/controls/active/left-arrow.svg)';
-			}}
-			on:mouseup={() => {
-				leftArrowElement.style.backgroundImage =
-					'url(assets/control_strip/controls/inactive/left-arrow.svg)';
-			}}
 		/>
 	{/if}
 
@@ -82,39 +65,16 @@
 
 	{#if !appsClosed}
 		<button
-			class="relative h-[26px] w-[17px] bg-center bg-no-repeat"
-			style="{!appsClosed &&
-				'left: -' +
-					(apps.length + 2) +
-					'px'}; background-image: url(assets/control_strip/controls/inactive/right-arrow.svg)"
+			class="relative h-[26px] w-[17px] bg-[url(assets/control_strip/controls/inactive/right-arrow.svg)] bg-center bg-no-repeat active:bg-[url(assets/control_strip/controls/active/right-arrow.svg)]"
+			style="{!appsClosed && 'left: -' + (apps.length + 2) + 'px'}; background-image: "
 			bind:this={rightArrowElement}
-			on:mousedown={() => {
-				rightArrowElement.style.backgroundImage =
-					'url(assets/control_strip/controls/active/right-arrow.svg)';
-			}}
-			on:mouseup={() => {
-				rightArrowElement.style.backgroundImage =
-					'url(assets/control_strip/controls/inactive/right-arrow.svg)';
-			}}
 		/>
 	{/if}
 
 	<button
-		class="relative h-[26px] w-[17px] bg-center bg-no-repeat"
-		style="{appsClosed
-			? 'left: -1px'
-			: 'left: -' +
-				(apps.length + 2) +
-				'px'}; background-image: url(assets/control_strip/controls/inactive/control.svg)"
+		class="relative h-[26px] w-[17px] bg-[url(assets/control_strip/controls/inactive/control.svg)] bg-center bg-no-repeat active:bg-[url(assets/control_strip/controls/active/control.svg)]"
+		style="{appsClosed ? 'left: -1px' : 'left: -' + (apps.length + 2) + 'px'};"
 		bind:this={controlElement}
-		on:mousedown={() => {
-			controlElement.style.backgroundImage =
-				'url(assets/control_strip/controls/active/control.svg)';
-		}}
-		on:mouseup={() => {
-			toggleApps();
-			controlElement.style.backgroundImage =
-				'url(assets/control_strip/controls/inactive/control.svg)';
-		}}
+		on:click={toggleApps}
 	/>
 </section>
