@@ -43,21 +43,15 @@
 	{#each apps as app, idx}
 		{#if app.display}
 			<button
-				class="relative h-[26px] w-[24px] bg-center bg-no-repeat"
-				style="left: -{idx + 2}px; background-image: url(assets/control_strip/controls/{app.clicked
-					? 'active'
-					: 'inactive'}/icon-container.svg)"
-				on:click={() => {
-					apps = apps.map((a, i) =>
-						i === idx ? { ...a, clicked: !a.clicked } : { ...a, clicked: false }
-					);
-				}}
+				class="relative h-[26px] w-[24px] select-none bg-[url(assets/control_strip/controls/inactive/icon-container.svg)] bg-center bg-no-repeat active:bg-[url(assets/control_strip/controls/active/icon-container.svg)]"
+				style="left: -{idx + 2}px;"
 			>
 				<img
 					src={`assets/control_strip/app_icons/${app.src}`}
 					class="relative h-[16px] w-[16px]"
 					style={app.clicked ? 'top: 1px; left: 4px;' : 'left: 3px'}
 					alt="control panel icon"
+					draggable="false"
 				/>
 			</button>
 		{/if}
