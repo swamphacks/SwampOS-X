@@ -27,22 +27,23 @@
 </script>
 
 <section class="relative mt-5 flex flex-row items-center">
-	<button
-		class="h-[26px] w-[16px] bg-center bg-no-repeat"
-		style="background-image: url(assets/control_strip/controls/inactive/close.svg)"
-		bind:this={closeElement}
-		on:mousedown={() => {
-			closeElement.style.backgroundImage = 'url(assets/control_strip/controls/active/close.svg)';
-		}}
-		on:mouseup={() => {
-			toggleApps();
-			closeElement.style.backgroundImage = 'url(assets/control_strip/controls/inactive/close.svg)';
-		}}
-	/>
-
 	{#if !appsClosed}
 		<button
 			class="h-[26px] w-[16px] bg-center bg-no-repeat"
+			style="background-image: url(assets/control_strip/controls/inactive/close.svg)"
+			bind:this={closeElement}
+			on:mousedown={() => {
+				closeElement.style.backgroundImage = 'url(assets/control_strip/controls/active/close.svg)';
+			}}
+			on:mouseup={() => {
+				toggleApps();
+				closeElement.style.backgroundImage =
+					'url(assets/control_strip/controls/inactive/close.svg)';
+			}}
+		/>
+
+		<button
+			class="relative left-[-1px] h-[26px] w-[17px] bg-center bg-no-repeat"
 			style="background-image: url(assets/control_strip/controls/inactive/left-arrow.svg)"
 			bind:this={leftArrowElement}
 			on:mousedown={() => {
@@ -59,8 +60,8 @@
 	{#each apps as app, idx}
 		{#if app.display}
 			<button
-				class="relative h-[26px] w-[33px] bg-center bg-no-repeat"
-				style="left: -{idx + 1}px; background-image: url(assets/control_strip/controls/{app.clicked
+				class="relative h-[26px] w-[24px] bg-center bg-no-repeat"
+				style="left: -{idx + 2}px; background-image: url(assets/control_strip/controls/{app.clicked
 					? 'active'
 					: 'inactive'}/icon-container.svg)"
 				on:click={() => {
@@ -84,7 +85,7 @@
 			class="relative h-[26px] w-[17px] bg-center bg-no-repeat"
 			style="{!appsClosed &&
 				'left: -' +
-					(apps.length + 1) +
+					(apps.length + 2) +
 					'px'}; background-image: url(assets/control_strip/controls/inactive/right-arrow.svg)"
 			bind:this={rightArrowElement}
 			on:mousedown={() => {
@@ -101,9 +102,9 @@
 	<button
 		class="relative h-[26px] w-[17px] bg-center bg-no-repeat"
 		style="{appsClosed
-			? 'left: 0'
+			? 'left: -1px'
 			: 'left: -' +
-				(apps.length + 1) +
+				(apps.length + 2) +
 				'px'}; background-image: url(assets/control_strip/controls/inactive/control.svg)"
 		bind:this={controlElement}
 		on:mousedown={() => {
