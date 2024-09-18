@@ -1,6 +1,9 @@
 <script lang="ts">
 	import { draggable, type DragEventData } from '@neodrag/svelte';
 
+	const iconOffset = 30; // close button + left arrow - padding = 16 + 17 - 3
+	const iconWidth = 24;
+
 	let apps = [
 		{ src: 'apple_talk.svg', clicked: false, display: true },
 		{ src: 'cd.svg', clicked: false, display: true },
@@ -20,7 +23,7 @@
 	let leftArrowElement: HTMLButtonElement;
 	let rightArrowElement: HTMLButtonElement;
 
-	const initialControlPos = 30 + apps.length * 24 - apps.length + 17;
+	const initialControlPos = iconOffset + apps.length * iconWidth - apps.length + 17;
 	let positionPrev = initialControlPos;
 	let position = { x: initialControlPos, y: 0 };
 	let controlDragged = false;
@@ -49,12 +52,11 @@
 			controlDragged = true;
 		}
 
-		const offset = 30;
 		const rightArrowPos = e.detail.offsetX - 17;
 		rightArrowElement.style.left = rightArrowPos + 'px';
 
 		apps = apps.map((app, idx) => {
-			if (rightArrowPos - offset - (idx * 24 - idx) >= 0) {
+			if (rightArrowPos - iconOffset - (idx * iconWidth - idx) >= 0) {
 				return { ...app, display: true };
 			}
 			return { ...app, display: false };
@@ -74,7 +76,6 @@
 	};
 
 	const onControlDragEnd = (e: CustomEvent<DragEventData>) => {
-		console.log(e.detail);
 		let endIdx = apps.findIndex((app) => !app.display);
 
 		if (endIdx === -1) endIdx = apps.length;
@@ -84,7 +85,7 @@
 		// hidden because the control position is before the first icon
 		if (endIdx === 0) endIdx = 1;
 
-		const nextVisibleIconPos = 30 + (endIdx - 1) * 24 - (endIdx - 1);
+		const nextVisibleIconPos = iconOffset + (endIdx - 1) * iconWidth - (endIdx - 1);
 
 		// snap to nearest icon
 		if (e.detail.offsetX - 17 - nextVisibleIconPos < 12) {
@@ -92,18 +93,18 @@
 			if (endIdx - 1 > 0) {
 				rightArrowElement.style.left = nextVisibleIconPos + 'px';
 				position.x = nextVisibleIconPos + 17;
+				apps = apps.map((app, idx) => (idx >= endIdx - 1 ? { ...app, display: false } : app));
 				appsVisible = true;
-				apps = apps.map((app, idx) => (idx === endIdx - 1 ? { ...app, display: false } : app));
 			} else {
 				leftArrowElement.style.visibility = 'hidden';
 				closeElement.style.visibility = 'hidden';
 				rightArrowElement.style.left = -17 + 'px';
 				position.x = 0;
-				apps = apps.map((app, idx) => (idx === 0 ? { ...app, display: false } : app));
+				apps = apps.map((app, idx) => (idx >= 0 ? { ...app, display: false } : app));
 				appsVisible = false;
 			}
 		} else {
-			const rightArrowPos = 30 + endIdx * 24 - endIdx;
+			const rightArrowPos = iconOffset + endIdx * iconWidth - endIdx;
 			rightArrowElement.style.left = rightArrowPos + 'px';
 			position.x = rightArrowPos + 17;
 			appsVisible = true;
@@ -111,28 +112,45 @@
 
 		positionPrev = position.x;
 	};
+
+	const shiftAppsLeft = () => {
+		if (apps.every((app) => app.display)) return;
+		const firstHiddenIdx = apps.findIndex((app) => !app.display);
+		apps = [...apps.slice(1), apps[0]].map((app, idx) => {
+			return { ...app, display: idx < firstHiddenIdx };
+		});
+	};
+
+	const shiftAppsRight = () => {
+		if (apps.every((app) => app.display)) return;
+		const firstHiddenIdx = apps.findIndex((app) => !app.display);
+		apps = [apps.at(-1)!, ...apps.slice(0, -1)].map((app, idx) => {
+			return { ...app, display: idx < firstHiddenIdx };
+		});
+	};
 </script>
 
 <section
 	class="relative mt-5 flex h-fit"
-	style="width: {16 + 17 + 24 * apps.length + 17 + 17 - apps.length - 3}px;"
+	style="width: {iconOffset + iconWidth * apps.length + 17 + 17 - apps.length}px;"
 >
 	<button
 		class="absolute left-0 h-[26px] w-[16px] bg-[url(assets/control_strip/controls/inactive/close.svg)] bg-center bg-no-repeat active:bg-[url(assets/control_strip/controls/active/close.svg)]"
 		bind:this={closeElement}
 		on:click={toggleApps}
 	/>
-
 	<button
-		class="absolute left-[15px] h-[26px] w-[17px] bg-[url(assets/control_strip/controls/inactive/left-arrow.svg)] bg-center bg-no-repeat active:bg-[url(assets/control_strip/controls/active/left-arrow.svg)]"
+		class="absolute left-[15px] h-[26px] w-[17px] bg-[url(assets/control_strip/controls/inactive/left-arrow.svg)] bg-center bg-no-repeat"
+		class:active-left={apps.some((app) => !app.display)}
 		bind:this={leftArrowElement}
+		on:click={shiftAppsLeft}
 	/>
 
 	{#each apps as app, idx}
 		{#if app.display}
 			<button
 				class="absolute h-[26px] w-[24px] select-none bg-[url(assets/control_strip/controls/inactive/icon-container.svg)] bg-center bg-no-repeat active:bg-[url(assets/control_strip/controls/active/icon-container.svg)]"
-				style="left: {30 + idx * 24 - idx}px;"
+				style="left: {iconOffset + idx * iconWidth - idx}px;"
 			>
 				<img
 					src={`assets/control_strip/app_icons/${app.src}`}
@@ -146,9 +164,11 @@
 	{/each}
 
 	<button
-		class="absolute h-[26px] w-[17px] bg-[url(assets/control_strip/controls/inactive/right-arrow.svg)] bg-center bg-no-repeat active:bg-[url(assets/control_strip/controls/active/right-arrow.svg)]"
-		style={'left: ' + (30 + apps.length * 24 - apps.length) + 'px;'}
+		class="absolute h-[26px] w-[17px] bg-[url(assets/control_strip/controls/inactive/right-arrow.svg)] bg-center bg-no-repeat"
+		style={'left: ' + (iconOffset + apps.length * iconWidth - apps.length) + 'px;'}
+		class:active-right={apps.some((app) => !app.display)}
 		bind:this={rightArrowElement}
+		on:click={shiftAppsRight}
 	/>
 
 	<button
@@ -162,10 +182,18 @@
 		on:neodrag:end={onControlDragEnd}
 		bind:this={controlElement}
 		on:click={() => {
-			console.log('control dragged', controlDragged);
-			console.log('apps visible', appsVisible);
 			if (!controlDragged) toggleApps();
 			controlDragged = false;
 		}}
 	/>
 </section>
+
+<style lang="postcss">
+	.active-right {
+		@apply active:bg-[url(assets/control_strip/controls/active/right-arrow.svg)];
+	}
+
+	.active-left {
+		@apply active:bg-[url(assets/control_strip/controls/active/left-arrow.svg)];
+	}
+</style>
