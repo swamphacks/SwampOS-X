@@ -1,7 +1,7 @@
 <script>
 	import StickyNote from '$lib/components/sticky_note/StickyNote.svelte';
 	import Window from '$lib/components/window/Window.svelte';
-	import { openApps, AppType, addSticky } from '$lib/stores/apps.store';
+	import { openApps, addSticky } from '$lib/stores/apps.store';
 
 	addSticky();
 </script>
@@ -15,10 +15,14 @@
 </Window> -->
 
 <div class="h-screen w-screen bg-blueberry-oxygen bg-cover bg-center bg-no-repeat">
-	{#each Object.entries($openApps) as [id, appType]}
-		{#if appType === AppType.STICKY}
-			<StickyNote stickyNoteColor={'purple'} initialMessage={`${id}`} appID={id} />
-		{/if}
+	{#each Object.entries($openApps) as [id, zIndex]}
+		<StickyNote
+			stickyNoteColor={'pink'}
+			initialMessage={`${id} + Zindex: ${zIndex}`}
+			appID={id}
+			height={200}
+			width={200}
+		/>
 	{/each}
 	<Window name="This is my window"></Window>
 </div>
