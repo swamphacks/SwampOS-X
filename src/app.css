@@ -37,6 +37,12 @@ body {
 <<<<<<< HEAD
 =======
 
+	.sticky-text {
+		font-family: Content;
+		font-size: 12px;
+		font-style: normal;
+	}
+
 	.disable-blur {
 		image-rendering: pixelated;
 	}
