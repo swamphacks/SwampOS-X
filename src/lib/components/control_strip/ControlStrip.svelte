@@ -135,12 +135,12 @@
 	style="width: {iconOffset + iconWidth * apps.length + 17 + 17 - apps.length}px;"
 >
 	<button
-		class="absolute left-0 h-[26px] w-[16px] bg-[url(assets/control_strip/controls/inactive/close.svg)] bg-center bg-no-repeat active:bg-[url(assets/control_strip/controls/active/close.svg)]"
+		class="absolute left-0 h-[26px] w-[16px] bg-[url(/assets/control_strip/controls/inactive/close.svg)] bg-center bg-no-repeat active:bg-[url(/assets/control_strip/controls/active/close.svg)]"
 		bind:this={closeElement}
 		on:click={toggleApps}
 	/>
 	<button
-		class="absolute left-[15px] h-[26px] w-[17px] bg-[url(assets/control_strip/controls/inactive/left-arrow.svg)] bg-center bg-no-repeat"
+		class="absolute left-[15px] h-[26px] w-[17px] bg-[url(/assets/control_strip/controls/inactive/left-arrow.svg)] bg-center bg-no-repeat"
 		class:active-left={apps.some((app) => !app.display)}
 		bind:this={leftArrowElement}
 		on:click={shiftAppsLeft}
@@ -149,11 +149,11 @@
 	{#each apps as app, idx}
 		{#if app.display}
 			<button
-				class="absolute h-[26px] w-[24px] select-none bg-[url(assets/control_strip/controls/inactive/icon-container.svg)] bg-center bg-no-repeat active:bg-[url(assets/control_strip/controls/active/icon-container.svg)]"
+				class="absolute h-[26px] w-[24px] select-none bg-[url(/assets/control_strip/controls/inactive/icon-container.svg)] bg-center bg-no-repeat active:bg-[url(/assets/control_strip/controls/active/icon-container.svg)]"
 				style="left: {iconOffset + idx * iconWidth - idx}px;"
 			>
 				<img
-					src={`assets/control_strip/app_icons/${app.src}`}
+					src={`/assets/control_strip/app_icons/${app.src}`}
 					class="relative h-[16px] w-[16px]"
 					style={app.clicked ? 'top: 1px; left: 4px;' : 'left: 3px'}
 					alt="control panel icon"
@@ -164,7 +164,7 @@
 	{/each}
 
 	<button
-		class="absolute h-[26px] w-[17px] bg-[url(assets/control_strip/controls/inactive/right-arrow.svg)] bg-center bg-no-repeat"
+		class="absolute h-[26px] w-[17px] bg-[url(/assets/control_strip/controls/inactive/right-arrow.svg)] bg-center bg-no-repeat"
 		style={'left: ' + (iconOffset + apps.length * iconWidth - apps.length) + 'px;'}
 		class:active-right={apps.some((app) => !app.display)}
 		bind:this={rightArrowElement}
@@ -172,7 +172,7 @@
 	/>
 
 	<button
-		class="absolute h-[26px] w-[17px] bg-[url(assets/control_strip/controls/inactive/control.svg)] bg-center bg-no-repeat active:bg-[url(assets/control_strip/controls/active/control.svg)]"
+		class="absolute h-[26px] w-[17px] bg-[url(/assets/control_strip/controls/inactive/control.svg)] bg-center bg-no-repeat active:bg-[url(/assets/control_strip/controls/active/control.svg)]"
 		use:draggable={{
 			position,
 			axis: 'x',
@@ -190,10 +190,10 @@
 
 <style lang="postcss">
 	.active-right {
-		@apply active:bg-[url(assets/control_strip/controls/active/right-arrow.svg)];
+		@apply active:bg-[url(/assets/control_strip/controls/active/right-arrow.svg)];
 	}
 
 	.active-left {
-		@apply active:bg-[url(assets/control_strip/controls/active/left-arrow.svg)];
+		@apply active:bg-[url(/assets/control_strip/controls/active/left-arrow.svg)];
 	}
 </style>
