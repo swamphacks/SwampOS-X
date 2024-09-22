@@ -48,14 +48,12 @@
 		</TitleBar>
 
 		<div class:h-0={!expanded} class:overflow-y-clip={!expanded} class="flex">
-			<div class="handle w-[3px] flex-grow" />
-			<WindowFrame {size}>
-				<slot />
-			</WindowFrame>
-			<div class="handle w-[3px] flex-grow" />
+			<div class="handle h-full w-[3px]" />
+			<slot {size} />
+						<div class="handle h-full w-[3px]" />
 		</div>
 
-		<div class="handle flex-grow" style="height: {expanded ? 3 : 0}px;" />
+		<div class="handle w-full" style="height: {expanded ? 3 : 0}px;" />
 	</div>
 {/if}
 
