@@ -32,7 +32,7 @@
 
 {#if visible}
 	<div
-		class="size-fit border-[1px] border-primary-black p-[1px] {state === 'active'
+		class="absolute size-fit border-[1px] border-primary-black p-[1px] {state === 'active'
 			? 'shadow-window bg-gray-400'
 			: 'bg-gray-300'}"
 		use:draggable={{ grid: [4, 4], handle: '.handle', bounds: 'parent' }}
