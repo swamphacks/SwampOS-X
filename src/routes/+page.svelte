@@ -4,6 +4,8 @@
 	import { openApps, addSticky } from '$lib/stores/apps.store';
 
 	addSticky();
+	addSticky();
+	addSticky();
 </script>
 
 <!-- <Window name="FAQs">
@@ -14,10 +16,12 @@
 	<div class="px-1" style="width: 350px; height: 200px;">testing</div>
 </Window> -->
 
-<div class="h-screen w-screen bg-blueberry-oxygen bg-cover bg-center bg-no-repeat">
+<div
+	class="relative h-screen w-screen overflow-hidden bg-blueberry-oxygen bg-cover bg-center bg-no-repeat"
+>
 	{#each Object.entries($openApps) as [id, zIndex]}
 		<StickyNote
-			stickyNoteColor={'pink'}
+			stickyNoteColor={'green'}
 			initialMessage={`${id} + Zindex: ${zIndex}`}
 			appID={id}
 			height={200}
