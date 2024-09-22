@@ -26,7 +26,7 @@
 
 	<HandlePicker {active} />
 
-	<ZoomBox hide={!active} onClick={onZoom} />
+	<ZoomBox hidden={!active} onClick={onZoom} />
 
-	<CollapseBox hide={!active} onClick={onCollapse} />
+	<CollapseBox hidden={!active} onClick={onCollapse} />
 </div>

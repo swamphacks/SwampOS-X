@@ -11,6 +11,6 @@
 		active: '/assets/title_bar/atoms/close_box/active.png'
 	}}
 	{onClick}
-	{hidden}
+	opaque={hidden}
 	alt="Close"
 />
