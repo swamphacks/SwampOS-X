@@ -1,8 +1,16 @@
 <script lang="ts">
-	import SVGButton from '$lib/components/button/SVGButton.svelte';
+	import Button from '$lib/components/button/Button.svelte';
 
 	export let onClick: () => unknown = () => {};
 	export let hide = false;
 </script>
 
-<SVGButton path="/assets/title_bar/atoms/zoom_box" {onClick} hidden={hide} alt="Zoom" />
+<Button
+	src={{
+		default: '/assets/title_bar/atoms/zoom_box/default.png',
+		active: '/assets/title_bar/atoms/zoom_box/active.png'
+	}}
+	{onClick}
+	hidden={hide}
+	alt="Zoom"
+/>

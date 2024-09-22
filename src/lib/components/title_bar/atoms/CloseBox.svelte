@@ -1,8 +1,16 @@
 <script lang="ts">
-	import SVGButton from '$lib/components/button/SVGButton.svelte';
+	import Button from '$lib/components/button/Button.svelte';
 
 	export let onClick: () => unknown = () => {};
-	export let hide = false;
+	export let hidden = false;
 </script>
 
-<SVGButton path="/assets/title_bar/atoms/close_box" {onClick} hidden={hide} alt="Close" />
+<Button
+	src={{
+		default: '/assets/title_bar/atoms/close_box/default.png',
+		active: '/assets/title_bar/atoms/close_box/active.png'
+	}}
+	{onClick}
+	{hidden}
+	alt="Close"
+/>
