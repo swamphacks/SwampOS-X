@@ -6,6 +6,7 @@
 </script>
 
 <Button
+	class="cancel"
 	src={{
 		default: '/assets/title_bar/atoms/zoom_box/default.png',
 		active: '/assets/title_bar/atoms/zoom_box/active.png'

@@ -35,7 +35,7 @@
 		class="absolute size-fit border-[1px] border-primary-black p-[1px] {state === 'active'
 			? 'shadow-window bg-gray-400'
 			: 'bg-gray-300'}"
-		use:draggable={{ grid: [4, 4], handle: '.handle', bounds: 'parent' }}
+		use:draggable={{ grid: [4, 4], cancel: '.cancel', bounds: 'parent' }}
 	>
 		<TitleBar
 			title={name}
@@ -48,12 +48,14 @@
 		</TitleBar>
 
 		<div class:h-0={!expanded} class:overflow-y-clip={!expanded} class="flex">
-			<div class="handle h-full w-[3px]" />
+			<div class=" w-[3px]" />
+			<div class="cancel">
 			<slot {size} />
-						<div class="handle h-full w-[3px]" />
+			</div>
+			<div class=" w-[3px]" />
 		</div>
 
-		<div class="handle w-full" style="height: {expanded ? 3 : 0}px;" />
+		<div class=" h-[3px]" hidden={!expanded} />
 	</div>
 {/if}
 

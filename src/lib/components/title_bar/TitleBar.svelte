@@ -12,12 +12,15 @@
 	export let onCollapse: (() => unknown) | undefined;
 </script>
 
-<div class="{active ? 'bg-gray-400' : 'bg-gray-300'} flex flex-grow items-center gap-[4px] p-[3px]">
+<div
+	class="handle flex flex-grow items-center gap-[4px] p-[3px]
+	{active ? 'bg-gray-400' : 'bg-gray-300'}"
+>
 	<CloseBox hidden={!active} onClick={onClose} />
 
 	<HandlePicker {active} />
 
-	<div class="flex gap-[4px] {!active && 'opacity-50'}">
+	<div class="handle flex gap-[4px] {!active && 'opacity-50'}">
 		<slot name="icon" />
 		<div class="headline text-primary-black">
 			{title}

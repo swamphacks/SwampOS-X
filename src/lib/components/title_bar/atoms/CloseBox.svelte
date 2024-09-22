@@ -6,6 +6,7 @@
 </script>
 
 <Button
+	class="cancel"
 	src={{
 		default: '/assets/title_bar/atoms/close_box/default.png',
 		active: '/assets/title_bar/atoms/close_box/active.png'
