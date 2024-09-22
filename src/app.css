@@ -10,6 +10,10 @@
 		src: url('/assets/fonts/charcoal/Charcoal.ttf');
 	}
 
+	body {
+		image-rendering: pixelated;
+	}
+
 	.headline {
 		font-family: Headlines;
 		font-size: 12px;
@@ -17,9 +21,5 @@
 		font-weight: 400;
 		line-height: 98%; /* 11.76px */
 		letter-spacing: 0.42px;
-	}
-
-	.disable-blur {
-		image-rendering: pixelated;
 	}
 }
