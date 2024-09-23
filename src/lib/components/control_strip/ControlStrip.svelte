@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { draggable, type DragEventData } from '@neodrag/svelte';
 
-	const iconOffset = 30; // close button + left arrow - padding = 16 + 17 - 3
 	const iconWidth = 24;
 
 	let apps = [
@@ -73,10 +72,23 @@
 	let leftArrowElement: HTMLButtonElement;
 	let rightArrowElement: HTMLButtonElement;
 
-	const initialControlPos = iconOffset + apps.length * iconWidth - apps.length + 17;
-	let positionPrev = initialControlPos;
-	let position = { x: initialControlPos, y: 0 };
+	let positionPrev = 0;
+	let position = { x: 0, y: 0 };
 	let controlDragged = false;
+
+	const closeWidth = 16;
+	const arrowWidth = 17;
+	const handleWidth = 17;
+	const controlStripWidth =
+		closeWidth +
+		arrowWidth -
+		1 +
+		iconWidth * apps.length -
+		apps.length -
+		1 +
+		arrowWidth +
+		handleWidth -
+		1;
 
 	let appsVisible = true;
 	const toggleApps = () => {
@@ -85,13 +97,13 @@
 		if (appsVisible) {
 			leftArrowElement.style.visibility = 'visible';
 			closeElement.style.visibility = 'visible';
-			rightArrowElement.style.left = initialControlPos - 17 + 'px';
-			position.x = initialControlPos;
+			rightArrowElement.style.left = '0px';
+			position.x = 0;
 		} else {
 			leftArrowElement.style.visibility = 'hidden';
 			closeElement.style.visibility = 'hidden';
-			rightArrowElement.style.left = -17 + 'px';
-			position.x = 0;
+			rightArrowElement.style.left = -(controlStripWidth - (handleWidth - 1)) + 'px';
+			position.x = -(controlStripWidth - (handleWidth - 1));
 		}
 		activateArrows(!appsVisible);
 		positionPrev = position.x;
@@ -117,22 +129,21 @@
 			controlDragged = true;
 		}
 
-		const rightArrowPos = e.detail.offsetX - 17;
-		rightArrowElement.style.left = rightArrowPos + 'px';
+		const rightArrowPos = rightArrowElement.getBoundingClientRect().x;
+		rightArrowElement.style.left = e.detail.offsetX + 'px';
 
-		apps = apps.map((app, idx) => {
-			if (rightArrowPos - iconOffset - (idx * iconWidth - idx) >= 0) {
+		apps = apps.map((app) => {
+			if (rightArrowPos > app.el.getBoundingClientRect().x) {
 				return { ...app, display: true };
 			}
 			return { ...app, display: false };
 		});
 
-		if (rightArrowPos < 17) {
+		if (rightArrowPos < arrowWidth) {
 			leftArrowElement.style.visibility = 'hidden';
 		} else {
 			leftArrowElement.style.visibility = 'visible';
 		}
-
 		if (rightArrowPos < 0) {
 			closeElement.style.visibility = 'hidden';
 		} else {
@@ -140,44 +151,38 @@
 		}
 	};
 
-	const onControlDragEnd = (e: CustomEvent<DragEventData>) => {
-		let endIdx = apps.findIndex((app) => !app.display);
+	const onControlDragEnd = () => {
+		let lastVisibleApp = apps.findIndex((app) => !app.display);
+		if (lastVisibleApp === -1) lastVisibleApp = apps.length;
+		lastVisibleApp = Math.max(lastVisibleApp - 1, 0);
 
-		if (endIdx === -1) endIdx = apps.length;
+		const leftBorder = apps[lastVisibleApp].el.getBoundingClientRect().x;
+		const rightBorder = leftBorder + iconWidth;
+		const endPosition = rightArrowElement.getBoundingClientRect().x;
+		let closedAllApps = false;
 
-		// If no icons are visible pretend we are at the first icon.
-		// This should cause all of the icons except the control to be
-		// hidden because the control position is before the first icon
-		if (endIdx === 0) endIdx = 1;
-
-		const nextVisibleIconPos = iconOffset + (endIdx - 1) * iconWidth - (endIdx - 1);
-
-		// snap to nearest icon
-		if (e.detail.offsetX - 17 - nextVisibleIconPos < 12) {
-			// snap if there is an icon to snap to. otherwise close all icons
-			if (endIdx - 1 > 0) {
-				rightArrowElement.style.left = nextVisibleIconPos + 'px';
-				position.x = nextVisibleIconPos + 17;
-				apps = apps.map((app, idx) => (idx >= endIdx - 1 ? { ...app, display: false } : app));
-				appsVisible = true;
+		// Snap to left
+		if (endPosition - leftBorder < rightBorder - endPosition) {
+			if (lastVisibleApp > 0) {
+				rightArrowElement.style.left =
+					leftBorder - (controlStripWidth - handleWidth - arrowWidth) - 1 + 'px';
+				position.x = leftBorder - (controlStripWidth - handleWidth - arrowWidth) - 1;
+				activateArrows(true); // at least 1 app is not visible, we must activate arrows
 			} else {
+				apps[0].display = false;
 				leftArrowElement.style.visibility = 'hidden';
 				closeElement.style.visibility = 'hidden';
-				rightArrowElement.style.left = -17 + 'px';
-				position.x = 0;
-				apps = apps.map((app, idx) => (idx >= 0 ? { ...app, display: false } : app));
-				appsVisible = false;
+				rightArrowElement.style.left = -(controlStripWidth - (handleWidth - 1)) + 'px';
+				position.x = -(controlStripWidth - (handleWidth - 1));
+				closedAllApps = true;
 			}
 		} else {
-			const rightArrowPos = iconOffset + endIdx * iconWidth - endIdx;
-			rightArrowElement.style.left = rightArrowPos + 'px';
-			position.x = rightArrowPos + 17;
-			appsVisible = true;
+			activateArrows(lastVisibleApp < apps.length - 1); // at least 1 app is not visible, we must activate arrows
+			rightArrowElement.style.left =
+				rightBorder - (controlStripWidth - handleWidth - arrowWidth) - 2 + 'px';
+			position.x = rightBorder - (controlStripWidth - handleWidth - arrowWidth) - 2;
 		}
-
-		console.log(apps.some((app) => !app.display));
-		activateArrows(apps.some((app) => !app.display));
-		positionPrev = position.x;
+		appsVisible = !closedAllApps;
 	};
 
 	const shiftAppsLeft = () => {
@@ -197,18 +202,15 @@
 	};
 </script>
 
-<section
-	class="relative mt-5 flex h-fit"
-	style="width: {iconOffset + iconWidth * apps.length + 17 + 17 - apps.length}px;"
->
+<section class="relative mt-5 flex h-fit w-fit">
 	<button
-		class="absolute left-0 h-[26px] w-[16px] bg-[url(/assets/control_strip/controls/default/close.png)] bg-center bg-no-repeat focus:bg-[url(/assets/control_strip/controls/active/close.png)] active:bg-[url(/assets/control_strip/controls/active/close.png)]"
+		class="h-[26px] w-[16px] bg-[url(/assets/control_strip/controls/default/close.png)] bg-center bg-no-repeat focus:bg-[url(/assets/control_strip/controls/active/close.png)] active:bg-[url(/assets/control_strip/controls/active/close.png)]"
 		tabindex="0"
 		bind:this={closeElement}
 		on:click={toggleApps}
 	/>
 	<button
-		class="inactive-left absolute left-[15px] h-[26px] w-[17px] bg-center bg-no-repeat focus:bg-[url(/assets/control_strip/controls/active/left_arrow.png)]"
+		class="inactive-left ml-[-1px] h-[26px] w-[17px] bg-center bg-no-repeat focus:bg-[url(/assets/control_strip/controls/active/left_arrow.png)]"
 		tabindex="0"
 		bind:this={leftArrowElement}
 		on:click={shiftAppsLeft}
@@ -216,30 +218,27 @@
 		on:mouseleave={() => leftArrowElement.blur()}
 	/>
 
-	{#each apps as app, idx}
-		{#if app.display}
-			<button
-				class="absolute h-[26px] w-[24px] select-none bg-[url(/assets/control_strip/controls/default/app.png)] bg-center bg-no-repeat focus:bg-[url(/assets/control_strip/controls/active/app.png)] active:bg-[url(/assets/control_strip/controls/active/app.png)]"
-				style="left: {iconOffset + idx * iconWidth - idx}px;"
-				bind:this={app.el}
-				tabindex="0"
-				on:mouseup={() => app.el.blur()}
-				on:mouseleave={() => app.el.blur()}
-			>
-				<img
-					src={`/assets/control_strip/app_icons/${app.src}`}
-					class="relative h-[16px] w-[16px]"
-					style={app.clicked ? 'top: 1px; left: 4px;' : 'left: 3px'}
-					alt="control panel icon"
-					draggable="false"
-				/>
-			</button>
-		{/if}
+	{#each apps as app}
+		<button
+			class="ml-[-1px] h-[26px] w-[24px] select-none bg-[url(/assets/control_strip/controls/default/app.png)] bg-center bg-no-repeat focus:bg-[url(/assets/control_strip/controls/active/app.png)] active:bg-[url(/assets/control_strip/controls/active/app.png)]"
+			class:opacity-0={!app.display}
+			class:opacity-100={app.display}
+			bind:this={app.el}
+			tabindex="0"
+			on:mouseup={() => app.el.blur()}
+			on:mouseleave={() => app.el.blur()}
+		>
+			<img
+				src={`/assets/control_strip/app_icons/${app.src}`}
+				class="ml-[3px] mt-[1px] h-[16px] w-[16px]"
+				alt="control panel icon"
+				draggable="false"
+			/>
+		</button>
 	{/each}
 
 	<button
-		class="inactive-right absolute h-[26px] w-[17px] bg-center bg-no-repeat focus:bg-[url(/assets/control_strip/controls/active/right_arrow.png)]"
-		style={'left: ' + (iconOffset + apps.length * iconWidth - apps.length) + 'px;'}
+		class="inactive-right relative ml-[-1px] h-[26px] w-[17px] bg-center bg-no-repeat focus:bg-[url(/assets/control_strip/controls/active/right_arrow.png)]"
 		tabindex="0"
 		bind:this={rightArrowElement}
 		on:mouseup={() => rightArrowElement.blur()}
@@ -248,7 +247,7 @@
 	/>
 
 	<button
-		class="absolute h-[26px] w-[17px] bg-[url(/assets/control_strip/controls/default/controller.png)] bg-center bg-no-repeat focus:bg-[url(/assets/control_strip/controls/active/controller.png)] active:bg-[url(/assets/control_strip/controls/active/controller.png)]"
+		class="relative h-[26px] w-[17px] bg-[url(/assets/control_strip/controls/default/controller.png)] bg-center bg-no-repeat focus:bg-[url(/assets/control_strip/controls/active/controller.png)] active:bg-[url(/assets/control_strip/controls/active/controller.png)]"
 		use:draggable={{
 			position,
 			axis: 'x',
