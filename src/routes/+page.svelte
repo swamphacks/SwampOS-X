@@ -1,5 +1,6 @@
 <script>
 	import Window from '$lib/components/window/Window.svelte';
+	import ControlStrip from '$lib/components/control_strip/ControlStrip.svelte';
 </script>
 
 <Window name="FAQs" resizeTo={{ w: 200, h: 100 }}>
@@ -19,3 +20,5 @@
 		/>
 	</slot>
 </Window>
+
+<ControlStrip />

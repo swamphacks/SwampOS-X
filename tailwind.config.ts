@@ -4,7 +4,14 @@ export default {
 	content: ['./src/**/*.{html,js,svelte,ts}'],
 
 	theme: {
-		extend: {},
+		extend: {
+			height: {
+				'control-strip': '26px'
+			},
+			width: {
+				'control-strip': '32px'
+			}
+		},
 		fontFamily: {
 			headlines: 'Headlines'
 		},
