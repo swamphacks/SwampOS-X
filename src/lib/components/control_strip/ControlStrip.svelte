@@ -1,68 +1,85 @@
 <script lang="ts">
 	import { draggable, type DragEventData } from '@neodrag/svelte';
+	import { type AppInfo } from '$lib/types/control-strip';
 
 	const iconWidth = 24;
 
-	let apps = [
+	let apps: AppInfo[] = [
 		{
 			el: undefined as unknown as HTMLButtonElement,
+			name: 'AppleTalk',
 			src: 'apple_talk.png',
-			clicked: false,
+			url: 'https://en.wikipedia.org/wiki/AppleTalk',
 			display: true
 		},
-		{ el: undefined as unknown as HTMLButtonElement, src: 'cd.png', clicked: false, display: true },
 		{
 			el: undefined as unknown as HTMLButtonElement,
+			name: 'CD',
+			src: 'cd.png',
+			url: 'https://www.apple.com/shop/product/MD564LL/A/apple-usb-superdrive',
+			display: true
+		},
+		{
+			el: undefined as unknown as HTMLButtonElement,
+			name: 'File Sharing',
 			src: 'file_sharing.png',
-			clicked: false,
+			url: 'https://support.apple.com/guide/mac-help/set-up-file-sharing-on-mac-mh17131/mac',
 			display: true
 		},
 		{
 			el: undefined as unknown as HTMLButtonElement,
+			name: 'iTunes',
 			src: 'itunes.png',
-			clicked: false,
+			url: 'https://www.apple.com/itunes/',
 			display: true
 		},
 		{
 			el: undefined as unknown as HTMLButtonElement,
+			name: 'Keychain',
 			src: 'keychain_strip.png',
-			clicked: false,
+			url: 'https://support.apple.com/en-us/109016',
 			display: true
 		},
 		{
 			el: undefined as unknown as HTMLButtonElement,
+			name: 'Monitor Resolution',
 			src: 'monitor_resolution.png',
-			clicked: false,
+			url: 'https://www.apple.com/studio-display/specs/',
 			display: true
 		},
 		{
 			el: undefined as unknown as HTMLButtonElement,
+			name: 'Remote Access',
 			src: 'remote_access.png',
-			clicked: false,
+			url: 'https://www.apple.com/shop/product/MW5G3AM/A/siri-remote?fnode=e5e98a68b7ea2facf7ec647de751e6ec25015cb6c1a69da7a217c0d2d31198673584645910873dcb527fd608caf353dd16bd25c4d504f2bdf2f43bd21b035d931c25a78eb49e301b51a2793d8595694566eaa586ba0a685482e7727326eb3314b34ef3d65903111295df307ab9690c9a',
 			display: true
 		},
 		{
 			el: undefined as unknown as HTMLButtonElement,
+			name: 'Monitor Bitdepth',
 			src: 'monitor_bitdepth.png',
-			clicked: false,
+			url: 'https://discussions.apple.com/thread/251820885?sortBy=rank',
 			display: true
 		},
 		{
 			el: undefined as unknown as HTMLButtonElement,
+			name: 'Printer',
 			src: 'printer.png',
-			clicked: false,
+			url: 'https://en.wikipedia.org/wiki/Printer_(computing)',
 			display: true
 		},
 		{
 			el: undefined as unknown as HTMLButtonElement,
+			name: 'Volume',
 			src: 'sound_volume.png',
-			clicked: false,
+			url: 'https://en.wikipedia.org/wiki/Volume_(computing)',
 			display: true
 		},
 		{
 			el: undefined as unknown as HTMLButtonElement,
+			name: 'Web Sharing',
 			src: 'web_sharing.png',
-			clicked: false,
+			url: 'https://en.wikipedia.org/wiki/World_Wide_Web',
 			display: true
 		}
 	];
@@ -219,8 +236,10 @@
 	/>
 
 	{#each apps as app}
-		<button
-			class="ml-[-1px] h-[26px] w-[24px] select-none bg-[url(/assets/control_strip/controls/default/app.png)] bg-center bg-no-repeat focus:bg-[url(/assets/control_strip/controls/active/app.png)] active:bg-[url(/assets/control_strip/controls/active/app.png)]"
+		<a
+			href={app.url}
+			target="_blank"
+			class="ml-[-1px] block h-[26px] w-[24px] select-none bg-[url(/assets/control_strip/controls/default/app.png)] bg-center bg-no-repeat focus:bg-[url(/assets/control_strip/controls/active/app.png)] active:bg-[url(/assets/control_strip/controls/active/app.png)]"
 			class:opacity-0={!app.display}
 			class:opacity-100={app.display}
 			bind:this={app.el}
@@ -230,11 +249,11 @@
 		>
 			<img
 				src={`/assets/control_strip/app_icons/${app.src}`}
-				class="ml-[3px] mt-[1px] h-[16px] w-[16px]"
+				class="ml-[3px] mt-[5px] h-[16px] w-[16px]"
 				alt="control panel icon"
 				draggable="false"
 			/>
-		</button>
+		</a>
 	{/each}
 
 	<button
