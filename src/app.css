@@ -22,4 +22,12 @@
 		line-height: 98%; /* 11.76px */
 		letter-spacing: 0.42px;
 	}
+
+	.active-frame {
+		box-shadow:
+			0px -1px 0px 0px theme(colors.gray-700),
+			-1px 0px 0px 0px theme(colors.gray-700),
+			0px 1px 0px 0px theme(colors.primary-white),
+			1px 0px 0px 0px theme(colors.primary-white);
+	}
 }
