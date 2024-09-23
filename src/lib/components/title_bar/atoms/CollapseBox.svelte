@@ -2,15 +2,16 @@
 	import Button from '$lib/components/button/Button.svelte';
 
 	export let onClick: () => unknown = () => {};
-	export let hide = false;
+	export let hidden = false;
 </script>
 
 <Button
+	class="cancel"
 	src={{
 		default: '/assets/title_bar/atoms/collapse_box/default.png',
 		active: '/assets/title_bar/atoms/collapse_box/active.png'
 	}}
 	{onClick}
-	hidden={hide}
+	opaque={hidden}
 	alt="Collapse"
 />
