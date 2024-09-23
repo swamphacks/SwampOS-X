@@ -239,7 +239,7 @@
 		<a
 			href={app.url}
 			target="_blank"
-			class="ml-[-1px] block h-[26px] w-[24px] select-none bg-[url(/assets/control_strip/controls/default/app.png)] bg-center bg-no-repeat focus:bg-[url(/assets/control_strip/controls/active/app.png)] active:bg-[url(/assets/control_strip/controls/active/app.png)]"
+			class="ml-[-1px] block h-[26px] w-[24px] select-none bg-[url(/assets/control_strip/controls/default/app.png)] bg-center bg-no-repeat focus:bg-[url(/assets/control_strip/controls/active/app.png)] focus:pl-[1px] focus:pt-[1px] active:bg-[url(/assets/control_strip/controls/active/app.png)]"
 			class:opacity-0={!app.display}
 			class:opacity-100={app.display}
 			bind:this={app.el}
@@ -247,12 +247,14 @@
 			on:mouseup={() => app.el.blur()}
 			on:mouseleave={() => app.el.blur()}
 		>
-			<img
-				src={`/assets/control_strip/app_icons/${app.src}`}
-				class="ml-[3px] mt-[5px] h-[16px] w-[16px]"
-				alt="control panel icon"
-				draggable="false"
-			/>
+			<div class="flex h-full w-full items-center justify-center">
+				<img
+					src={`/assets/control_strip/app_icons/${app.src}`}
+					class="h-[16px] w-[16px]"
+					alt="control panel icon"
+					draggable="false"
+				/>
+			</div>
 		</a>
 	{/each}
 
