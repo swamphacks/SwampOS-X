@@ -181,6 +181,7 @@
 		// Snap to left
 		if (endPosition - leftBorder < rightBorder - endPosition) {
 			if (lastVisibleApp > 0) {
+				apps[lastVisibleApp].display = false;
 				rightArrowElement.style.left =
 					leftBorder - (controlStripWidth - handleWidth - arrowWidth) - 1 + 'px';
 				position.x = leftBorder - (controlStripWidth - handleWidth - arrowWidth) - 1;
@@ -240,10 +241,9 @@
 			href={app.url}
 			target="_blank"
 			class="ml-[-1px] block h-[26px] w-[24px] select-none bg-[url(/assets/control_strip/controls/default/app.png)] bg-center bg-no-repeat focus:bg-[url(/assets/control_strip/controls/active/app.png)] focus:pl-[1px] focus:pt-[1px] active:bg-[url(/assets/control_strip/controls/active/app.png)]"
-			class:opacity-0={!app.display}
-			class:opacity-100={app.display}
+			class:invisible={!app.display}
+			class:visible={app.display}
 			bind:this={app.el}
-			tabindex="0"
 			on:mouseup={() => app.el.blur()}
 			on:mouseleave={() => app.el.blur()}
 		>
@@ -304,7 +304,8 @@
 		@apply cursor-default bg-[url(/assets/control_strip/controls/disabled/right_arrow.png)];
 	}
 
-	button {
-		@apply focus:outline-none focus:ring-0 focus:ring-offset-0;
+	button,
+	a {
+		@apply focus:outline-none;
 	}
 </style>
