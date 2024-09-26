@@ -21,7 +21,7 @@
 >
 	{#each Object.entries($openApps) as [id, zIndex]}
 		<StickyNote
-			stickyNoteColor={'green'}
+			stickyNoteColor={'yellow'}
 			initialMessage={`${id} + Zindex: ${zIndex}`}
 			appID={id}
 			height={200}

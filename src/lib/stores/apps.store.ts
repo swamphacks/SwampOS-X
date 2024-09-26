@@ -33,3 +33,12 @@ export const setActiveApp = (id: string) => {
 	activeAppZIndex.set(new_index);
 	activeApp.set(id);
 };
+
+export const closeApp = (id: string) => {
+	activeApp.set(null);
+	openApps.update((store) => {
+		const updatedStore = { ...store };
+		delete updatedStore[id];
+		return updatedStore;
+	});
+};
