@@ -57,4 +57,12 @@ body {
 	.sticky-note-resizable-clip {
 		clip-path: polygon(50% 0, 100% 0, 100% 100%, 0 100%, 0 50%, 50% 50%);
 	}
+
+	.sticky-note-resizable-clip-inner {
+		clip-path: polygon(59% 9%, 91% 9%, 91% 90%, 9% 90%, 9% 59%, 59% 59%);
+	}
+
+	.triangle {
+		clip-path: polygon(100% 0, 0 100%, 100% 100%);
+	}
 }

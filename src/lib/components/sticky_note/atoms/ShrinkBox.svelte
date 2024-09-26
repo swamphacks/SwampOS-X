@@ -3,7 +3,7 @@
 
 	export let active;
 	export let colors: StickyConfig;
-	export let onClose: () => void;
+	export let onShrink: () => void;
 
 	let clicked = false;
 
@@ -13,7 +13,7 @@
 
 	const handleMouseUp = () => {
 		clicked = false;
-		onClose();
+		onShrink();
 	};
 
 	const handleMouseLeave = () => {
@@ -22,7 +22,7 @@
 </script>
 
 <button
-	class="cancel flex aspect-square h-[75%] items-center justify-center border-b-[1.5px] border-r-[1.5px] hover:cursor-pointer"
+	class="cancel triangle flex aspect-square h-[80%] items-center justify-center border-b-[1px] border-r-[1px] hover:cursor-pointer"
 	style="border-color: {colors.highlight_color}; background-color: {clicked
 		? colors.highlight_color
 		: colors.main_color}; visibility: {active ? 'visible' : 'hidden'}"
@@ -31,7 +31,7 @@
 	on:mouseleave={handleMouseLeave}
 >
 	<div
-		class="aspect-square h-[60%] border-l-[1px] border-t-[1px]"
+		class="triangle aspect-square h-[60%] border-l-[1px] border-t-[1px]"
 		style="border-color: {colors.highlight_color};"
 	></div>
 </button>

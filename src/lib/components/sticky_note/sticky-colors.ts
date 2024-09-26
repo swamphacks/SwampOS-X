@@ -38,7 +38,7 @@ export const stickyNoteColors: Record<string, StickyConfig> = {
 		highlight_color: '#9c9cff'
 	},
 	yellow: {
-		main_color: '#9999ff',
+		main_color: '#ffff99',
 		secondary_color: '#f8c80e',
 		highlight_color: '#ffa408'
 	}
