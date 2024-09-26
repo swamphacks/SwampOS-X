@@ -5,13 +5,12 @@ export default {
 
 	theme: {
 		extend: {
-<<<<<<< HEAD
 			height: {
 				'control-strip': '26px'
 			},
 			width: {
 				'control-strip': '32px'
-=======
+			},
 			backgroundImage: {
 				'blueberry-oxygen': "url('/assets/backgrounds/blueberry_oxygen5k.jpg')",
 				'flower-power': "url('/assets/backgrounds/flower_power5k.jpg')",
@@ -42,13 +41,9 @@ export default {
 				'lime-horizon': "url('/assets/backgrounds/lime_horizon5k.jpg')",
 				'ruby-foam': "url('/assets/backgrounds/ruby_foam5k.jpg')",
 				'tangerine-fusion': "url('/assets/backgrounds/tangerine_fusion5k.jpg')"
-<<<<<<< HEAD
 			},
 			boxShadow: {
 				'sticky-note': '1px 1px 0px 0px rgba(119, 49, 125,1)'
->>>>>>> got store working
-=======
->>>>>>> styling n shi
 			}
 		},
 		fontFamily: {

@@ -14,16 +14,15 @@ body {
 		src: url('/assets/fonts/charcoal/Charcoal.ttf');
 	}
 
-<<<<<<< HEAD
-	body {
-		image-rendering: pixelated;
-=======
 	@font-face {
 		font-family: Content;
 		font-style: normal;
 		font-weight: normal;
 		src: url('/assets/fonts/geneva/geneva.ttf');
->>>>>>> styling n shi
+	}
+
+	body {
+		image-rendering: pixelated;
 	}
 
 	.headline {
@@ -34,8 +33,6 @@ body {
 		line-height: 98%; /* 11.76px */
 		letter-spacing: 0.42px;
 	}
-<<<<<<< HEAD
-=======
 
 	.sticky-text {
 		font-family: Content;
@@ -46,11 +43,6 @@ body {
 	.disable-blur {
 		image-rendering: pixelated;
 	}
-<<<<<<< HEAD
-
->>>>>>> got store working
-=======
->>>>>>> the shit was some bum but it works now
 }
 
 @layer utilities {

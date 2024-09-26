@@ -5,7 +5,6 @@
 	export const DEFAULT_SIZE: Size = { w: 500, h: 350 };
 
 	import TitleBar from '$lib/components/title_bar/TitleBar.svelte';
-	import WindowFrame from '$lib/components/window/WindowFrame.svelte';
 	import { draggable } from '@neodrag/svelte';
 
 	export let name: string = 'Window';
@@ -50,7 +49,7 @@
 		<div class:h-0={!expanded} class:overflow-y-clip={!expanded} class="flex">
 			<div class=" w-[3px]" />
 			<div class="cancel">
-			<slot {size} />
+				<slot {size} />
 			</div>
 			<div class=" w-[3px]" />
 		</div>
