@@ -1,5 +1,12 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { menu } from '$lib/stores/menu-bar';
+	import type { MenuSetting } from '$lib/types/menu-bar';
+	import Setting from './Setting.svelte';
+
+	let display: Record<string, boolean> = {};
+	$menu.settings.forEach((setting: MenuSetting) => (display[setting.name] = false));
+	let hoverable = false;
 
 	function currentTime() {
 		const now = new Date();
@@ -15,6 +22,21 @@
 		return `${hourString}:${minutes} ${half}`;
 	}
 
+	function mouseOver(name: string) {
+		if (hoverable && !display[name]) toggleSetting(name);
+	}
+
+	function mouseLeave(name: string) {
+		if (hoverable && display[name]) toggleSetting(name);
+	}
+
+	function toggleSetting(name: string) {
+		$menu.settings.forEach((setting: MenuSetting) => {
+			if (setting.name === name) display[setting.name] = !display[setting.name];
+			else display[setting.name] = false;
+		});
+	}
+
 	let currTime: string = currentTime();
 	let intervalId: number;
 
@@ -25,56 +47,51 @@
 </script>
 
 <section
-	class="flex h-[13px] w-screen items-center border-y border-solid border-b-[#BBBBBB] border-t-[#EEEEEE] bg-[#DDDDDD] pr-[8px] font-chicago text-[4px] min-[410px]:h-[15px] min-[410px]:text-[6px] min-[510px]:h-[20px] min-[510px]:border-y-2 min-[510px]:text-[8px] min-[660px]:h-[30px] min-[660px]:text-[12px]"
+	class="flex h-menu-xs w-screen items-center border-y border-solid border-b-gray-600 border-t-gray-200 bg-gray-300 pr-[8px] font-chicago text-[4px] menu-sm:h-menu-sm menu-sm:text-[6px] menu-md:h-menu-md menu-md:border-y-2 menu-md:text-[8px] menu-lg:h-menu-lg menu-lg:text-[12px]"
 >
 	<div class="flex items-center">
-		<div class="btn-container hover:bg-[#333399]">
+		<div class="btn-container hover:bg-menu-blue">
 			<button class="h-full">
 				<img
 					draggable="false"
-					class="h-[15px] min-[510px]:h-[20px] min-[510px]:w-[30px] min-[660px]:h-[28px] min-[660px]:w-[42px]"
+					class="h-[15px] menu-md:h-[20px] menu-md:w-[30px] menu-lg:h-[28px] menu-lg:w-[42px]"
 					src="/assets/menu_bar/swamphacks.png"
 					alt="SwampHacks"
 				/>
 			</button>
 		</div>
 
-		<div class="btn-container group">
-			<button class="h-full group-hover:text-white">Menu 01</button>
-		</div>
-
-		<div class="btn-container group">
-			<button class="h-full group-hover:text-white">Menu 02</button>
-		</div>
-
-		<div class="btn-container group">
-			<button class="h-full group-hover:text-white">Menu 03</button>
-		</div>
-
-		<div class="btn-container group">
-			<button class="h-full group-hover:text-white">Menu 04</button>
-		</div>
-
-		<div class="btn-container group">
-			<button class="h-full group-hover:text-white">Menu 05</button>
-		</div>
-
-		<div class="btn-container group">
-			<button class="h-full group-hover:text-white">Menu 06</button>
-		</div>
+		{#each $menu.settings as setting}
+			<button class="relative">
+				<button
+					class="btn-container z-10"
+					on:click={() => {
+						toggleSetting(setting.name);
+						hoverable = display[setting.name];
+					}}
+					on:mouseover={() => mouseOver(setting.name)}
+					on:focus={() => mouseOver(setting.name)}
+					on:focusout={() => mouseLeave(setting.name)}
+					class:hover={hoverable}
+					class:selected={display[setting.name]}>{setting.name}</button
+				>
+				<Setting {setting} display={display[setting.name]} />
+			</button>
+		{/each}
 	</div>
 
-	<div class="flex grow flex-row-reverse items-center">
+	<!-- svelte-ignore a11y-no-static-element-interactions -->
+	<div class="flex grow flex-row-reverse items-center" on:mouseenter={() => toggleSetting('')}>
 		<h1>Finder</h1>
 		<img
 			width="22"
 			height="22"
 			src="/assets/menu_bar/finder.png"
 			alt="Finder"
-			class="mr-[3px] h-[8px] w-[8px] min-[410px]:h-[12px] min-[410px]:w-[12px] min-[510px]:mr-1.5 min-[510px]:h-[16px] min-[510px]:w-[16px] min-[660px]:h-[22px] min-[660px]:w-[22px]"
+			class="mr-[3px] h-[8px] w-[8px] menu-sm:h-[12px] menu-sm:w-[12px] menu-md:mr-1.5 menu-md:h-[16px] menu-md:w-[16px] menu-lg:h-[22px] menu-lg:w-[22px]"
 		/>
 		<img
-			class="mx-1 mt-[-2px] h-[13px] min-[410px]:mx-1 min-[410px]:h-[14px] min-[510px]:mx-1.5 min-[510px]:h-[18px] min-[660px]:h-[28px]"
+			class="mx-1 mt-[-2px] h-[13px] menu-sm:mx-1 menu-sm:h-[14px] menu-md:mx-1.5 menu-md:h-[18px] menu-lg:h-[28px]"
 			draggable="false"
 			src="/assets/menu_bar/resizer.png"
 			alt="Menu Bar Resizer"
@@ -82,10 +99,18 @@
 		<button>{currTime}</button>
 	</div>
 </section>
-<span class="block h-[1px] w-screen bg-[#262626] min-[510px]:h-[2px]" />
+<span class="block h-[1px] w-screen bg-[#262626] menu-md:h-[2px]" />
 
 <style lang="postcss">
 	.btn-container {
-		@apply flex h-[13px] items-center px-1.5 hover:bg-[#333399] min-[410px]:h-[17px] min-[510px]:h-[24px] min-[660px]:h-[34px];
+		@apply flex h-[13px] items-center px-1.5 menu-sm:h-[17px] menu-md:h-[24px] menu-lg:h-[34px];
+	}
+
+	.hover {
+		@apply hover:bg-menu-blue hover:text-white;
+	}
+
+	.selected {
+		@apply bg-menu-blue text-white;
 	}
 </style>

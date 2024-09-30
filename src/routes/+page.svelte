@@ -1,6 +1,6 @@
 <script>
 	// import Window from '$lib/components/window/Window.svelte';
-	import ControlStrip from '$lib/components/control_strip/ControlStrip.svelte';
+	// import ControlStrip from '$lib/components/control_strip/ControlStrip.svelte';
 	import MenuBar from '$lib/components/menu_bar/MenuBar.svelte';
 </script>
 
@@ -24,4 +24,4 @@
 <!-- 	</slot> -->
 <!-- </Window> -->
 
-<ControlStrip />
+<!-- <ControlStrip /> -->

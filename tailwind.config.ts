@@ -6,7 +6,11 @@ export default {
 	theme: {
 		extend: {
 			height: {
-				'control-strip': '26px'
+				'control-strip': '26px',
+				'menu-xs': '13px',
+				'menu-sm': '15px',
+				'menu-md': '20px',
+				'menu-lg': '30px'
 			},
 			width: {
 				'control-strip': '32px'
@@ -42,12 +46,18 @@ export default {
 				silver: '#777777',
 				sunny: '#D0AF3E',
 				teal: '#477979',
-				turquoise: '#0099CC'
+				turquoise: '#0099CC',
+				'menu-blue': '#333399'
 			}
 		},
 		fontFamily: {
 			headlines: 'Headlines',
 			chicago: 'Chicago'
+		},
+		screens: {
+			'menu-sm': '410px',
+			'menu-md': '510px',
+			'menu-lg': '660px'
 		}
 	},
 
