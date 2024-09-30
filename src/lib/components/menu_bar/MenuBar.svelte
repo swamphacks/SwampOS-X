@@ -86,6 +86,6 @@
 
 <style lang="postcss">
 	.btn-container {
-		@apply flex h-[34px] items-center px-1.5 hover:bg-[#333399];
+		@apply flex h-[13px] items-center px-1.5 hover:bg-[#333399] min-[410px]:h-[17px] min-[510px]:h-[24px] min-[660px]:h-[34px];
 	}
 </style>
