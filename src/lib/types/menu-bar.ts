@@ -21,11 +21,21 @@ export interface MenuSetting {
 }
 
 export interface AppMenu {
+	appName: string;
 	settings: MenuSetting[];
 }
 
 export const DefaultMenu: AppMenu = {
+	appName: 'SwampHacks',
 	settings: [
+		{
+			name: 'About',
+			sections: [[{
+				name: 'About SwampHacks',
+				enabled: true,
+				action: () => console.log('About SwampHacks')
+			}]]
+		},
 		{
 			name: 'File',
 			sections: [

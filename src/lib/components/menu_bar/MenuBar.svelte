@@ -6,6 +6,7 @@
 
 	let display: Record<string, boolean> = {};
 	$menu.settings.forEach((setting: MenuSetting) => (display[setting.name] = false));
+	display[$menu.appName] = false;
 	let hoverable = false;
 
 	function currentTime() {
@@ -50,8 +51,19 @@
 	class="flex h-menu-xs w-screen items-center border-y border-solid border-b-gray-600 border-t-gray-200 bg-gray-300 pr-[8px] font-chicago text-[4px] menu-sm:h-menu-sm menu-sm:text-[6px] menu-md:h-menu-md menu-md:border-y-2 menu-md:text-[8px] menu-lg:h-menu-lg menu-lg:text-[12px]"
 >
 	<div class="flex items-center">
-		<div class="btn-container hover:bg-menu-blue">
-			<button class="h-full">
+		<div class="relative">
+			<button
+				on:click={() => {
+					toggleSetting($menu.settings[0].name);
+					hoverable = display[$menu.settings[0].name];
+				}}
+				on:mouseover={() => mouseOver($menu.settings[0].name)}
+				on:focus={() => mouseOver($menu.settings[0].name)}
+				on:focusout={() => mouseLeave($menu.settings[0].name)}
+				class:hover={hoverable}
+				class:selected={display[$menu.settings[0].name]}
+				class="btn-container z-10 h-full"
+			>
 				<img
 					draggable="false"
 					class="h-[15px] menu-md:h-[20px] menu-md:w-[30px] menu-lg:h-[28px] menu-lg:w-[42px]"
@@ -59,9 +71,10 @@
 					alt="SwampHacks"
 				/>
 			</button>
+			<Setting setting={$menu.settings[0]} display={display[$menu.settings[0].name]} />
 		</div>
 
-		{#each $menu.settings as setting}
+		{#each $menu.settings.slice(1) as setting}
 			<button class="relative">
 				<button
 					class="btn-container z-10"
