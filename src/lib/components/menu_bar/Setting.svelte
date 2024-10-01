@@ -41,11 +41,12 @@
 		{/if}
 		<div class="flex flex-col items-center">
 			{#each section as item, j}
-				<div
+				<button
 					class="border-lr border-hover grid w-full grid-cols-[8px_auto_auto] items-center pl-0.5 pr-3"
 					id={`${item.name}-${i.toString()}-${j.toString()}`}
 					class:top-item={j === 0 && i === 0}
 					class:bottom-item={j + 1 === section.length && i + 1 === setting.sections.length}
+					on:click={actionWrapper(item.action, `${item.name}-${i.toString()}-${j.toString()}`)}
 				>
 					<img
 						class="justif-self-start mt-[-1px]"
@@ -56,15 +57,12 @@
 						height="8"
 					/>
 					{#if item.action}
-						<button
-							on:click={actionWrapper(item.action, `${item.name}-${i.toString()}-${j.toString()}`)}
-							class="justify-self-start whitespace-nowrap pl-1.5 pr-4"
-						>
+						<h1 class="justify-self-start whitespace-nowrap pl-1.5 pr-4">
 							{item.name}
-						</button>
+						</h1>
 					{/if}
 					<h1 class="justify-self-end whitespace-nowrap">{item.shortcut ?? ''}</h1>
-				</div>
+				</button>
 			{/each}
 			{#if i + 1 !== setting.sections.length}
 				<div class="border-lr inline h-[4px] w-full border-b border-b-[#888888]" />
