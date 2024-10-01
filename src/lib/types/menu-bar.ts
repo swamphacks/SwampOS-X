@@ -30,11 +30,15 @@ export const DefaultMenu: AppMenu = {
 	settings: [
 		{
 			name: 'About',
-			sections: [[{
-				name: 'About SwampHacks',
-				enabled: true,
-				action: () => console.log('About SwampHacks')
-			}]]
+			sections: [
+				[
+					{
+						name: 'About SwampHacks',
+						enabled: true,
+						action: () => console.log('About SwampHacks')
+					}
+				]
+			]
 		},
 		{
 			name: 'File',

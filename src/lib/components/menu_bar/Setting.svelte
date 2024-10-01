@@ -2,12 +2,38 @@
 	import type { MenuSetting } from '$lib/types/menu-bar';
 
 	export let setting: MenuSetting;
-	export let display: boolean;
+	export let display: Record<string, boolean>;
+	export let hoverable: boolean;
+
+	function toggleBackground(el: HTMLElement, on: boolean, turn: number, fn: () => void) {
+		if (on && turn >= 4) {
+			fn();
+			el.classList.add('border-hover');
+			Object.keys(display).forEach((key) => (display[key] = false));
+			hoverable = false;
+			return;
+		}
+		if (on) {
+			el.classList.add('select');
+			setTimeout(() => toggleBackground(el, !on, turn, fn), 50);
+		} else {
+			el.classList.remove('select');
+			setTimeout(() => toggleBackground(el, !on, turn + 1, fn), 50);
+		}
+	}
+
+	function actionWrapper(fn: () => void, id: string) {
+		const el: HTMLElement | null = document.getElementById(id);
+		if (!el) return;
+
+		el.classList.remove('border-hover');
+		toggleBackground(el, true, 0, fn);
+	}
 </script>
 
 <div
 	class="absolute mt-[-1px] flex flex-col border border-solid border-black bg-gray-300"
-	class:hidden={!display}
+	class:hidden={!display[setting.name]}
 >
 	{#each setting.sections as section, i}
 		{#if i > 0}
@@ -16,7 +42,8 @@
 		<div class="flex flex-col items-center">
 			{#each section as item, j}
 				<div
-					class="border-lr grid w-full grid-cols-[8px_auto_auto] items-center pl-0.5 pr-3 hover:!border-l-[#6666CB] hover:!border-r-[#000088] hover:bg-menu-blue hover:text-white"
+					class="border-lr border-hover grid w-full grid-cols-[8px_auto_auto] items-center pl-0.5 pr-3"
+					id={`${item.name}-${i.toString()}-${j.toString()}`}
 					class:top-item={j === 0 && i === 0}
 					class:bottom-item={j + 1 === section.length && i + 1 === setting.sections.length}
 				>
@@ -29,7 +56,10 @@
 						height="8"
 					/>
 					{#if item.action}
-						<button on:click={item.action} class="justify-self-start whitespace-nowrap pl-1.5 pr-4">
+						<button
+							on:click={actionWrapper(item.action, `${item.name}-${i.toString()}-${j.toString()}`)}
+							class="justify-self-start whitespace-nowrap pl-1.5 pr-4"
+						>
 							{item.name}
 						</button>
 					{/if}
@@ -50,6 +80,14 @@
 
 	.bottom-item {
 		@apply border-b hover:border-b-[#000088];
+	}
+
+	:global(.select) {
+		@apply !border-l-[#6666CB] !border-r-[#000088] bg-menu-blue text-white;
+	}
+
+	.border-hover {
+		@apply hover:!border-l-[#6666CB] hover:!border-r-[#000088] hover:bg-menu-blue hover:text-white;
 	}
 
 	.border-lr {

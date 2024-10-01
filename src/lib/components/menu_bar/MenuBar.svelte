@@ -1,8 +1,10 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { menu } from '$lib/stores/menu-bar';
+	import { toggleSetting } from '$lib/utils/menu-bar';
 	import type { MenuSetting } from '$lib/types/menu-bar';
 	import Setting from './Setting.svelte';
+	import MenuButton from './MenuButton.svelte';
 
 	let display: Record<string, boolean> = {};
 	$menu.settings.forEach((setting: MenuSetting) => (display[setting.name] = false));
@@ -23,21 +25,6 @@
 		return `${hourString}:${minutes} ${half}`;
 	}
 
-	function mouseOver(name: string) {
-		if (hoverable && !display[name]) toggleSetting(name);
-	}
-
-	function mouseLeave(name: string) {
-		if (hoverable && display[name]) toggleSetting(name);
-	}
-
-	function toggleSetting(name: string) {
-		$menu.settings.forEach((setting: MenuSetting) => {
-			if (setting.name === name) display[setting.name] = !display[setting.name];
-			else display[setting.name] = false;
-		});
-	}
-
 	let currTime: string = currentTime();
 	let intervalId: number;
 
@@ -48,53 +35,36 @@
 </script>
 
 <section
-	class="flex h-menu-xs w-screen items-center border-y border-solid border-b-gray-600 border-t-gray-200 bg-gray-300 pr-[8px] font-chicago text-[4px] menu-sm:h-menu-sm menu-sm:text-[6px] menu-md:h-menu-md menu-md:border-y-2 menu-md:text-[8px] menu-lg:h-menu-lg menu-lg:text-[12px]"
+	class="flex h-menu-xs w-screen items-center border-y border-solid border-b-gray-600 border-t-gray-200 bg-gray-300 px-[8px] font-chicago text-[4px] menu-sm:h-menu-sm menu-sm:text-[6px] menu-md:h-menu-md menu-md:border-y-2 menu-md:text-[8px] menu-lg:h-menu-lg menu-lg:text-[12px]"
 >
 	<div class="flex items-center">
 		<div class="relative">
-			<button
-				on:click={() => {
-					toggleSetting($menu.settings[0].name);
-					hoverable = display[$menu.settings[0].name];
-				}}
-				on:mouseover={() => mouseOver($menu.settings[0].name)}
-				on:focus={() => mouseOver($menu.settings[0].name)}
-				on:focusout={() => mouseLeave($menu.settings[0].name)}
-				class:hover={hoverable}
-				class:selected={display[$menu.settings[0].name]}
-				class="btn-container z-10 h-full"
-			>
+			<MenuButton name={$menu.settings[0].name} bind:hoverable bind:display>
 				<img
 					draggable="false"
 					class="h-[15px] menu-md:h-[20px] menu-md:w-[30px] menu-lg:h-[28px] menu-lg:w-[42px]"
 					src="/assets/menu_bar/swamphacks.png"
 					alt="SwampHacks"
 				/>
-			</button>
-			<Setting setting={$menu.settings[0]} display={display[$menu.settings[0].name]} />
+			</MenuButton>
+			<Setting setting={$menu.settings[0]} bind:display bind:hoverable />
 		</div>
 
 		{#each $menu.settings.slice(1) as setting}
 			<button class="relative">
-				<button
-					class="btn-container z-10"
-					on:click={() => {
-						toggleSetting(setting.name);
-						hoverable = display[setting.name];
-					}}
-					on:mouseover={() => mouseOver(setting.name)}
-					on:focus={() => mouseOver(setting.name)}
-					on:focusout={() => mouseLeave(setting.name)}
-					class:hover={hoverable}
-					class:selected={display[setting.name]}>{setting.name}</button
-				>
-				<Setting {setting} display={display[setting.name]} />
+				<MenuButton name={setting.name} bind:hoverable bind:display>
+					{setting.name}
+				</MenuButton>
+				<Setting {setting} bind:display bind:hoverable />
 			</button>
 		{/each}
 	</div>
 
 	<!-- svelte-ignore a11y-no-static-element-interactions -->
-	<div class="flex grow flex-row-reverse items-center" on:mouseenter={() => toggleSetting('')}>
+	<div
+		class="flex grow flex-row-reverse items-center"
+		on:mouseenter={() => (display = toggleSetting('', display))}
+	>
 		<h1>Finder</h1>
 		<img
 			width="22"
@@ -121,9 +91,5 @@
 
 	.hover {
 		@apply hover:bg-menu-blue hover:text-white;
-	}
-
-	.selected {
-		@apply bg-menu-blue text-white;
 	}
 </style>
