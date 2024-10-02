@@ -1,6 +1,7 @@
 <script>
 	import Window from '$lib/components/window/Window.svelte';
 	import ControlStrip from '$lib/components/control_strip/ControlStrip.svelte';
+	import StickyNote from '$lib/components/sticky_note/StickyNote.svelte';
 </script>
 
 <Window name="FAQs" resizeTo={{ w: 200, h: 100 }}>
@@ -22,3 +23,7 @@
 </Window>
 
 <ControlStrip />
+
+<StickyNote text="tehe" color="pink" />
+
+<StickyNote text="blah blah" />

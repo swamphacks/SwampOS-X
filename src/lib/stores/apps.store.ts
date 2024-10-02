@@ -1,44 +1,48 @@
 import { get, writable } from 'svelte/store';
+import { v4 as uuidv4 } from 'uuid';
 
-let stickyCount = 0;
-
-export interface Application {
+export interface App {
 	id: string;
+	name: string;
 	zIndex: number;
 }
 
-export const openApps = writable<Record<string, number>>({});
-export const activeApp = writable<string | null>(null);
-export const activeAppZIndex = writable(0);
+const Z_INDEX_LOWER_BOUND = 1000;
 
-export const addSticky = () => {
-	const id = `sticky-${stickyCount}`;
-	stickyCount += 1;
+export const apps = writable<Map<string, App>>(new Map());
+export const activeAppId = writable<string | null>(null);
 
-	openApps.update((store) => ({
-		...store,
-		[id]: 0
-	}));
+export const getApp = (id: string): App | null => get(apps).get(id) ?? null;
+export const getActiveApp = () => {
+	const currActiveAppId = get(activeAppId);
+	if (currActiveAppId) return getApp(currActiveAppId);
+	return null;
+};
 
+export const registerApp = (name: string): string => {
+	const id = uuidv4();
+	apps.update((prev) => prev.set(id, { id, name, zIndex: 0 }));
 	setActiveApp(id);
+	return id;
+};
+
+export const unregisterApp = (id: string) => {
+	apps.update((prev) => {
+		prev.delete(id);
+		return prev;
+	});
+	if (getActiveApp()?.id === id) activeAppId.set(null);
+};
+
+const getNextZIndex = (): number => {
+	const currActiveApp = getActiveApp();
+	if (currActiveApp) return currActiveApp.zIndex + 1;
+	return [...get(apps).values()]
+		.map((a) => a.zIndex)
+		.reduce((a, b) => Math.max(a, b), Z_INDEX_LOWER_BOUND);
 };
 
 export const setActiveApp = (id: string) => {
-	const new_index = get(activeAppZIndex) + 1;
-	openApps.update((store) => ({
-		...store,
-		[id]: new_index
-	}));
-
-	activeAppZIndex.set(new_index);
-	activeApp.set(id);
-};
-
-export const closeApp = (id: string) => {
-	activeApp.set(null);
-	openApps.update((store) => {
-		const updatedStore = { ...store };
-		delete updatedStore[id];
-		return updatedStore;
-	});
+	apps.update((prev) => prev.set(id, { ...prev.get(id)!, zIndex: getNextZIndex() }));
+	activeAppId.set(id);
 };
