@@ -38,18 +38,13 @@
 	const zoom = () => null;
 
 	let colorSet = getColor(color);
-
-	const headerColor = (active: boolean) =>
-		active ? colorSet.secondary_color : colorSet.main_color;
 </script>
 
 <App name="icky-sticky">
 	<svelte:fragment let:active let:setActive let:unregister>
 		<div
-			class:sticky-default={!active}
-			class={`flex flex-col`}
-			style="background-color: {colorSet.main_color}; box-shadow: 0.7px 0.7px 0px 1px ${colorSet.secondary_color},
-        -.2px -.2px 0px 1.5px ${colorSet.secondary_color}; height: {height}px; width: {width}px;"
+			class={`flex flex-col border-[1px] border-l-primary-white border-t-primary-white`}
+			style="background-color: {colorSet.main_color}; height: {height}px; width: {width}px;"
 			bind:this={stickyNoteElement}
 			on:focus={setActive}
 			use:draggable={{
@@ -60,13 +55,7 @@
 				cancel: '.cancel'
 			}}
 		>
-			<Header
-				{colorSet}
-				headerColorResponsive={headerColor(active)}
-				{active}
-				onClose={unregister}
-				onZoom={zoom}
-			/>
+			<Header {colorSet} {active} onClose={unregister} onZoom={zoom} />
 
 			<textarea
 				bind:value={text}
