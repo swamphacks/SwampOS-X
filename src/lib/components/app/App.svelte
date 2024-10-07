@@ -17,7 +17,10 @@
 <div class="absolute" style:z-index={$zIndex}>
 	<slot
 		active={$activeAppId === id}
-		setActive={() => setActiveApp(id)}
+		setActive={() => {
+			// Do not set active if already active
+			if ($activeAppId !== id) setActiveApp(id);
+		}}
 		unregister={() => unregisterApp(id)}
 	/>
 </div>

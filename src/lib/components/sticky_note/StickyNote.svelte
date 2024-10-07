@@ -9,7 +9,7 @@
 	export let height: number = 200;
 	export let width: number = 200;
 
-	let isResizing = false;
+	let isResizing: boolean = false;
 
 	let stickyNoteElement: HTMLElement;
 
@@ -40,13 +40,21 @@
 	let colorSet = getColor(color);
 </script>
 
-<App name="icky-sticky">
+<App name="so-sticky">
 	<svelte:fragment let:active let:setActive let:unregister>
 		<div
-			class={`flex flex-col border-[1px] border-l-primary-white border-t-primary-white`}
-			style="background-color: {colorSet.main_color}; height: {height}px; width: {width}px;"
+			class={`flex flex-col border-[1px]`}
+			style="
+			background-color: {colorSet.main_color}; 
+			height: {height}px; 
+			width: {width}px;
+			{active
+				? `border: 1px solid ${colorSet.highlight_color};`
+				: `border-left: 1px solid white; border-top: 1px solid white; 
+				border-bottom: 1px solid ${colorSet.highlight_color}; 
+				border-right: 1px solid ${colorSet.highlight_color};`}
+			"
 			bind:this={stickyNoteElement}
-			on:focus={setActive}
 			use:draggable={{
 				grid: [6, 6],
 				handle: '.header',
@@ -64,17 +72,17 @@
 				spellcheck="false"
 				class="sticky-text m-0 h-[95%] w-full grow resize-none border-none pl-1 pr-1 text-lg leading-none focus:outline-none focus:ring-0"
 			/>
-
 			<div
-				class="sticky-note-resizable-clip absolute bottom-0 right-0 flex h-[10px] w-[10px] items-center justify-center hover:cursor-pointer"
+				class="sticky-note-resizable-clip absolute bottom-[-0.5px] right-[-0.5px] flex h-[8px] w-[8px] items-center justify-center hover:cursor-pointer"
 				style="background-color: {colorSet.highlight_color};"
 				on:mousedown={onResizeMouseDown}
+				style:visibility={active ? 'visible' : 'hidden'}
 				role="button"
 				tabindex="0"
 			>
 				<div
 					style="background-color: {colorSet.main_color};"
-					class="sticky-note-resizable-clip-inner h-[10px] w-[10px]"
+					class="sticky-note-resizable-clip-inner h-[8px] w-[8px]"
 				></div>
 			</div>
 		</div>

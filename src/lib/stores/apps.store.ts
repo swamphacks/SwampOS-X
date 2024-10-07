@@ -20,7 +20,7 @@ export const getActiveApp = () => {
 };
 
 export const registerApp = (name: string): string => {
-	const id = uuidv4();
+	const id: string = uuidv4();
 	apps.update((prev) => prev.set(id, { id, name, zIndex: 0 }));
 	setActiveApp(id);
 	return id;
