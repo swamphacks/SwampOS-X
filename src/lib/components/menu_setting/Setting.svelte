@@ -42,7 +42,7 @@
 		<div class="flex flex-col items-center">
 			{#each section as item, j}
 				<button
-					class="border-lr grid w-full grid-cols-[10px_auto_auto] items-center pl-0.5 pr-3"
+					class="border-lr w-full pl-0.5 pr-3"
 					id={`${item.name}-${i.toString()}-${j.toString()}`}
 					class:top-item={j === 0 && i === 0}
 					class:top-item-hover={item.enabled}
@@ -50,29 +50,32 @@
 					class:bottom-item-hover={item.enabled}
 					class:text-gray-700={!item.enabled}
 					class:border-hover={item.enabled}
+					class:shortcut={item.shortcut}
 					on:click={(e) => {
 						e.preventDefault();
 						if (!item.enabled) return;
 						actionWrapper(item, `${item.name}-${i.toString()}-${j.toString()}`);
 					}}
 				>
-					<img
-						class="justif-self-start mt-[-1px]"
-						class:opacity-0={!item.on}
-						alt="checkmark"
-						src="/assets/menu_bar/checkmark.svg"
-						width={10}
-						height={10}
-					/>
-					<div class="flex items-center gap-1 justify-self-start pl-1.5 pr-4">
-						{#if item.iconSrc}
-							<img width={20} height={20} src={item.iconSrc} alt={item.name} />
-						{/if}
-						<h1 class="whitespace-nowrap">
-							{item.name}
-						</h1>
+					<div class="grid grid-cols-[10px_auto] items-center">
+						<img
+							class="justif-self-start mt-[-1px]"
+							class:opacity-0={!item.on}
+							alt="checkmark"
+							src="/assets/menu_bar/checkmark.svg"
+							width={10}
+							height={10}
+						/>
+						<div class="flex items-center gap-1 justify-self-start pl-1.5 pr-4">
+							{#if item.iconSrc}
+								<img width={20} height={20} src={item.iconSrc} alt={item.name} />
+							{/if}
+							<h1 class="whitespace-nowrap">
+								{item.name}
+							</h1>
+						</div>
 					</div>
-					<h1 class="justify-self-end whitespace-nowrap">{item.shortcut ?? ''}</h1>
+					<h1 class="justify-self-start whitespace-nowrap">{item.shortcut ?? ''}</h1>
 				</button>
 			{/each}
 			{#if i + 1 !== setting.sections.length}
@@ -112,5 +115,9 @@
 
 	.border-lr {
 		@apply border-l border-r border-solid border-l-white border-r-gray-600;
+	}
+
+	.shortcut {
+		@apply grid grid-cols-[auto_20px];
 	}
 </style>

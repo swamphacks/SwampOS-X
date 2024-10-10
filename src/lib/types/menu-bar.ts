@@ -41,31 +41,31 @@ export const DefaultMenu: AppMenu = {
 					{
 						name: 'New Folder',
 						enabled: true,
-						shortcut: 'cmd n',
+						shortcut: '⌘N',
 						action: () => console.log('New')
 					},
 					{
 						name: 'Open',
 						enabled: false,
-						shortcut: 'cmd o',
+						shortcut: '⌘O',
 						action: () => console.log('Open')
 					},
 					{
 						name: 'Print',
 						enabled: false,
-						shortcut: 'cmd p',
+						shortcut: '⌘P',
 						action: () => console.log('Print')
 					},
 					{
 						name: 'Move to Trash',
 						enabled: false,
-						shortcut: 'cmd backspace',
+						shortcut: '⌘⌫',
 						action: () => console.log('Backspace')
 					},
 					{
 						name: 'Close All',
 						enabled: false,
-						shortcut: 'cmd w',
+						shortcut: '⌘W',
 						action: () => console.log('Close All')
 					}
 				],
@@ -73,13 +73,13 @@ export const DefaultMenu: AppMenu = {
 					{
 						name: 'Duplicate',
 						enabled: true,
-						shortcut: 'cmd d',
+						shortcut: '⌘D',
 						action: () => console.log('Duplicate')
 					},
 					{
 						name: 'Make Alias',
 						enabled: true,
-						shortcut: 'cmd m',
+						shortcut: '⌘M',
 						action: () => console.log('Make Alias')
 					},
 					{
@@ -90,7 +90,7 @@ export const DefaultMenu: AppMenu = {
 					{
 						name: 'Put Away',
 						enabled: false,
-						shortcut: 'cmd y',
+						shortcut: '⌘Y',
 						action: () => console.log('Put Away')
 					},
 					{
@@ -103,13 +103,13 @@ export const DefaultMenu: AppMenu = {
 					{
 						name: 'Find...',
 						enabled: true,
-						shortcut: 'cmd f',
+						shortcut: '⌘F',
 						action: () => console.log('Find')
 					},
 					{
 						name: 'Search Internet...',
 						enabled: true,
-						shortcut: 'cmd f',
+						shortcut: '⌘H',
 						action: () => console.log('Search Internet')
 					},
 					{
@@ -139,7 +139,7 @@ export const DefaultMenu: AppMenu = {
 					{
 						name: 'Undo',
 						enabled: false,
-						shortcut: 'cmd z',
+						shortcut: '⌘Z',
 						action: () => console.log('Undo')
 					}
 				],
@@ -147,19 +147,19 @@ export const DefaultMenu: AppMenu = {
 					{
 						name: 'Cut',
 						enabled: true,
-						shortcut: 'cmd x',
+						shortcut: '⌘X',
 						action: () => console.log('Cut')
 					},
 					{
 						name: 'Copy',
 						enabled: true,
-						shortcut: 'cmd c',
+						shortcut: '⌘C',
 						action: () => console.log('Copy')
 					},
 					{
 						name: 'Paste',
 						enabled: true,
-						shortcut: 'cmd v',
+						shortcut: '⌘V',
 						action: () => console.log('Paste')
 					},
 					{
@@ -170,7 +170,12 @@ export const DefaultMenu: AppMenu = {
 					{
 						name: 'Select All',
 						enabled: true,
-						shortcut: 'cmd a',
+						shortcut: '⌘A',
+						action: () => console.log('Select All')
+					},
+					{
+						name: 'Show Clipboard',
+						enabled: true,
 						action: () => console.log('Select All')
 					}
 				],
@@ -309,7 +314,7 @@ export const DefaultMenu: AppMenu = {
 					{
 						name: 'Mac Help',
 						enabled: true,
-						shortcut: 'cmd ?',
+						shortcut: '⌘?',
 						action: () => console.log('Mac Help')
 					}
 				]

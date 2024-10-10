@@ -97,7 +97,7 @@
 			<MenuButton name={$menu.settings[0].name} bind:hoverable bind:display>
 				<img
 					draggable="false"
-					class="h-[15px] menu-md:h-[20px] menu-md:w-[30px] menu-lg:h-[28px] menu-lg:w-[42px]"
+					class="w-[42px]"
 					src="/assets/menu_bar/swamphacks.png"
 					alt="SwampHacks"
 				/>
