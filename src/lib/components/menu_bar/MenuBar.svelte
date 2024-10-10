@@ -15,6 +15,7 @@
 		const now = new Date();
 		const hours = now.getHours();
 		const minutes = now.getMinutes().toString().padStart(2, '0');
+		const seconds = now.getSeconds().toString().padStart(2, '0');
 		const half = hours < 12 ? 'AM' : 'PM';
 
 		let hourString;
@@ -22,7 +23,15 @@
 		else if (hours <= 12) hourString = hours.toString();
 		else hourString = (hours - 12).toString();
 
-		return `${hourString}:${minutes} ${half}`;
+		return `${hourString}:${minutes}:${seconds} ${half}`;
+	}
+
+	function currentDate() {
+		const now = new Date();
+		const day = now.getDate();
+		const month = now.getMonth() + 1;
+		const year = now.getFullYear().toString().slice(2);
+		return `${month}/${day}/${year}`;
 	}
 
 	// Check if the element or its parent is a menu button
@@ -42,10 +51,15 @@
 	}
 
 	let currTime: string = currentTime();
+	let currDate: string = currentDate();
+	let displayTime: boolean = true;
 	let intervalId: number;
 
 	onMount(() => {
-		intervalId = setInterval(() => (currTime = currentTime()), 1000); // Update every second
+		intervalId = setInterval(() => {
+			currTime = currentTime();
+			currDate = currentDate();
+		}, 1000); // Update every second
 		return () => clearInterval(intervalId);
 	});
 </script>
@@ -96,7 +110,9 @@
 			src="/assets/menu_bar/resizer.png"
 			alt="Menu Bar Resizer"
 		/>
-		<button>{currTime}</button>
+		<button on:click={() => (displayTime = !displayTime)}
+			>{displayTime ? currTime : currDate}</button
+		>
 	</div>
 </section>
 <span class="block h-[1px] w-screen bg-[#262626] menu-md:h-[2px]" />
