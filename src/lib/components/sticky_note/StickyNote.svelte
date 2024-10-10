@@ -13,29 +13,33 @@
 
 	let stickyNoteElement: HTMLElement;
 
-	const onResizeMouseDown = () => {
+	const resizeStart = () => {
 		isResizing = true;
-		document.addEventListener('mousemove', onResizeMouseMove);
-		document.addEventListener('mouseup', onResizeMouseUp);
+		document.addEventListener('mousemove', resize);
+		document.addEventListener('mouseup', resizeEnd);
 	};
 
-	const onResizeMouseMove = (e: MouseEvent) => {
+	export const MIN_SIZE: { w: number; h: number } = { w: 100, h: 60 };
+	const resize = (e: MouseEvent) => {
 		if (isResizing) {
 			const newWidth = e.clientX - stickyNoteElement.getBoundingClientRect().left;
 			const newHeight = e.clientY - stickyNoteElement.getBoundingClientRect().top;
 
-			width = Math.max(newWidth, 100); // Minimum width 100px
-			height = Math.max(newHeight, 60); // Minimum height 60px
+			width = Math.max(newWidth, MIN_SIZE.w);
+			height = Math.max(newHeight, MIN_SIZE.h);
 		}
 	};
 
-	const onResizeMouseUp = () => {
+	const resizeEnd = () => {
 		isResizing = false;
-		document.removeEventListener('mousemove', onResizeMouseMove);
-		document.removeEventListener('mouseup', onResizeMouseUp);
+		document.removeEventListener('mousemove', resize);
+		document.removeEventListener('mouseup', resizeEnd);
 	};
 
-	const zoom = () => null;
+	const zoom = () => {
+		width = MIN_SIZE.w;
+		height = MIN_SIZE.h;
+	};
 
 	let colorSet = getColor(color);
 </script>
@@ -43,7 +47,7 @@
 <App name="sticky-note">
 	<svelte:fragment let:active let:setActive let:unregister>
 		<div
-			class={`flex flex-col border-[1px]`}
+			class="flex flex-col border-[1px]"
 			style="
 			background-color: {colorSet.main_color}; 
 			height: {height}px; 
@@ -66,16 +70,16 @@
 			<Header {colorSet} {active} onClose={unregister} onZoom={zoom} />
 
 			<textarea
-				bind:value={text}
-				on:click={setActive}
+				class="sticky-text m-0 h-[95%] w-full grow resize-none border-none pl-1 pr-1 text-lg leading-none focus:outline-none focus:ring-0"
 				style={`background-color: transparent; ::selection { background: ${colorSet.highlight_color} }`}
 				spellcheck="false"
-				class="sticky-text m-0 h-[95%] w-full grow resize-none border-none pl-1 pr-1 text-lg leading-none focus:outline-none focus:ring-0"
+				bind:value={text}
+				on:click={setActive}
 			/>
 			<div
-				class="sticky-note-resizable-clip absolute bottom-[-0.5px] right-[-0.5px] flex h-[8px] w-[8px] items-center justify-center hover:cursor-pointer"
+				class="sticky-note-resizable-clip absolute bottom-[-1px] right-[-1px] flex h-[8px] w-[8px] items-center justify-center hover:cursor-pointer"
 				style="background-color: {colorSet.highlight_color};"
-				on:mousedown={onResizeMouseDown}
+				on:mousedown={resizeStart}
 				style:visibility={active ? 'visible' : 'hidden'}
 				role="button"
 				tabindex="0"
