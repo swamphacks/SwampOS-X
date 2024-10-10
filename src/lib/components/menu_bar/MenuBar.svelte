@@ -1,14 +1,34 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { draggable, type DragEventData } from '@neodrag/svelte';
 	import { menu } from '$lib/stores/menu-bar';
 	import { toggleSetting, closeAllMenus } from '$lib/utils/menu-bar';
-	import type { MenuSetting } from '$lib/types/menu-bar';
-	import Setting from './Setting.svelte';
+	import type { MenuSetting as Setting, MenuItem } from '$lib/types/menu-bar';
+	import MenuSetting from '$lib/components/menu_setting/Setting.svelte';
 	import MenuButton from './MenuButton.svelte';
 
 	let display: Record<string, boolean> = {};
-	$menu.settings.forEach((setting: MenuSetting) => (display[setting.name] = false));
+
+	// Set all display to false
+	// Wrap every action to close the menu bar when clicked
+	$menu.settings.forEach((setting: Setting) => {
+		display[setting.name] = false
+		setting.sections.flatMap((section: MenuItem[]) => section).forEach((item: MenuItem) => {
+			if (item.action) {
+				let fn = item.action;
+				item.action = () => {
+					fn();
+					display = closeAllMenus(display);
+					hoverable = false;
+				}
+			} else {
+				item.action = () => {
+					display = closeAllMenus(display);
+					hoverable = false;
+				}
+			}
+		});
+	});
+
 	display[$menu.appName] = false;
 	let hoverable = false;
 
@@ -80,7 +100,7 @@
 					alt="SwampHacks"
 				/>
 			</MenuButton>
-			<Setting setting={$menu.settings[0]} bind:display bind:hoverable />
+			<MenuSetting setting={$menu.settings[0]} bind:display={display['About']} />
 		</div>
 
 		{#each $menu.settings.slice(1) as setting}
@@ -88,7 +108,7 @@
 				<MenuButton name={setting.name} bind:hoverable bind:display>
 					{setting.name}
 				</MenuButton>
-				<Setting {setting} bind:display bind:hoverable />
+				<MenuSetting {setting} bind:display={display[setting.name]} />
 			</button>
 		{/each}
 	</div>

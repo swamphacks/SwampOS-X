@@ -1,23 +1,16 @@
 // TODO: Implement inheritance
-export interface MenuItemAction {
+export interface MenuItem {
 	name: string;
 	on?: boolean;
 	enabled: boolean;
 	shortcut?: string;
-	action: () => void;
-}
-
-export interface MenuItemLink {
-	name: string;
-	enabled: boolean;
-	on?: boolean;
-	shortcut?: string;
-	url: string;
+	action?: () => void;
+	url?: string;
 }
 
 export interface MenuSetting {
 	name: string;
-	sections: (MenuItemAction | MenuItemLink)[][];
+	sections: MenuItem[][];
 }
 
 export interface AppMenu {

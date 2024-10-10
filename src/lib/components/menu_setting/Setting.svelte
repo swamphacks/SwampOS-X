@@ -1,39 +1,37 @@
 <script lang="ts">
-	import type { MenuSetting } from '$lib/types/menu-bar';
+	import type { MenuSetting, MenuItem } from '$lib/types/menu-bar';
 
 	export let setting: MenuSetting;
-	export let display: Record<string, boolean>;
-	export let hoverable: boolean;
+	export let display: boolean;
 
-	function toggleBackground(el: HTMLElement, on: boolean, turn: number, fn: () => void) {
+	function toggleBackground(el: HTMLElement, on: boolean, turn: number, item: MenuItem) {
 		if (on && turn >= 4) {
-			fn();
+			if (item.action) item.action();
+			if (item.url) window.open(item.url, '_blank');
 			el.classList.add('border-hover');
-			Object.keys(display).forEach((key) => (display[key] = false));
-			hoverable = false;
 			return;
 		}
 		if (on) {
 			el.classList.add('select');
-			setTimeout(() => toggleBackground(el, !on, turn, fn), 50);
+			setTimeout(() => toggleBackground(el, !on, turn, item), 50);
 		} else {
 			el.classList.remove('select');
-			setTimeout(() => toggleBackground(el, !on, turn + 1, fn), 50);
+			setTimeout(() => toggleBackground(el, !on, turn + 1, item), 50);
 		}
 	}
 
-	function actionWrapper(fn: () => void, id: string) {
+	function actionWrapper(item: MenuItem, id: string) {
 		const el: HTMLElement | null = document.getElementById(id);
 		if (!el) return;
 
 		el.classList.remove('border-hover');
-		toggleBackground(el, true, 0, fn);
+		toggleBackground(el, true, 0, item);
 	}
 </script>
 
 <div
 	class="absolute mt-[-1px] flex flex-col border border-solid border-black bg-gray-300"
-	class:hidden={!display[setting.name]}
+	class:hidden={!display}
 >
 	{#each setting.sections as section, i}
 		{#if i > 0}
@@ -46,7 +44,10 @@
 					id={`${item.name}-${i.toString()}-${j.toString()}`}
 					class:top-item={j === 0 && i === 0}
 					class:bottom-item={j + 1 === section.length && i + 1 === setting.sections.length}
-					on:click={actionWrapper(item.action, `${item.name}-${i.toString()}-${j.toString()}`)}
+		 on:click={(e) => {
+				 e.preventDefault()
+				 actionWrapper(item, `${item.name}-${i.toString()}-${j.toString()}`)
+			 }}
 				>
 					<img
 						class="justif-self-start mt-[-1px]"
