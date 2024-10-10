@@ -40,7 +40,7 @@
 	let colorSet = getColor(color);
 </script>
 
-<App name="so-sticky">
+<App name="sticky-note">
 	<svelte:fragment let:active let:setActive let:unregister>
 		<div
 			class={`flex flex-col border-[1px]`}
