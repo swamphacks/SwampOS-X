@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { draggable, type DragEventData } from '@neodrag/svelte';
 	import { menu } from '$lib/stores/menu-bar';
 	import { toggleSetting, closeAllMenus } from '$lib/utils/menu-bar';
 	import type { MenuSetting } from '$lib/types/menu-bar';
@@ -54,6 +55,7 @@
 	let currDate: string = currentDate();
 	let displayTime: boolean = true;
 	let intervalId: number;
+	let truncateFinder: boolean = false;
 
 	onMount(() => {
 		intervalId = setInterval(() => {
@@ -68,7 +70,7 @@
 <section
 	class="flex h-menu-xs w-screen items-center border-y border-solid border-b-gray-600 border-t-gray-200 bg-gray-300 px-[8px] font-chicago text-[4px] menu-sm:h-menu-sm menu-sm:text-[6px] menu-md:h-menu-md menu-md:border-y-2 menu-md:text-[8px] menu-lg:h-menu-lg menu-lg:text-[12px]"
 >
-	<div class="flex items-center">
+	<div class="flex grow items-center">
 		<div id="menu-btn" class="relative">
 			<MenuButton name={$menu.settings[0].name} bind:hoverable bind:display>
 				<img
@@ -92,27 +94,32 @@
 	</div>
 
 	<!-- svelte-ignore a11y-no-static-element-interactions -->
-	<div
-		class="flex grow flex-row-reverse items-center"
-		on:mouseenter={() => (display = toggleSetting('', display))}
-	>
-		<h1>Finder</h1>
-		<img
-			width="22"
-			height="22"
-			src="/assets/menu_bar/finder.png"
-			alt="Finder"
-			class="mr-[3px] h-[8px] w-[8px] menu-sm:h-[12px] menu-sm:w-[12px] menu-md:mr-1.5 menu-md:h-[16px] menu-md:w-[16px] menu-lg:h-[22px] menu-lg:w-[22px]"
-		/>
-		<img
-			class="mx-1 mt-[-2px] h-[13px] menu-sm:mx-1 menu-sm:h-[14px] menu-md:mx-1.5 menu-md:h-[18px] menu-lg:h-[28px]"
-			draggable="false"
-			src="/assets/menu_bar/resizer.png"
-			alt="Menu Bar Resizer"
-		/>
+	<div class="flex items-center" on:mouseenter={() => (display = toggleSetting('', display))}>
 		<button on:click={() => (displayTime = !displayTime)}
 			>{displayTime ? currTime : currDate}</button
 		>
+		<div class="flex items-center">
+			<button on:click={() => (truncateFinder = !truncateFinder)}>
+				<img
+					class="mx-1.5 h-[30px]"
+					draggable="false"
+					src="/assets/menu_bar/resizer.png"
+					alt="Menu Bar Resizer"
+				/>
+			</button>
+			<button class="flex items-center">
+				<img
+					width="22"
+					height="22"
+					src="/assets/menu_bar/finder.png"
+					alt="Finder"
+					class="mr-1.5 h-[22px] w-[22px]"
+				/>
+				{#if !truncateFinder}
+					<h1>Finder</h1>
+				{/if}
+			</button>
+		</div>
 	</div>
 </section>
 <span class="block h-[1px] w-screen bg-[#262626] menu-md:h-[2px]" />
