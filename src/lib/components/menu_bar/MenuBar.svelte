@@ -90,9 +90,9 @@
 
 <svelte:window on:click={handleWindowClick} />
 <section
-	class="flex h-menu-xs w-screen items-center border-y border-solid border-b-gray-600 border-t-gray-200 bg-gray-300 px-[8px] font-chicago text-[4px] menu-sm:h-menu-sm menu-sm:text-[6px] menu-md:h-menu-md menu-md:border-y-2 menu-md:text-[8px] menu-lg:h-menu-lg menu-lg:text-[12px]"
+	class="flex h-menu-lg w-screen items-center border-y border-solid border-b-gray-600 border-t-gray-200 bg-gray-300 px-[8px] font-chicago text-[12px]"
 >
-	<div class="flex grow items-center">
+	<div class="flex items-center">
 		<div id="menu-btn" class="relative">
 			<MenuButton name={$menu.settings[0].name} bind:hoverable bind:display>
 				<img
@@ -116,45 +116,42 @@
 	</div>
 
 	<!-- svelte-ignore a11y-no-static-element-interactions -->
+	<div class="h-full grow" on:mouseenter={() => (display = toggleSetting('', display))}></div>
+
+	<!-- svelte-ignore a11y-no-static-element-interactions -->
 	<div class="flex items-center" on:mouseenter={() => (display = toggleSetting('', display))}>
-		<button on:click={() => (displayTime = !displayTime)}
+		<button class="text-nowrap" on:click={() => (displayTime = !displayTime)}
 			>{displayTime ? currTime : currDate}</button
 		>
 		<div class="flex items-center">
 			<button on:click={() => (truncateFinder = !truncateFinder)}>
 				<img
-					class="mx-1.5 h-[30px]"
+					class="mx-1.5 h-[28px]"
 					draggable="false"
 					src="/assets/menu_bar/resizer.png"
 					alt="Menu Bar Resizer"
 				/>
 			</button>
 			<div class="relative" id="menu-btn">
-			<MenuButton name="Finder" bind:hoverable bind:display >
-				<img
-					width="22"
-					height="22"
-					src="/assets/menu_bar/finder.png"
-					alt="Finder"
-					class="h-[22px] w-[22px]"
+				<MenuButton name="Finder" bind:hoverable bind:display>
+					<img
+						width="22"
+						height="22"
+						src="/assets/menu_bar/finder.png"
+						alt="Finder"
+						class="h-[22px] w-[22px]"
+					/>
+					{#if !truncateFinder}
+						<h1 class="ml-1.5">Finder</h1>
+					{/if}
+				</MenuButton>
+				<MenuSetting
+					setting={$menu.settings[$menu.settings.length - 1]}
+					bind:display={display['Finder']}
+					right={true}
 				/>
-				{#if !truncateFinder}
-					<h1 class="ml-1.5">Finder</h1>
-				{/if}
-			</MenuButton>
-			<MenuSetting setting={$menu.settings[$menu.settings.length - 1]} bind:display={display['Finder']} right={true}/>
 			</div>
 		</div>
 	</div>
 </section>
-<span class="block h-[1px] w-screen bg-[#262626] menu-md:h-[2px]" />
-
-<style lang="postcss">
-	.btn-container {
-		@apply flex h-[13px] items-center px-1.5 menu-sm:h-[17px] menu-md:h-[24px] menu-lg:h-[34px];
-	}
-
-	.hover {
-		@apply hover:bg-menu-blue hover:text-white;
-	}
-</style>
+<span class="block h-[1px] w-screen bg-[#262626]" />

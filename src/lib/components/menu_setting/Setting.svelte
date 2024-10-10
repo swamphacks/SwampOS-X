@@ -31,7 +31,7 @@
 </script>
 
 <div
-	class="absolute mt-[-1px] flex flex-col border border-solid border-black bg-gray-300"
+	class="absolute flex flex-col border border-solid border-black bg-gray-300"
 	class:hidden={!display}
 	class:right-0={right}
 >
@@ -45,7 +45,9 @@
 					class="border-lr grid w-full grid-cols-[10px_auto_auto] items-center pl-0.5 pr-3"
 					id={`${item.name}-${i.toString()}-${j.toString()}`}
 					class:top-item={j === 0 && i === 0}
+					class:top-item-hover={item.enabled}
 					class:bottom-item={j + 1 === section.length && i + 1 === setting.sections.length}
+					class:bottom-item-hover={item.enabled}
 					class:text-gray-700={!item.enabled}
 					class:border-hover={item.enabled}
 					on:click={(e) => {
@@ -82,13 +84,24 @@
 
 <style lang="postcss">
 	.top-item {
-		@apply border-t hover:border-t-[#6666CB];
+		@apply border-t;
+	}
+
+	.top-item-hover {
+		@apply hover:border-t-[#6666CB];
 	}
 
 	.bottom-item {
-		@apply border-b hover:border-b-[#000088];
+		@apply border-b;
 	}
 
+	.bottom-item-hover {
+		@apply hover:border-b-[#000088];
+	}
+
+	/**
+		* DO NOT REMOVE - This is a global class that is used to style the selected item in the menu.
+		*/
 	:global(.select) {
 		@apply !border-l-[#6666CB] !border-r-[#000088] bg-menu-blue text-white;
 	}

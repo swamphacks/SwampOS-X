@@ -343,7 +343,7 @@ export const DefaultMenu: AppMenu = {
 						on: true,
 						action: () => console.log('Finder')
 					}
-				],
+				]
 			]
 		}
 	]

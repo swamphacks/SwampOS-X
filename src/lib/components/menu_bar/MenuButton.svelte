@@ -33,14 +33,14 @@
 
 <style lang="postcss">
 	.btn-container {
-		@apply flex items-center px-1.5 h-[34px];
+		@apply flex h-[30px] items-center px-1.5;
 	}
 
 	.hover {
-		@apply hover:bg-menu-blue hover:text-white;
+		@apply hover:border-y hover:border-b-[#000088] hover:border-t-[#6666CB] hover:bg-menu-blue hover:text-white;
 	}
 
 	.selected {
-		@apply bg-menu-blue text-white;
+		@apply border-y border-b-[#000088] border-t-[#6666CB] bg-menu-blue text-white;
 	}
 </style>
