@@ -33,7 +33,7 @@
 
 <style lang="postcss">
 	.btn-container {
-		@apply flex h-[13px] items-center px-1.5 menu-sm:h-[17px] menu-md:h-[24px] menu-lg:h-[34px];
+		@apply flex items-center px-1.5 h-[34px];
 	}
 
 	.hover {

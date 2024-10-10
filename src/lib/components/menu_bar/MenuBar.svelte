@@ -11,22 +11,24 @@
 	// Set all display to false
 	// Wrap every action to close the menu bar when clicked
 	$menu.settings.forEach((setting: Setting) => {
-		display[setting.name] = false
-		setting.sections.flatMap((section: MenuItem[]) => section).forEach((item: MenuItem) => {
-			if (item.action) {
-				let fn = item.action;
-				item.action = () => {
-					fn();
-					display = closeAllMenus(display);
-					hoverable = false;
+		display[setting.name] = false;
+		setting.sections
+			.flatMap((section: MenuItem[]) => section)
+			.forEach((item: MenuItem) => {
+				if (item.action) {
+					let fn = item.action;
+					item.action = () => {
+						fn();
+						display = closeAllMenus(display);
+						hoverable = false;
+					};
+				} else {
+					item.action = () => {
+						display = closeAllMenus(display);
+						hoverable = false;
+					};
 				}
-			} else {
-				item.action = () => {
-					display = closeAllMenus(display);
-					hoverable = false;
-				}
-			}
-		});
+			});
 	});
 
 	display[$menu.appName] = false;
@@ -103,7 +105,7 @@
 			<MenuSetting setting={$menu.settings[0]} bind:display={display['About']} />
 		</div>
 
-		{#each $menu.settings.slice(1) as setting}
+		{#each $menu.settings.slice(1, -1) as setting}
 			<button id="menu-btn" class="relative">
 				<MenuButton name={setting.name} bind:hoverable bind:display>
 					{setting.name}
@@ -127,18 +129,21 @@
 					alt="Menu Bar Resizer"
 				/>
 			</button>
-			<button class="flex items-center">
+			<div class="relative" id="menu-btn">
+			<MenuButton name="Finder" bind:hoverable bind:display >
 				<img
 					width="22"
 					height="22"
 					src="/assets/menu_bar/finder.png"
 					alt="Finder"
-					class="mr-1.5 h-[22px] w-[22px]"
+					class="h-[22px] w-[22px]"
 				/>
 				{#if !truncateFinder}
-					<h1>Finder</h1>
+					<h1 class="ml-1.5">Finder</h1>
 				{/if}
-			</button>
+			</MenuButton>
+			<MenuSetting setting={$menu.settings[$menu.settings.length - 1]} bind:display={display['Finder']} right={true}/>
+			</div>
 		</div>
 	</div>
 </section>

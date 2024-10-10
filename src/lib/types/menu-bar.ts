@@ -2,6 +2,7 @@
 export interface MenuItem {
 	name: string;
 	on?: boolean;
+	iconSrc?: string;
 	enabled: boolean;
 	shortcut?: string;
 	action?: () => void;
@@ -45,7 +46,7 @@ export const DefaultMenu: AppMenu = {
 					},
 					{
 						name: 'Open',
-						enabled: true,
+						enabled: false,
 						shortcut: 'cmd o',
 						action: () => console.log('Open')
 					},
@@ -312,6 +313,37 @@ export const DefaultMenu: AppMenu = {
 						action: () => console.log('Mac Help')
 					}
 				]
+			]
+		},
+		{
+			name: 'Finder',
+			sections: [
+				[
+					{
+						name: 'Hide Finder',
+						enabled: true,
+						action: () => console.log('Hide Finder')
+					},
+					{
+						name: 'Hide Others',
+						enabled: true,
+						action: () => console.log('Hide Others')
+					},
+					{
+						name: 'Show All',
+						enabled: false,
+						action: () => console.log('Show All')
+					}
+				],
+				[
+					{
+						name: 'Finder',
+						iconSrc: '/assets/menu_bar/finder.png',
+						enabled: true,
+						on: true,
+						action: () => console.log('Finder')
+					}
+				],
 			]
 		}
 	]

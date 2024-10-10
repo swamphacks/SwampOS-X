@@ -3,6 +3,7 @@
 
 	export let setting: MenuSetting;
 	export let display: boolean;
+	export let right: boolean = false;
 
 	function toggleBackground(el: HTMLElement, on: boolean, turn: number, item: MenuItem) {
 		if (on && turn >= 4) {
@@ -32,6 +33,7 @@
 <div
 	class="absolute mt-[-1px] flex flex-col border border-solid border-black bg-gray-300"
 	class:hidden={!display}
+	class:right-0={right}
 >
 	{#each setting.sections as section, i}
 		{#if i > 0}
@@ -40,28 +42,34 @@
 		<div class="flex flex-col items-center">
 			{#each section as item, j}
 				<button
-					class="border-lr border-hover grid w-full grid-cols-[8px_auto_auto] items-center pl-0.5 pr-3"
+					class="border-lr grid w-full grid-cols-[10px_auto_auto] items-center pl-0.5 pr-3"
 					id={`${item.name}-${i.toString()}-${j.toString()}`}
 					class:top-item={j === 0 && i === 0}
 					class:bottom-item={j + 1 === section.length && i + 1 === setting.sections.length}
-		 on:click={(e) => {
-				 e.preventDefault()
-				 actionWrapper(item, `${item.name}-${i.toString()}-${j.toString()}`)
-			 }}
+					class:text-gray-700={!item.enabled}
+					class:border-hover={item.enabled}
+					on:click={(e) => {
+						e.preventDefault();
+						if (!item.enabled) return;
+						actionWrapper(item, `${item.name}-${i.toString()}-${j.toString()}`);
+					}}
 				>
 					<img
 						class="justif-self-start mt-[-1px]"
 						class:opacity-0={!item.on}
 						alt="checkmark"
 						src="/assets/menu_bar/checkmark.svg"
-						width="8"
-						height="8"
+						width={10}
+						height={10}
 					/>
-					{#if item.action}
-						<h1 class="justify-self-start whitespace-nowrap pl-1.5 pr-4">
+					<div class="flex items-center gap-1 justify-self-start pl-1.5 pr-4">
+						{#if item.iconSrc}
+							<img width={20} height={20} src={item.iconSrc} alt={item.name} />
+						{/if}
+						<h1 class="whitespace-nowrap">
 							{item.name}
 						</h1>
-					{/if}
+					</div>
 					<h1 class="justify-self-end whitespace-nowrap">{item.shortcut ?? ''}</h1>
 				</button>
 			{/each}
