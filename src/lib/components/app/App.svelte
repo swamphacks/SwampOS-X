@@ -11,16 +11,20 @@
 	export let name: string;
 	export const id = registerApp(name);
 
+	let open: boolean = true;
+
 	const zIndex = derived(apps, ($apps) => $apps.get(id)?.zIndex ?? 0);
 </script>
 
-<div class="absolute" style:z-index={$zIndex}>
-	<slot
-		active={$activeAppId === id}
-		setActive={() => {
-			// Do not set active if already active
-			if ($activeAppId !== id) setActiveApp(id);
-		}}
-		unregister={() => unregisterApp(id)}
-	/>
-</div>
+{#if open}
+	<div class="absolute" style:z-index={$zIndex}>
+		<slot
+			active={$activeAppId === id}
+			setActive={() => setActiveApp(id)}
+			unregister={() => {
+				unregisterApp(id);
+				open = false;
+			}}
+		/>
+	</div>
+{/if}
