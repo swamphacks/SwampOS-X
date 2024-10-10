@@ -1,6 +1,16 @@
 import { menu as menuStore } from '$lib/stores/menu-bar';
 import type { MenuSetting } from '$lib/types/menu-bar';
 
+export function closeAllMenus(display: Record<string, boolean>) {
+	menuStore.subscribe((menu) => {
+		menu.settings.forEach((setting: MenuSetting) => {
+			display[setting.name] = false;
+		});
+	})();
+
+	return display;
+}
+
 export function toggleSetting(name: string, display: Record<string, boolean>) {
 	menuStore.subscribe((menu) => {
 		menu.settings.forEach((setting: MenuSetting) => {

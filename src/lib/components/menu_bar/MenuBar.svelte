@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { menu } from '$lib/stores/menu-bar';
-	import { toggleSetting } from '$lib/utils/menu-bar';
+	import { toggleSetting, closeAllMenus } from '$lib/utils/menu-bar';
 	import type { MenuSetting } from '$lib/types/menu-bar';
 	import Setting from './Setting.svelte';
 	import MenuButton from './MenuButton.svelte';
@@ -25,6 +25,22 @@
 		return `${hourString}:${minutes} ${half}`;
 	}
 
+	// Check if the element or its parent is a menu button
+	function inMenuBtn(e: HTMLElement | null) {
+		if (!e) return false;
+
+		if (e.id === 'menu-btn') return true;
+		return inMenuBtn(e.parentElement);
+	}
+
+	// Close all menus when clicking outside of them
+	function handleWindowClick(e: MouseEvent) {
+		if (!inMenuBtn(e.target as HTMLElement)) {
+			hoverable = false;
+			display = closeAllMenus(display);
+		}
+	}
+
 	let currTime: string = currentTime();
 	let intervalId: number;
 
@@ -34,11 +50,12 @@
 	});
 </script>
 
+<svelte:window on:click={handleWindowClick} />
 <section
 	class="flex h-menu-xs w-screen items-center border-y border-solid border-b-gray-600 border-t-gray-200 bg-gray-300 px-[8px] font-chicago text-[4px] menu-sm:h-menu-sm menu-sm:text-[6px] menu-md:h-menu-md menu-md:border-y-2 menu-md:text-[8px] menu-lg:h-menu-lg menu-lg:text-[12px]"
 >
 	<div class="flex items-center">
-		<div class="relative">
+		<div id="menu-btn" class="relative">
 			<MenuButton name={$menu.settings[0].name} bind:hoverable bind:display>
 				<img
 					draggable="false"
@@ -51,7 +68,7 @@
 		</div>
 
 		{#each $menu.settings.slice(1) as setting}
-			<button class="relative">
+			<button id="menu-btn" class="relative">
 				<MenuButton name={setting.name} bind:hoverable bind:display>
 					{setting.name}
 				</MenuButton>
