@@ -19,8 +19,7 @@ export interface AppMenu {
 	settings: MenuSetting[];
 }
 
-export const SwampHacksMenu: MenuSetting =
-{
+export const SwampHacksMenu: MenuSetting = {
 	name: 'About',
 	sections: [
 		[
@@ -31,7 +30,7 @@ export const SwampHacksMenu: MenuSetting =
 			}
 		]
 	]
-}
+};
 
 export const FinderMenu: MenuSetting = {
 	name: 'Finder',
@@ -63,7 +62,7 @@ export const FinderMenu: MenuSetting = {
 			}
 		]
 	]
-}
+};
 
 export const DefaultMenu: AppMenu = {
 	appName: 'SwampHacks',
@@ -353,6 +352,6 @@ export const DefaultMenu: AppMenu = {
 					}
 				]
 			]
-		},
+		}
 	]
-}
+};

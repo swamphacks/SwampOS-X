@@ -51,6 +51,7 @@
 					class:text-gray-700={!item.enabled}
 					class:border-hover={item.enabled}
 					class:shortcut={item.shortcut}
+					class:cursor-default={!item.enabled}
 					on:click={(e) => {
 						e.preventDefault();
 						if (!item.enabled) return;

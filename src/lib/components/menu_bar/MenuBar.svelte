@@ -1,73 +1,58 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { swamphacksMenu, menu, finderMenu } from '$lib/stores/menu-bar';
-	import { toggleSetting, closeAllMenus } from '$lib/utils/menu-bar';
+	import {
+		currentDate,
+		currentTime,
+		toggleSetting,
+		closeAllMenus,
+		inMenuBtn,
+		handleMenuResize
+	} from '$lib/utils/menu-bar';
 	import type { MenuSetting as Setting, MenuItem } from '$lib/types/menu-bar';
 	import MenuSetting from '$lib/components/menu_setting/Setting.svelte';
 	import MenuButton from './MenuButton.svelte';
 
 	let display: Record<string, boolean> = {};
+	let hoverable = false;
+	let currTime: string = currentTime();
+	let currDate: string = currentDate();
+	let displayTime: boolean = true;
+	let intervalId: number;
+	let truncateFinder: boolean = false;
+	let rightEl: HTMLElement;
+	const menuBtnName = 'menu-btn';
 
-	// Set all display to false
-	// Wrap every action to close the menu bar when clicked
+	// Wrap all item actions and initialize display state
 	display[$swamphacksMenu.name] = false;
+	$swamphacksMenu.sections
+		.flatMap((section: MenuItem[]) => section)
+		.forEach((item: MenuItem) => wrapAction(item));
+
 	display[$finderMenu.name] = false;
+	$finderMenu.sections
+		.flatMap((section: MenuItem[]) => section)
+		.forEach((item: MenuItem) => wrapAction(item));
+
 	$menu.settings.forEach((setting: Setting) => {
 		display[setting.name] = false;
 		setting.sections
 			.flatMap((section: MenuItem[]) => section)
-			.forEach((item: MenuItem) => {
-				if (item.action) {
-					let fn = item.action;
-					item.action = () => {
-						fn();
-						display = closeAllMenus(display);
-						hoverable = false;
-					};
-				} else {
-					item.action = () => {
-						display = closeAllMenus(display);
-						hoverable = false;
-					};
-				}
-			});
+			.forEach((item: MenuItem) => wrapAction(item));
 	});
+
+	// Wrap action to close the menu bar when clicked
+	function wrapAction(item: MenuItem) {
+		const fn = item.action ?? (() => {});
+		item.action = () => {
+			display = closeAllMenus(display);
+			hoverable = false;
+			fn();
+		};
+	}
 
 	function cancelHover() {
 		display = toggleSetting('', display);
-	}
-
-	let hoverable = false;
-
-	function currentTime() {
-		const now = new Date();
-		const hours = now.getHours();
-		const minutes = now.getMinutes().toString().padStart(2, '0');
-		const seconds = now.getSeconds().toString().padStart(2, '0');
-		const half = hours < 12 ? 'AM' : 'PM';
-
-		let hourString;
-		if (hours === 0) hourString = '12';
-		else if (hours <= 12) hourString = hours.toString();
-		else hourString = (hours - 12).toString();
-
-		return `${hourString}:${minutes}:${seconds} ${half}`;
-	}
-
-	function currentDate() {
-		const now = new Date();
-		const day = now.getDate();
-		const month = now.getMonth() + 1;
-		const year = now.getFullYear().toString().slice(2);
-		return `${month}/${day}/${year}`;
-	}
-
-	// Check if the element or its parent is a menu button
-	function inMenuBtn(e: HTMLElement | null) {
-		if (!e) return false;
-
-		if (e.id === 'menu-btn') return true;
-		return inMenuBtn(e.parentElement);
 	}
 
 	// Close all menus when clicking outside of them
@@ -78,42 +63,42 @@
 		}
 	}
 
-	let currTime: string = currentTime();
-	let currDate: string = currentDate();
-	let displayTime: boolean = true;
-	let intervalId: number;
-	let truncateFinder: boolean = false;
-
 	onMount(() => {
 		intervalId = setInterval(() => {
 			currTime = currentTime();
 			currDate = currentDate();
 		}, 1000); // Update every second
+		handleMenuResize(menuBtnName, rightEl);
 		return () => clearInterval(intervalId);
 	});
 </script>
 
-<svelte:window on:click={handleWindowClick} />
+<svelte:window
+	on:click={handleWindowClick}
+	on:resize={() => handleMenuResize(menuBtnName, rightEl)}
+/>
 <section
 	class="flex h-menu-lg w-screen items-center border-y border-solid border-b-gray-600 border-t-gray-200 bg-gray-300 px-[8px] font-chicago text-[12px]"
 >
-	<div class="flex items-center">
+	<div class="flex flex-nowrap items-center">
 		<div id="menu-btn" class="relative">
 			<MenuButton name={$swamphacksMenu.name} bind:hoverable bind:display>
 				<img
 					draggable="false"
-					class="w-[42px]"
+					class="min-h-[28px] min-w-[42px]"
 					src={display['About']
 						? '/assets/menu_bar/swamphacks-white.png'
 						: '/assets/menu_bar/swamphacks.png'}
 					alt="SwampHacks"
+					width={42}
+					height={28}
 				/>
 			</MenuButton>
 			<MenuSetting setting={$swamphacksMenu} bind:display={display[$swamphacksMenu.name]} />
 		</div>
 
 		{#each $menu.settings as setting}
-			<button id="menu-btn" class="relative">
+			<button id="menu-btn" name={menuBtnName} class="relative">
 				<MenuButton name={setting.name} bind:hoverable bind:display>
 					{setting.name}
 				</MenuButton>
@@ -125,29 +110,31 @@
 	<!-- svelte-ignore a11y-no-static-element-interactions -->
 	<div class="h-full grow" on:mouseenter={cancelHover}></div>
 
-	<div class="flex items-center">
+	<div class="absolute right-0 flex items-center" bind:this={rightEl}>
 		<button
-			class="text-nowrap"
+			class="text-nowrap bg-gray-300"
 			on:mouseenter={cancelHover}
 			on:click={() => (displayTime = !displayTime)}>{displayTime ? currTime : currDate}</button
 		>
 		<div class="flex items-center">
 			<button on:mouseenter={cancelHover} on:click={() => (truncateFinder = !truncateFinder)}>
 				<img
-					class="mx-1.5 h-[28px]"
+					class="ml-1.5 min-h-[28px] min-w-[9.33px]"
 					draggable="false"
 					src="/assets/menu_bar/resizer.png"
 					alt="Menu Bar Resizer"
+					height={28}
+					width={9.33}
 				/>
 			</button>
 			<div class="relative" id="menu-btn">
 				<MenuButton name={$finderMenu.name} bind:hoverable bind:display>
 					<img
-						width="22"
-						height="22"
+						width={22}
+						height={22}
 						src="/assets/menu_bar/finder.png"
 						alt="Finder"
-						class="h-[22px] w-[22px]"
+						class="min-h-[22px] min-w-[22px]"
 					/>
 					{#if !truncateFinder}
 						<h1 class="ml-1.5">Finder</h1>
