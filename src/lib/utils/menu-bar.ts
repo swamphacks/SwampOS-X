@@ -79,14 +79,23 @@ export function isOverlapping(e1: HTMLElement | undefined, e2: HTMLElement | und
 export function handleMenuResize(btnName: string, target: HTMLElement | undefined) {
 	if (!target) return;
 
-	const elements: HTMLElement[] = []
+	const elements: HTMLElement[] = [];
 	document.getElementsByName(btnName).forEach((element) => {
 		elements.push(element);
 	});
 
-	elements.forEach((element) => {
+	let i = 0;
+	for (i; i < elements.length; ++i) {
+		const el = elements[i];
+		if (!el || isOverlapping(el, target)) break;
+	}
+	i = Math.max(i - 1, 0);
+	elements.slice(0, i).forEach((element) => {
 		if (!element) return;
-		if (isOverlapping(element, target)) element.style.visibility = 'hidden';
-		else element.style.visibility = 'visible';
+		element.style.visibility = 'visible';
+	});
+	elements.slice(i).forEach((element) => {
+		if (!element) return;
+		element.style.visibility = 'hidden';
 	});
 }
