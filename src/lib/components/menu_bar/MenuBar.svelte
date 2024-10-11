@@ -110,7 +110,7 @@
 	<!-- svelte-ignore a11y-no-static-element-interactions -->
 	<div class="h-full grow" on:mouseenter={cancelHover}></div>
 
-	<div class="absolute right-0 flex items-center" bind:this={rightEl}>
+	<div class="absolute right-0 flex items-center pl-[60px]" bind:this={rightEl}>
 		<button
 			class="text-nowrap bg-gray-300"
 			on:mouseenter={cancelHover}
