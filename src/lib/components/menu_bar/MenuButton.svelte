@@ -18,10 +18,8 @@
 
 <button
 	on:click={() => {
-		console.log('clicked', name);
 		display = toggleSetting(name, display);
 		hoverable = display[name];
-		console.log(display);
 	}}
 	on:mouseover={mouseOver}
 	on:focus={mouseOver}
