@@ -18,15 +18,17 @@
 
 <button
 	on:click={() => {
+		console.log('clicked', name);
 		display = toggleSetting(name, display);
 		hoverable = display[name];
+		console.log(display);
 	}}
 	on:mouseover={mouseOver}
 	on:focus={mouseOver}
 	on:focusout={mouseLeave}
 	class:hover={hoverable}
 	class:selected={display[name]}
-	class="btn-container z-10"
+	class="btn-container group z-10"
 >
 	<slot />
 </button>

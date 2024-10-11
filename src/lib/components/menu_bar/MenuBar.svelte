@@ -98,7 +98,9 @@
 				<img
 					draggable="false"
 					class="w-[42px]"
-					src="/assets/menu_bar/swamphacks.png"
+					src={display['About']
+						? '/assets/menu_bar/swamphacks-white.png'
+						: '/assets/menu_bar/swamphacks.png'}
 					alt="SwampHacks"
 				/>
 			</MenuButton>
