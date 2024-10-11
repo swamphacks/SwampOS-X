@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { menu } from '$lib/stores/menu-bar';
+	import { swamphacksMenu, menu, finderMenu } from '$lib/stores/menu-bar';
 	import { toggleSetting, closeAllMenus } from '$lib/utils/menu-bar';
 	import type { MenuSetting as Setting, MenuItem } from '$lib/types/menu-bar';
 	import MenuSetting from '$lib/components/menu_setting/Setting.svelte';
@@ -10,6 +10,8 @@
 
 	// Set all display to false
 	// Wrap every action to close the menu bar when clicked
+	display[$swamphacksMenu.name] = false;
+	display[$finderMenu.name] = false;
 	$menu.settings.forEach((setting: Setting) => {
 		display[setting.name] = false;
 		setting.sections
@@ -31,7 +33,10 @@
 			});
 	});
 
-	display[$menu.appName] = false;
+	function cancelHover() {
+		display = toggleSetting('', display);
+	}
+
 	let hoverable = false;
 
 	function currentTime() {
@@ -94,7 +99,7 @@
 >
 	<div class="flex items-center">
 		<div id="menu-btn" class="relative">
-			<MenuButton name={$menu.settings[0].name} bind:hoverable bind:display>
+			<MenuButton name={$swamphacksMenu.name} bind:hoverable bind:display>
 				<img
 					draggable="false"
 					class="w-[42px]"
@@ -104,10 +109,10 @@
 					alt="SwampHacks"
 				/>
 			</MenuButton>
-			<MenuSetting setting={$menu.settings[0]} bind:display={display['About']} />
+			<MenuSetting setting={$swamphacksMenu} bind:display={display[$swamphacksMenu.name]} />
 		</div>
 
-		{#each $menu.settings.slice(1, -1) as setting}
+		{#each $menu.settings as setting}
 			<button id="menu-btn" class="relative">
 				<MenuButton name={setting.name} bind:hoverable bind:display>
 					{setting.name}
@@ -118,15 +123,16 @@
 	</div>
 
 	<!-- svelte-ignore a11y-no-static-element-interactions -->
-	<div class="h-full grow" on:mouseenter={() => (display = toggleSetting('', display))}></div>
+	<div class="h-full grow" on:mouseenter={cancelHover}></div>
 
-	<!-- svelte-ignore a11y-no-static-element-interactions -->
-	<div class="flex items-center" on:mouseenter={() => (display = toggleSetting('', display))}>
-		<button class="text-nowrap" on:click={() => (displayTime = !displayTime)}
-			>{displayTime ? currTime : currDate}</button
+	<div class="flex items-center">
+		<button
+			class="text-nowrap"
+			on:mouseenter={cancelHover}
+			on:click={() => (displayTime = !displayTime)}>{displayTime ? currTime : currDate}</button
 		>
 		<div class="flex items-center">
-			<button on:click={() => (truncateFinder = !truncateFinder)}>
+			<button on:mouseenter={cancelHover} on:click={() => (truncateFinder = !truncateFinder)}>
 				<img
 					class="mx-1.5 h-[28px]"
 					draggable="false"
@@ -135,7 +141,7 @@
 				/>
 			</button>
 			<div class="relative" id="menu-btn">
-				<MenuButton name="Finder" bind:hoverable bind:display>
+				<MenuButton name={$finderMenu.name} bind:hoverable bind:display>
 					<img
 						width="22"
 						height="22"
@@ -147,11 +153,7 @@
 						<h1 class="ml-1.5">Finder</h1>
 					{/if}
 				</MenuButton>
-				<MenuSetting
-					setting={$menu.settings[$menu.settings.length - 1]}
-					bind:display={display['Finder']}
-					right={true}
-				/>
+				<MenuSetting setting={$finderMenu} bind:display={display[$finderMenu.name]} right={true} />
 			</div>
 		</div>
 	</div>

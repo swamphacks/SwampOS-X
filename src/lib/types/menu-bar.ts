@@ -19,21 +19,55 @@ export interface AppMenu {
 	settings: MenuSetting[];
 }
 
+export const SwampHacksMenu: MenuSetting =
+{
+	name: 'About',
+	sections: [
+		[
+			{
+				name: 'About SwampHacks',
+				enabled: true,
+				action: () => console.log('About SwampHacks')
+			}
+		]
+	]
+}
+
+export const FinderMenu: MenuSetting = {
+	name: 'Finder',
+	sections: [
+		[
+			{
+				name: 'Hide Finder',
+				enabled: true,
+				action: () => console.log('Hide Finder')
+			},
+			{
+				name: 'Hide Others',
+				enabled: true,
+				action: () => console.log('Hide Others')
+			},
+			{
+				name: 'Show All',
+				enabled: false,
+				action: () => console.log('Show All')
+			}
+		],
+		[
+			{
+				name: 'Finder',
+				iconSrc: '/assets/menu_bar/finder.png',
+				enabled: true,
+				on: true,
+				action: () => console.log('Finder')
+			}
+		]
+	]
+}
+
 export const DefaultMenu: AppMenu = {
 	appName: 'SwampHacks',
 	settings: [
-		{
-			name: 'About',
-			sections: [
-				[
-					{
-						name: 'About SwampHacks',
-						enabled: true,
-						action: () => console.log('About SwampHacks')
-					}
-				]
-			]
-		},
 		{
 			name: 'File',
 			sections: [
@@ -320,36 +354,5 @@ export const DefaultMenu: AppMenu = {
 				]
 			]
 		},
-		{
-			name: 'Finder',
-			sections: [
-				[
-					{
-						name: 'Hide Finder',
-						enabled: true,
-						action: () => console.log('Hide Finder')
-					},
-					{
-						name: 'Hide Others',
-						enabled: true,
-						action: () => console.log('Hide Others')
-					},
-					{
-						name: 'Show All',
-						enabled: false,
-						action: () => console.log('Show All')
-					}
-				],
-				[
-					{
-						name: 'Finder',
-						iconSrc: '/assets/menu_bar/finder.png',
-						enabled: true,
-						on: true,
-						action: () => console.log('Finder')
-					}
-				]
-			]
-		}
 	]
-};
+}
