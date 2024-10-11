@@ -60,25 +60,3 @@ export function inMenuBtn(e: HTMLElement | null) {
 	if (e.id === 'menu-btn') return true;
 	return inMenuBtn(e.parentElement);
 }
-
-export function isOverlapping(e1: HTMLElement | undefined, e2: HTMLElement | undefined) {
-	if (!e1 || !e2) return false;
-
-	const rect1 = e1.getBoundingClientRect();
-	const rect2 = e2.getBoundingClientRect();
-
-	return !(
-		rect1.right < rect2.left ||
-		rect1.left > rect2.right ||
-		rect1.bottom < rect2.top ||
-		rect1.top > rect2.bottom
-	);
-}
-
-// Hides menu buttons that overlap with the target element
-export function handleMenuResize(btnName: string, target: HTMLElement | undefined) {
-	if (!target) return;
-	document.getElementsByName(btnName).forEach((element) => {
-		element.style.visibility = isOverlapping(element, target) ? 'hidden' : 'visible';
-	});
-}
