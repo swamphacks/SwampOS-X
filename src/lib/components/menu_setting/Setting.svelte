@@ -39,10 +39,11 @@
 		{#if i > 0}
 			<div class="border-lr inline h-[4px] w-full border-t border-t-white" />
 		{/if}
+
 		<div class="flex flex-col items-center">
 			{#each section as item, j}
 				<button
-					class="border-lr w-full pl-0.5 pr-3"
+					class="border-lr group w-full pl-0.5 pr-3"
 					id={`${item.name}-${i.toString()}-${j.toString()}`}
 					class:top-item={j === 0 && i === 0}
 					class:top-item-hover={item.enabled}
@@ -60,7 +61,7 @@
 				>
 					<div class="grid grid-cols-[10px_auto] items-center">
 						<img
-							class="justif-self-start mt-[-1px]"
+							class="justif-self-start mt-[-1px] group-hover:invert"
 							class:opacity-0={!item.on}
 							alt="checkmark"
 							src="/assets/menu_bar/checkmark.svg"
