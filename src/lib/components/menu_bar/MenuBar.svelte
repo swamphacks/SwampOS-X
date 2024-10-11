@@ -6,8 +6,7 @@
 		currentTime,
 		toggleSetting,
 		closeAllMenus,
-		inMenuBtn,
-		handleMenuResize
+		inMenuBtn
 	} from '$lib/utils/menu-bar';
 	import type { MenuSetting as Setting, MenuItem } from '$lib/types/menu-bar';
 	import MenuSetting from '$lib/components/menu_setting/Setting.svelte';
@@ -22,6 +21,13 @@
 	let truncateFinder: boolean = false;
 	let rightEl: HTMLElement;
 	const menuBtnName = 'menu-btn';
+	let innerWidth = 0;
+	const menuLeftSide = 50;
+	const menuRightSide = 180;
+	const menuBtnWidth = 65;
+
+	// Last menu button to display - truncate buttons for mobile view
+	$: lastBtnIdx = Math.floor((innerWidth - menuLeftSide - menuRightSide) / menuBtnWidth);
 
 	// Wrap all item actions and initialize display state
 	display[$swamphacksMenu.name] = false;
@@ -68,15 +74,12 @@
 			currTime = currentTime();
 			currDate = currentDate();
 		}, 1000); // Update every second
-		handleMenuResize(menuBtnName, rightEl);
+		// handleMenuResize(menuBtnName, rightEl);
 		return () => clearInterval(intervalId);
 	});
 </script>
 
-<svelte:window
-	on:click={handleWindowClick}
-	on:resize={() => handleMenuResize(menuBtnName, rightEl)}
-/>
+<svelte:window bind:innerWidth on:click={handleWindowClick} />
 <section
 	class="flex h-menu-lg w-screen items-center border-y border-solid border-b-gray-600 border-t-gray-200 bg-gray-300 px-[8px] font-chicago text-[12px]"
 >
@@ -97,8 +100,8 @@
 			<MenuSetting setting={$swamphacksMenu} bind:display={display[$swamphacksMenu.name]} />
 		</div>
 
-		{#each $menu.settings as setting}
-			<button id="menu-btn" name={menuBtnName} class="relative">
+		{#each $menu.settings as setting, idx}
+			<button id="menu-btn" name={menuBtnName} class="relative" class:hidden={idx >= lastBtnIdx}>
 				<MenuButton name={setting.name} bind:hoverable bind:display>
 					{setting.name}
 				</MenuButton>
@@ -107,10 +110,9 @@
 		{/each}
 	</div>
 
-	<!-- svelte-ignore a11y-no-static-element-interactions -->
-	<div class="h-full grow" on:mouseenter={cancelHover}></div>
+	<button class="h-full grow cursor-default" on:mouseenter={cancelHover}></button>
 
-	<div class="absolute right-0 flex items-center pl-[60px]" bind:this={rightEl}>
+	<div class="absolute right-0 flex items-center" bind:this={rightEl}>
 		<button
 			class="text-nowrap bg-gray-300"
 			on:mouseenter={cancelHover}
