@@ -1,4 +1,5 @@
-<script>
+<script lang="ts">
+	import ResizeableFrame from '$lib/components/window/frames/ResizeableFrame.svelte';
 	import StandardFrame from '$lib/components/window/frames/StandardFrame.svelte';
 	import Window from '$lib/components/window/Window.svelte';
 </script>
@@ -10,7 +11,7 @@
 			draggable="false"
 			on:contextmenu={(e) => e.preventDefault()}
 			src="/assets/folders/colorsync_profiles.png"
-			alt="Help"
+			alt="Assistant"
 		/>
 	</slot>
 
@@ -21,5 +22,26 @@
 			testing<br />
 			really really really really really long
 		</StandardFrame>
+	</svelte:fragment>
+</Window>
+
+<Window name="Gymnast" debug={true}>
+	<slot slot="icon">
+		<img
+			class="w-[13px]"
+			draggable="false"
+			on:contextmenu={(e) => e.preventDefault()}
+			src="/assets/folders/system.png"
+			alt="Hullo"
+		/>
+	</slot>
+
+	<svelte:fragment let:size let:active>
+		<ResizeableFrame {size} {active} infinitelyWide={true}>
+			testing<br />
+			testing<br />
+			testing<br />
+			really really really really really long
+		</ResizeableFrame>
 	</svelte:fragment>
 </Window>
