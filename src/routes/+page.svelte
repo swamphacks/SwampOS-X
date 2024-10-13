@@ -1,8 +1,8 @@
 <script lang="ts">
+	import StickyNote from '$lib/components/sticky_note/StickyNote.svelte';
 	import ResizeableFrame from '$lib/components/window/frames/ResizeableFrame.svelte';
 	import StandardFrame from '$lib/components/window/frames/StandardFrame.svelte';
 	import Window from '$lib/components/window/Window.svelte';
-	import StickyNote from '$lib/components/sticky_note/StickyNote.svelte';
 </script>
 
 <Window name="Creative Assistant" debug={true}>
@@ -47,4 +47,8 @@
 	</svelte:fragment>
 </Window>
 
-<StickyNote text="Hello world!" />
+<StickyNote text="Hello world!" startAt={{ x: 150, y: 300 }} />
+
+<StickyNote text="Hello world!" color="blue" />
+
+<StickyNote text="Hello world!" color="green" />

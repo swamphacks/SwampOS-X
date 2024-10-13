@@ -2,7 +2,7 @@
 	export const DEFAULT_SIZE: Size = { w: 500, h: 350 };
 
 	import TitleBar from '$lib/components/title_bar/TitleBar.svelte';
-	import type { Resize, Size } from '$lib/utils/windows';
+	import { GRID, type Resize, type Size } from '$lib/utils/windows';
 	import { draggable } from '@neodrag/svelte';
 
 	export let name: string = 'Window';
@@ -37,7 +37,7 @@
 		class:border-opacity-40={state !== 'active'}
 		class="absolute size-fit border-[1px] border-primary-black p-[1px]"
 		use:draggable={{
-			grid: [4, 4],
+			grid: GRID,
 			cancel: '.cancel',
 			bounds: 'parent',
 			onDragStart: () => {

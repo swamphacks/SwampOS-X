@@ -17,14 +17,13 @@
 </script>
 
 {#if open}
-	<div class="absolute" style:z-index={$zIndex}>
-		<slot
-			active={$activeAppId === id}
-			setActive={() => setActiveApp(id)}
-			unregister={() => {
-				unregisterApp(id);
-				open = false;
-			}}
-		/>
-	</div>
+	<slot
+		active={$activeAppId === id}
+		setActive={() => setActiveApp(id)}
+		unregister={() => {
+			unregisterApp(id);
+			open = false;
+		}}
+		zIndex={$zIndex}
+	/>
 {/if}

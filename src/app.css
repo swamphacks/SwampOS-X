@@ -25,6 +25,10 @@ body {
 		image-rendering: pixelated;
 	}
 
+	textarea {
+		resize: none;
+	}
+
 	.headline {
 		font-family: Headlines;
 		font-size: 12px;
