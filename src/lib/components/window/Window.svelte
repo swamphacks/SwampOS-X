@@ -66,7 +66,7 @@
 			<div class=" w-[3px]" />
 		</div>
 
-		<div class=" h-[3px]" hidden={!expanded} />
+		<div class="h-[3px]" hidden={!expanded} />
 	</div>
 {/if}
 
