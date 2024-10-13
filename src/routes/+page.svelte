@@ -2,6 +2,7 @@
 	import ResizeableFrame from '$lib/components/window/frames/ResizeableFrame.svelte';
 	import StandardFrame from '$lib/components/window/frames/StandardFrame.svelte';
 	import Window from '$lib/components/window/Window.svelte';
+	import StickyNote from '$lib/components/sticky_note/StickyNote.svelte';
 </script>
 
 <Window name="Creative Assistant" debug={true}>
@@ -45,3 +46,5 @@
 		</ResizeableFrame>
 	</svelte:fragment>
 </Window>
+
+<StickyNote text="Hello world!" />
