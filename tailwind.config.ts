@@ -15,6 +15,23 @@ export default {
 			width: {
 				'control-strip': '32px'
 			},
+			backgroundImage: {
+				'blue-dalmatian': "url('/assets/backgrounds/blue_dalmatian.png')",
+				'blueberry-oxygen': "url('/assets/backgrounds/blueberry_oxygen.png')",
+				'blueberry-union': "url('/assets/backgrounds/blueberry_union.png')",
+				capsules: "url('/assets/backgrounds/capsules.png')",
+				default: "url('/assets/backgrounds/default.png')",
+				'heavy-petal': "url('/assets/backgrounds/heavy_petal.png')",
+				'indigo-foam': "url('/assets/backgrounds/indigo_foam.png')",
+				'macos-background': "url('/assets/backgrounds/macos_background.png')",
+				'quantum-foam': "url('/assets/backgrounds/quantum_foam.png')",
+				'tangerine-fusion': "url('/assets/backgrounds/tangerine_fusion.png')",
+				tub: "url('/assets/backgrounds/tub.png')",
+				ufo: "url('/assets/backgrounds/ufo.png')"
+			},
+			boxShadow: {
+				'sticky-note': '1px 1px 0px 0px rgba(119, 49, 125,1)'
+			},
 			colors: {
 				'primary-black': '#262626',
 				'primary-white': '#ffffff',

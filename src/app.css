@@ -22,8 +22,19 @@ body {
 		src: url('/assets/fonts/chicago/ChicagoFLF2.ttf');
 	}
 
+	@font-face {
+		font-family: Content;
+		font-style: normal;
+		font-weight: normal;
+		src: url('/assets/fonts/geneva/geneva.ttf');
+	}
+
 	body {
 		image-rendering: pixelated;
+	}
+
+	textarea {
+		resize: none;
 	}
 
 	.headline {
@@ -34,5 +45,37 @@ body {
 		line-height: 98%;
 		/* 11.76px */
 		letter-spacing: 0.42px;
+	}
+
+	.sticky-text {
+		font-family: Content;
+		font-size: 12px;
+		font-style: normal;
+	}
+
+	.disable-blur {
+		image-rendering: pixelated;
+	}
+
+	.active-frame {
+		box-shadow:
+			0px -1px 0px 0px theme(colors.gray-700),
+			-1px 0px 0px 0px theme(colors.gray-700),
+			0px 1px 0px 0px theme(colors.primary-white),
+			1px 0px 0px 0px theme(colors.primary-white);
+	}
+}
+
+@layer utilities {
+	.sticky-note-resizable-clip {
+		clip-path: polygon(50% 0, 100% 0, 100% 100%, 0 100%, 0 50%, 50% 50%);
+	}
+
+	.sticky-note-resizable-clip-inner {
+		clip-path: polygon(59% 9%, 91% 9%, 91% 90%, 9% 90%, 9% 59%, 59% 59%);
+	}
+
+	.triangle {
+		clip-path: polygon(100% 0, 0 100%, 100% 100%);
 	}
 }
