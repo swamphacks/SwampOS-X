@@ -79,8 +79,13 @@
 	</svelte:fragment>
 </Window>
 
-{#each Array.from({ length: K }) as _, i}
+{#each Array.from({ length: K }).keys() as i}
 	{#each Object.keys(stickyNoteColors) as color}
-		<StickyNote text={';)'} {color} startAt={toCanvas(randPos())} size={{ w: 20, h: 15 }} />
+		<StickyNote
+			text={`;)${i}`.slice(0, -1)}
+			{color}
+			startAt={toCanvas(randPos())}
+			size={{ w: 20, h: 15 }}
+		/>
 	{/each}
 {/each}

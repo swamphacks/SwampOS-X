@@ -31,7 +31,7 @@
 </script>
 
 <div
-	class="absolute flex flex-col border border-solid border-black bg-gray-300"
+	class="absolute z-[10000] flex flex-col border border-solid border-black bg-gray-300"
 	class:hidden={!display}
 	class:right-0={right}
 >
