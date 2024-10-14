@@ -1,5 +1,6 @@
 <script lang="ts">
 	import MenuBar from '$lib/components/menu_bar/MenuBar.svelte';
+	import ControlStrip from '$lib/components/control_strip/ControlStrip.svelte';
 	import { stickyNoteColors } from '$lib/components/sticky_note/sticky-colors';
 	import StickyNote from '$lib/components/sticky_note/StickyNote.svelte';
 	import ResizeableFrame from '$lib/components/window/frames/ResizeableFrame.svelte';
@@ -89,3 +90,5 @@
 		/>
 	{/each}
 {/each}
+
+<ControlStrip />
