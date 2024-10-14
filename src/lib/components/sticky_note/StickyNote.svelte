@@ -26,7 +26,7 @@
 <App name="sticky-note">
 	<svelte:fragment let:active let:setActive let:unregister let:zIndex>
 		<div
-			class="absolute flex w-min flex-col"
+			class="absolute"
 			style="background-color: {colorSet.main_color}; z-index: {zIndex};"
 			use:draggable={{
 				defaultPosition: startAt,
@@ -48,7 +48,7 @@
 
 				<Resizeable bind:size bind:startResize>
 					<textarea
-						class="sticky-text m-0 border-none pl-1 pr-1 text-lg leading-none focus:outline-none focus:ring-0"
+						class="sticky-text m-0 border-none px-1 py-0 text-lg leading-none focus:outline-none focus:ring-0"
 						style={`background-color: transparent; ::selection { background: ${colorSet.highlight_color} };
 							height: ${size.h}px; width: ${size.w}px;`}
 						spellcheck="false"

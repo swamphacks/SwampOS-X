@@ -43,8 +43,6 @@ const getNextZIndex = (): number => {
 };
 
 export const setActiveApp = (id: string) => {
-	console.log('setActiveApp', id);
-
 	if (get(activeAppId) !== id) {
 		apps.update((prev) => prev.set(id, { ...prev.get(id)!, zIndex: getNextZIndex() }));
 		activeAppId.set(id);
