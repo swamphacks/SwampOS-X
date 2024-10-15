@@ -1,17 +1,8 @@
 <script lang="ts">
-	import { stickyNoteColors } from '$lib/components/sticky_note/sticky-colors';
-	import StickyNote from '$lib/components/sticky_note/StickyNote.svelte';
+	import DesktopIcon from '$lib/components/desktop_icon/DesktopIcon.svelte';
 	import ResizeableFrame from '$lib/components/window/frames/ResizeableFrame.svelte';
 	import StandardFrame from '$lib/components/window/frames/StandardFrame.svelte';
 	import Window from '$lib/components/window/Window.svelte';
-	import type { Position } from '$lib/utils/windows';
-
-	const randPos = (): Position => ({
-		x: (675 - 100) * Math.random(),
-		y: (750 - 100) * Math.random()
-	});
-
-	const K = 50;
 </script>
 
 <Window name="Creative Assistant">
@@ -56,13 +47,4 @@
 	</svelte:fragment>
 </Window>
 
-{#each Array.from({ length: K }) as _, i}
-	{#each Object.keys(stickyNoteColors) as color}
-		<StickyNote
-			text={`this is where you belong ;)\n\n(${i + 1}/${K} in ${color})`}
-			{color}
-			startAt={randPos()}
-			size={{ w: 100, h: 100 }}
-		/>
-	{/each}
-{/each}
+<DesktopIcon />

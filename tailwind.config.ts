@@ -30,7 +30,8 @@ export default {
 			}
 		},
 		fontFamily: {
-			headlines: 'Headlines'
+			headlines: 'Headlines',
+			chicago: ['"pixChicago"', 'sans-serif']
 		},
 		colors: {
 			'primary-black': '#262626',

@@ -21,6 +21,13 @@ body {
 		src: url('/assets/fonts/geneva/geneva.ttf');
 	}
 
+	@font-face {
+		font-family: 'pixChicago';
+		src: url('/assets/fonts/chicago/pixChicago.ttf') format('truetype');
+		font-weight: normal;
+		font-style: normal;
+	}
+
 	body {
 		image-rendering: pixelated;
 	}
