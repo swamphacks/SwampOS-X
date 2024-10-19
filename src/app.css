@@ -22,10 +22,10 @@ body {
 	}
 
 	@font-face {
-		font-family: 'pixChicago';
-		src: url('/assets/fonts/chicago/pixChicago.ttf') format('truetype');
-		font-weight: normal;
+		font-family: Chicago;
 		font-style: normal;
+		font-weight: normal;
+		src: url('/assets/fonts/chicago/Chicago.ttf');
 	}
 
 	body {
@@ -49,6 +49,10 @@ body {
 		font-family: Content;
 		font-size: 12px;
 		font-style: normal;
+	}
+
+	.icon-text {
+		font-family: Content;
 	}
 
 	.disable-blur {

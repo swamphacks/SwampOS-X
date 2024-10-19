@@ -47,4 +47,12 @@
 	</svelte:fragment>
 </Window>
 
-<DesktopIcon />
+<DesktopIcon
+	icon_name="itunes"
+	label="iTunes"
+	onOpen={() => {
+		alert('OPENING ITUNES');
+	}}
+/>
+<DesktopIcon icon_name="scrapbook" label="Scrapbook" />
+<DesktopIcon icon_name="internet_explorer" label="Internet" />
