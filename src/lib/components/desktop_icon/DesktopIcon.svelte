@@ -1,5 +1,13 @@
 <script lang="ts">
+	import { clickOutside } from '$lib/utils/clicks';
 	import { draggable } from '@neodrag/svelte';
+	import icons, { type IconName } from './icons';
+
+	export let icon_name: IconName;
+	export let label: string;
+	export let onOpen: () => void = () => {};
+
+	let active: boolean = false;
 </script>
 
 <!-- 27 words max for title -->
@@ -7,18 +15,38 @@
 <div
 	use:draggable={{
 		defaultPosition: { x: 0, y: 0 },
-		grid: [10, 10],
-		bounds: 'body'
+		grid: [30, 30],
+		bounds: 'parent',
+		onDragStart: () => {
+			active = true;
+		}
 	}}
-	class=" flex h-[70px] w-[70px] flex-col items-center justify-center bg-bondi"
+	use:clickOutside={{
+		deactivate: () => {
+			active = false;
+		}
+	}}
+	class=" relative flex h-[60px] w-[60px] flex-col items-center justify-center hover:cursor-default"
+	on:dblclick={() => {
+		onOpen();
+		active = false;
+	}}
+	role="button"
+	tabindex="0"
 >
 	<img
 		draggable="false"
-		src="/assets/applications/microsoft_internet_explorer.png"
+		src={icons[icon_name]}
 		alt="Icon"
-		class="h-[65%]"
+		class="h-full"
+		style="filter: brightness({active ? '0.4' : '1'});"
 	/>
-	<div class="flex grow items-center justify-center bg-primary-white opacity-50">
-		<p class="text-md sticky-text whitespace-nowrap text-center font-chicago">Internet Explorer</p>
-	</div>
+	<p
+		class="icon-text absolute -bottom-7 inline-block whitespace-nowrap px-1.5 pb-0.5 text-center text-[30px] leading-[.65]"
+		style="background-color: {active
+			? 'rgba(0, 0, 0, 1)'
+			: 'rgba(255, 255, 255, 0.4)'}; color: {active ? 'white' : '#1A1A1A'};"
+	>
+		{label}
+	</p>
 </div>
