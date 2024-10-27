@@ -5,12 +5,13 @@
 
 	export let active: boolean;
 	export let infinitelyWide: boolean = false;
+	export let verticalResize: boolean = true;
 
 	export let size: Size;
 	let startResize: (e: MouseEvent) => void;
 </script>
 
-<Resizeable bind:size bind:startResize>
+<Resizeable bind:size bind:startResize {verticalResize}>
 	<div
 		class:border-opacity-40={!active}
 		class:whitespace-nowrap={infinitelyWide}
