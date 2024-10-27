@@ -1,18 +1,18 @@
 <script lang="ts">
-	import { stickyNoteColors } from '$lib/components/sticky_note/sticky-colors';
-	import StickyNote from '$lib/components/sticky_note/StickyNote.svelte';
-	import ResizeableFrame from '$lib/components/window/frames/ResizeableFrame.svelte';
-	import StandardFrame from '$lib/components/window/frames/StandardFrame.svelte';
-	import Window from '$lib/components/window/Window.svelte';
+	// import { stickyNoteColors } from '$lib/components/sticky_note/sticky-colors';
+	// import StickyNote from '$lib/components/sticky_note/StickyNote.svelte';
+	// import ResizeableFrame from '$lib/components/window/frames/ResizeableFrame.svelte';
+	// import StandardFrame from '$lib/components/window/frames/StandardFrame.svelte';
+	// import Window from '$lib/components/window/Window.svelte';
 	import Tracks from '$lib/components/tracks/Tracks.svelte';
-	import type { Position } from '$lib/utils/windows';
+	// import type { Position } from '$lib/utils/windows';
 
-	const randPos = (): Position => ({
-		x: (675 - 100) * Math.random(),
-		y: (750 - 100) * Math.random()
-	});
+	// const randPos = (): Position => ({
+	// 	x: (675 - 100) * Math.random(),
+	// 	y: (750 - 100) * Math.random()
+	// });
 
-	const K = 50;
+	// const K = 50;
 </script>
 
 <Tracks />
