@@ -4,7 +4,8 @@
 	// import ResizeableFrame from '$lib/components/window/frames/ResizeableFrame.svelte';
 	// import StandardFrame from '$lib/components/window/frames/StandardFrame.svelte';
 	// import Window from '$lib/components/window/Window.svelte';
-	import Tracks from '$lib/components/tracks/Tracks.svelte';
+	// import Tracks from '$lib/components/tracks/Tracks.svelte';
+	import FAQ from '$lib/components/faq/FAQ.svelte';
 	// import type { Position } from '$lib/utils/windows';
 
 	// const randPos = (): Position => ({
@@ -15,7 +16,8 @@
 	// const K = 50;
 </script>
 
-<Tracks />
+<FAQ />
+<!-- <Tracks /> -->
 <!-- <Window name="Creative Assistant"> -->
 <!-- 	<slot slot="icon"> -->
 <!-- 		<img -->
