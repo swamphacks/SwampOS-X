@@ -220,7 +220,7 @@
 	};
 </script>
 
-<section class="relative mt-5 flex h-fit w-fit">
+<section class="absolute bottom-0 left-0 mt-5 flex h-fit w-fit">
 	<button
 		class="h-[26px] w-[16px] bg-[url(/assets/control_strip/controls/default/close.png)] bg-center bg-no-repeat focus:bg-[url(/assets/control_strip/controls/active/close.png)] active:bg-[url(/assets/control_strip/controls/active/close.png)]"
 		tabindex="0"

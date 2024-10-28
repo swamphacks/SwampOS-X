@@ -1,4 +1,6 @@
 <script lang="ts">
+	import MenuBar from '$lib/components/menu_bar/MenuBar.svelte';
+	import ControlStrip from '$lib/components/control_strip/ControlStrip.svelte';
 	import { stickyNoteColors } from '$lib/components/sticky_note/sticky-colors';
 	import StickyNote from '$lib/components/sticky_note/StickyNote.svelte';
 	import ResizeableFrame from '$lib/components/window/frames/ResizeableFrame.svelte';
@@ -6,13 +8,35 @@
 	import Window from '$lib/components/window/Window.svelte';
 	import type { Position } from '$lib/utils/windows';
 
-	const randPos = (): Position => ({
-		x: (675 - 100) * Math.random(),
-		y: (750 - 100) * Math.random()
+	const heart = ({ x, y }: Position): boolean => {
+		// convert to [-1, 1]
+		x = x * 2 - 1;
+		y = y * 2 - 1;
+
+		const C = 1 - Math.cbrt(x * x);
+		return C * Math.pow(19 - 8 * C, 2) - Math.pow(6 - 10 * C - 16 * y, 2) >= 1;
+	};
+
+	const randPos = (): Position => {
+		let pos: Position;
+		do {
+			pos = {
+				x: Math.random(),
+				y: Math.random()
+			};
+		} while (!heart(pos));
+		return pos;
+	};
+
+	const toCanvas = (pos: Position): Position => ({
+		x: 785 * pos.x,
+		y: 785 * (1 - pos.y)
 	});
 
-	const K = 50;
+	const K = 100;
 </script>
+
+<MenuBar />
 
 <Window name="Creative Assistant">
 	<slot slot="icon">
@@ -56,13 +80,15 @@
 	</svelte:fragment>
 </Window>
 
-{#each Array.from({ length: K }) as _, i}
+{#each Array.from({ length: K }).keys() as i}
 	{#each Object.keys(stickyNoteColors) as color}
 		<StickyNote
-			text={`this is where you belong ;)\n\n(${i + 1}/${K} in ${color})`}
+			text={`;)${i}`.slice(0, -1)}
 			{color}
-			startAt={randPos()}
-			size={{ w: 100, h: 100 }}
+			startAt={toCanvas(randPos())}
+			size={{ w: 20, h: 15 }}
 		/>
 	{/each}
 {/each}
+
+<ControlStrip />

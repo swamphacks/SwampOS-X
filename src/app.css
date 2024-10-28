@@ -15,6 +15,14 @@ body {
 	}
 
 	@font-face {
+		font-family: Chicago;
+		font-style: normal;
+		font-weight: bold;
+		ascent-override: 90%;
+		src: url('/assets/fonts/chicago/ChicagoFLF2.ttf');
+	}
+
+	@font-face {
 		font-family: Content;
 		font-style: normal;
 		font-weight: normal;
@@ -34,7 +42,8 @@ body {
 		font-size: 12px;
 		font-style: normal;
 		font-weight: 400;
-		line-height: 98%; /* 11.76px */
+		line-height: 98%;
+		/* 11.76px */
 		letter-spacing: 0.42px;
 	}
 

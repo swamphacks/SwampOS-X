@@ -38,7 +38,9 @@
 			use:draggable={{
 				grid: GRID,
 				cancel: '.cancel',
-				bounds: 'parent'
+				bounds: {
+					top: 30 + 1 // MenuBar height + border
+				}
 			}}
 			on:mousedown={setActive}
 			style="z-index: {zIndex}"
