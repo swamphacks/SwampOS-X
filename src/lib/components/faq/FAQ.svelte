@@ -8,7 +8,7 @@
 <Window name="Tracks">
 	<svelte:fragment let:size let:active>
 		<ResizeableFrame {size} {active}>
-			<div class="flex h-full w-full flex-col gap-2 bg-gray-300 p-4">
+			<div class="flex h-full flex-col gap-2 bg-gray-300 p-4">
 				<Accordion title="General">
 					<Card
 						question="What is the purpose of this FAQ?"

@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { slide } from 'svelte/transition';
 	export let title: string;
 
 	let opened = false;
@@ -9,7 +8,7 @@
 	}
 </script>
 
-<div class="flex flex-col">
+<div class="flex w-full max-w-[600px] flex-col">
 	<button class="mb-4 flex items-center gap-2" on:click={onClick}>
 		<img
 			src="/assets/faq/arrow.png"
@@ -23,25 +22,37 @@
 	</button>
 
 	<!-- Q&A Cards -->
-	{#if opened}
-		<div class="min-w-[150px] overflow-hidden bg-white" transition:slide>
-			<div
-				class="flex min-w-[150px] flex-wrap gap-4 overflow-hidden border border-solid border-black p-4"
-			>
-				<slot />
-			</div>
+	<div
+		class="h-full w-full overflow-hidden bg-white"
+		class:close-acc={!opened}
+		class:open-acc={opened}
+	>
+		<div
+			class="inline-block flex w-full flex-wrap gap-4 overflow-hidden border border-solid border-black p-4"
+		>
+			<slot />
 		</div>
-	{/if}
+	</div>
 </div>
 
 <style lang="postcss">
+	.open-acc {
+		max-height: 1000px;
+		transition: max-height 0.6s ease-in;
+	}
+
+	.close-acc {
+		max-height: 0px;
+		transition: max-height 0.6s ease;
+	}
+
 	.open-arrow {
 		transform: rotate(360deg);
-		transition: transform 0.3s ease;
+		transition: transform 0.6s ease;
 	}
 
 	.close-arrow {
 		transform: rotate(270deg);
-		transition: transform 0.3s ease;
+		transition: transform 0.6s ease;
 	}
 </style>
