@@ -1,9 +1,10 @@
 <script lang="ts">
 	import MenuBar from '$lib/components/menu_bar/MenuBar.svelte';
 	import ControlStrip from '$lib/components/control_strip/ControlStrip.svelte';
-	import ResizeableFrame from '$lib/components/window/frames/ResizeableFrame.svelte';
-	import StandardFrame from '$lib/components/window/frames/StandardFrame.svelte';
-	import Window from '$lib/components/window/Window.svelte';
+	// import ResizeableFrame from '$lib/components/window/frames/ResizeableFrame.svelte';
+	// import StandardFrame from '$lib/components/window/frames/StandardFrame.svelte';
+	// import Window from '$lib/components/window/Window.svelte';
+	import Schedule from '$lib/windows/schedule/Schedule.svelte';
 
 	// const heart = ({ x, y }: Position): boolean => {
 	// 	// convert to [-1, 1]
@@ -34,7 +35,7 @@
 </script>
 
 <MenuBar />
-
+<!-- 
 <Window name="Creative Assistant">
 	<slot slot="icon">
 		<img
@@ -75,26 +76,8 @@
 			really really really really really long
 		</ResizeableFrame>
 	</svelte:fragment>
-</Window>
+</Window> -->
 
-<Window name="Schedule">
-	<slot slot="icon">
-		<img
-			class="w-[13px]"
-			draggable="false"
-			on:contextmenu={(e) => e.preventDefault()}
-			src="/assets/folders/default.png"
-			alt="Schedule Icon"
-		/>
-	</slot>
-
-	<svelte:fragment let:size let:active>
-		<ResizeableFrame {size} {active} infinitelyWide={true}>
-			<div class="h-full w-full items-center justify-center">
-				<div class="h-24 w-24 bg-red-500"></div>
-			</div>
-		</ResizeableFrame>
-	</svelte:fragment>
-</Window>
+<Schedule />
 
 <ControlStrip />
