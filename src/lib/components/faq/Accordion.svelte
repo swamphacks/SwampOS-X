@@ -8,7 +8,7 @@
 	}
 </script>
 
-<div class="flex w-full max-w-[600px] flex-col">
+<div class="flex w-full flex-col">
 	<button class="mb-4 flex items-center gap-2" on:click={onClick}>
 		<img
 			src="/assets/faq/arrow.png"
