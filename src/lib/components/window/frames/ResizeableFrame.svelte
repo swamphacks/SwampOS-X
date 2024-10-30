@@ -15,13 +15,13 @@
 	<div
 		class:border-opacity-40={!active}
 		class:whitespace-nowrap={infinitelyWide}
-		class="h-full w-full overflow-scroll"
+		class="h-full w-full"
 		style="width: {Math.max(minSize.w, size.w)}px; height: {Math.max(minSize.h, size.h)}px;"
 	>
 		<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
 
 		<div class="flex h-full w-full flex-col">
-			<div class="w-full flex-grow overflow-hidden">
+			<div class="w-full flex-grow overflow-scroll">
 				<slot />
 			</div>
 
