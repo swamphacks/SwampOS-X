@@ -29,12 +29,29 @@ body {
 		src: url('/assets/fonts/geneva/geneva.ttf');
 	}
 
+	@font-face {
+		font-family: AppleGaramond;
+		src: url('/assets/fonts/apple_garamond/AppleGaramond-Light.ttf');
+	}
+	@font-face {
+		font-family: AppleGaramondItalic;
+		src: url('/assets/fonts/apple_garamond/AppleGaramond-Italic.ttf');
+	}
+
 	body {
 		image-rendering: pixelated;
 	}
 
 	textarea {
 		resize: none;
+	}
+
+	.title-text {
+		font-family: AppleGaramond;
+	}
+
+	.link-text {
+		font-family: AppleGaramondItalic;
 	}
 
 	.headline {
