@@ -9,14 +9,17 @@
 	import { derived } from 'svelte/store';
 
 	export let name: string;
-	export const id = registerApp(name);
 
-	let open: boolean = true;
+	export let open: boolean = true;
+
+	export const id = registerApp(name, open);
 
 	const zIndex = derived(apps, ($apps) => $apps.get(id)?.zIndex ?? 0);
+
+	const status = derived(apps, ($apps) => $apps.get(id)?.open ?? false);
 </script>
 
-{#if open}
+{#if status}
 	<slot
 		active={$activeAppId === id}
 		setActive={() => setActiveApp(id)}

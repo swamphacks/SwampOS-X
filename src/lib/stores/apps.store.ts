@@ -5,6 +5,7 @@ export interface App {
 	id: string;
 	name: string;
 	zIndex: number;
+	open: boolean;
 }
 
 const Z_INDEX_LOWER_BOUND = 1000;
@@ -19,9 +20,9 @@ export const getActiveApp = () => {
 	return null;
 };
 
-export const registerApp = (name: string): string => {
+export const registerApp = (name: string, open: boolean): string => {
 	const id: string = uuidv4();
-	apps.update((prev) => prev.set(id, { id, name, zIndex: 0 }));
+	apps.update((prev) => prev.set(id, { id, name, zIndex: 0, open }));
 	setActiveApp(id);
 	return id;
 };
@@ -44,7 +45,13 @@ const getNextZIndex = (): number => {
 
 export const setActiveApp = (id: string) => {
 	if (get(activeAppId) !== id) {
-		apps.update((prev) => prev.set(id, { ...prev.get(id)!, zIndex: getNextZIndex() }));
+		apps.update((prev) => prev.set(id, { ...prev.get(id)!, zIndex: getNextZIndex(), open: true }));
 		activeAppId.set(id);
 	}
+};
+
+// Shoudl ONLY be called by desktop icon component for static pages
+export const openApp = (name: string) => {
+	const app = [...get(apps).values()].find((a) => a.name === name);
+	if (app) setActiveApp(app.id);
 };

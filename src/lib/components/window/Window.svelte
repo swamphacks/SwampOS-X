@@ -13,6 +13,8 @@
 
 	export let debug: boolean = false;
 
+	export let defaultOpen: boolean = false;
+
 	let size = DEFAULT_SIZE;
 
 	const resize = () => {
@@ -27,7 +29,7 @@
 </script>
 
 <!-- svelte-ignore a11y-no-static-element-interactions -->
-<App {name}>
+<App open={defaultOpen} {name}>
 	<svelte:fragment let:active let:setActive let:unregister let:zIndex>
 		<div
 			class:shadow-window={active}

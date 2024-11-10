@@ -44,7 +44,7 @@
 						border-bottom: 1px solid ${colorSet.highlight_color}; 
 						border-right: 1px solid ${colorSet.highlight_color};`}
 			>
-				<Header {colorSet} {active} onClose={unregister} onZoom={zoom} {setActive} />
+				<Header {colorSet} {active} onClose={unregister} onZoom={zoom} />
 
 				<Resizeable bind:size bind:startResize>
 					<textarea
