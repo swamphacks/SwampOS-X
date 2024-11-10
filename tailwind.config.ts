@@ -74,7 +74,10 @@ export default {
 		screens: {
 			'menu-sm': '410px',
 			'menu-md': '510px',
-			'menu-lg': '660px'
+			'menu-lg': '660px',
+			'menu-xl': '800px',
+			'menu-2xl': '960px',
+			'menu-3xl': '1120px'
 		}
 	},
 
