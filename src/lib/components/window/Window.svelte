@@ -58,7 +58,7 @@
 			<div class:h-0={!expanded} class:overflow-y-clip={!expanded} class="flex">
 				<div class=" w-[3px]" />
 				<div class="cancel">
-					<slot {size} {active} />
+					<slot {size} {active} {setActive} />
 				</div>
 				<div class=" w-[3px]" />
 			</div>
