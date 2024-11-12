@@ -1,9 +1,4 @@
 <script lang="ts">
-	import { stickyNoteColors } from '$lib/components/sticky_note/sticky-colors';
-	import StickyNote from '$lib/components/sticky_note/StickyNote.svelte';
-	import ResizeableFrame from '$lib/components/window/frames/ResizeableFrame.svelte';
-	import StandardFrame from '$lib/components/window/frames/StandardFrame.svelte';
-	import Window from '$lib/components/window/Window.svelte';
 	import Tracks from '$lib/components/tracks/Tracks.svelte';
 	import FAQ from '$lib/components/faq/FAQ.svelte';
 
@@ -18,11 +13,11 @@
 	const K = 50;
 </script>
 
-<FAQ />
-
 <Tracks />
 
-<Window name="Creative Assistant">
+<FAQ />
+
+<!-- <Window name="Creative Assistant">
 	<slot slot="icon">
 		<img
 			class="w-[13px]"
@@ -62,10 +57,10 @@
 			really really really really really long
 		</ResizeableFrame>
 	</svelte:fragment>
-</Window>
+</Window> -->
 
-{#each Array.from({ length: K }) as _}
+<!-- {#each Array.from({ length: K }) as _}
 	{#each Object.keys(stickyNoteColors) as _}
 		<StickyNote text="Test sticky note" startAt={{ x: 100, y: 100 }} />
 	{/each}
-{/each}
+{/each} -->
