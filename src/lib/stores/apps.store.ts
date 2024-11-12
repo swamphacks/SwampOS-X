@@ -49,7 +49,7 @@ const getNextZIndex = (): number => {
 
 export const setActiveApp = (id: string) => {
 	if (get(activeAppId) !== id) {
-		apps.update((prev) => prev.set(id, { ...prev.get(id)!, zIndex: getNextZIndex(), open: true }));
+		apps.update((prev) => prev.set(id, { ...prev.get(id)!, zIndex: getNextZIndex() }));
 		activeAppId.set(id);
 	}
 };

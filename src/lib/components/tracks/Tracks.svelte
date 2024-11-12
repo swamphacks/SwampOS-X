@@ -20,7 +20,7 @@
 	});
 </script>
 
-<Window name="Tracks">
+<Window name="Tracks" startOpen={false} preferredId="tracks">
 	<svelte:fragment let:active let:setActive>
 		<ResizeableFrame bind:size {active} {setActive} {minResize}>
 			<div class="flex h-full w-full items-center">

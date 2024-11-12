@@ -64,7 +64,8 @@ const icons: { [key: string]: string } = {
 	trash_full: '/assets/system/trash_full.png',
 	gud_logo: '/assets/desktop/gud-logo.png',
 	speakers: '/assets/desktop/speakers.png',
-	faq: '/assets/desktop/faq.png'
+	faq: '/assets/desktop/faq.png',
+	tracks: '/assets/desktop/tracks.png'
 } as const;
 
 // Create a type for the keys of the icons object

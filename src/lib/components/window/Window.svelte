@@ -14,6 +14,8 @@
 	export let expanded: boolean = true;
 	export let resizeTo: Resize | undefined = DEFAULT_SIZE;
 
+	export let startOpen: boolean = true;
+
 	export let debug: boolean = false;
 
 	let size = DEFAULT_SIZE;
@@ -30,7 +32,7 @@
 </script>
 
 <!-- svelte-ignore a11y-no-static-element-interactions -->
-<App {name} {preferredId} bind:id>
+<App {name} {preferredId} {startOpen} bind:id>
 	<svelte:fragment let:active let:setActive let:zIndex>
 		<div
 			class:shadow-window={active}
@@ -43,7 +45,8 @@
 				cancel: '.cancel',
 				bounds: {
 					top: 30 + 1 // MenuBar height + border
-				}
+				},
+				defaultPosition: { x: 45, y: 45 }
 			}}
 			on:mousedown={setActive}
 			style="z-index: {zIndex}"
