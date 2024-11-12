@@ -16,9 +16,6 @@ body {
 
 	@font-face {
 		font-family: Chicago;
-		font-style: normal;
-		font-weight: bold;
-		ascent-override: 90%;
 		src: url('/assets/fonts/chicago/ChicagoFLF2.ttf');
 	}
 
@@ -52,6 +49,10 @@ body {
 
 	.link-text {
 		font-family: AppleGaramondItalic;
+	}
+
+	.speaker-text {
+		font-family: Chicago;
 	}
 
 	.headline {

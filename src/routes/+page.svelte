@@ -6,6 +6,7 @@
 	import { setVisible } from '$lib/stores/apps.store';
 	import type { Position } from '$lib/utils/windows';
 	import { onMount } from 'svelte';
+	import Speakers from '$lib/components/pages/Speakers.svelte';
 
 	interface DesktopIconProps {
 		icon_name: string;
@@ -63,7 +64,7 @@
 			{
 				icon_name: 'speakers',
 				label: 'Speakers',
-				id: 'speaker',
+				id: 'speakers',
 				pos: {
 					x: width - init,
 					y: 170
@@ -85,6 +86,8 @@
 <MenuBar />
 
 <Welcome />
+
+<Speakers />
 
 <!-- ICONS -->
 {#each DesktopIconList as icon (icon.id)}
