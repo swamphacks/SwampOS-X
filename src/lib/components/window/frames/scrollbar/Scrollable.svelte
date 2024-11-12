@@ -25,8 +25,8 @@
 		{active}
 		{color}
 	>
-		<div bind:this={viewport} class="svlr-viewport mr-4 h-full" style:width={size.w - 16}>
-			<div bind:this={contents} class="svlr-contents">
+		<div bind:this={viewport} class="svlr-viewport h-full" style:width={size.w - 16}>
+			<div bind:this={contents} class="svlr-contents h-full">
 				<slot />
 			</div>
 		</div>

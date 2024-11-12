@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import Window from '$lib/components/window/Window.svelte';
-	import ResizeableFrame from '$lib/components/window/frames/ResizeableFrame.svelte';
+	import ResizeableFrame from '../window/frames/ResizeableFrame.svelte';
 	import Accordion from './Accordion.svelte';
 	import Card from './Card.svelte';
 	import { faq } from './faq';
@@ -15,7 +15,10 @@
 		colorIdx = (colorIdx + 1) % colors.length;
 		return color;
 	};
+
 	let faqCards: HTMLElement[] = [];
+	let size = { w: 350, h: 450 };
+	const minResize = { w: 300, h: 450 };
 
 	const onResizeStart = () => {
 		faqCards.forEach((card) => {
@@ -25,12 +28,20 @@
 
 	onMount(() => {
 		faqCards = Array.from(document.querySelectorAll('#faq-card'));
+		if (window.innerWidth < 650) {
+			size = {
+				w: Math.min(window.innerWidth - 10, 350),
+				h: Math.min(window.innerHeight - 10, 460)
+			};
+		} else {
+			size = { w: 650, h: Math.min(700, window.innerHeight - 10) };
+		}
 	});
 </script>
 
 <Window name="FAQs">
-	<svelte:fragment let:size let:active let:setActive>
-		<ResizeableFrame {size} {active} {setActive} {onResizeStart} color={'#cccccc'}>
+	<svelte:fragment let:active let:setActive>
+		<ResizeableFrame {onResizeStart} bind:size {minResize} {active} {setActive} color={'#cccccc'}>
 			<div class="flex h-full flex-col gap-2 p-4">
 				{#each Object.entries(faq) as [title, questions]}
 					<Accordion {title}>

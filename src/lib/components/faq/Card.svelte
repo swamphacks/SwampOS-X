@@ -3,6 +3,7 @@
 	import { stickyNoteColors } from '$lib/components/sticky_note/sticky-colors';
 	import { zIndex } from '$lib/stores/faq';
 	import { draggable, type DragEventData } from '@neodrag/svelte';
+
 	export let question: string;
 	export let answer: string;
 	export let color: string;

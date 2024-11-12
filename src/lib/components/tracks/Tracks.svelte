@@ -1,45 +1,60 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import Window from '$lib/components/window/Window.svelte';
-	import StandardFrame from '$lib/components/window/frames/StandardFrame.svelte';
+	import ResizeableFrame from '$lib/components/window/frames/ResizeableFrame.svelte';
 	import Card from './Card.svelte';
 
-	let maxSize = { w: 300, h: 684 };
-	let size = { w: 300, h: 684 };
-	let innerWidth = 0;
+	const minResize = { w: 350, h: 450 };
+	let size = { w: 350, h: 450 };
+	$: small = size.w < 650;
 
-	function resize() {
-		if (window.innerWidth >= 600) {
-			maxSize = { w: 500, h: 684 };
-			size = { w: 500, h: 684 };
+	onMount(() => {
+		if (window.innerWidth < 650) {
+			size = {
+				w: Math.min(window.innerWidth - 10, 350),
+				h: Math.min(window.innerHeight - 10, 460)
+			};
 		} else {
-			maxSize = { w: 300, h: 684 };
-			size = { w: 300, h: 684 };
+			size = { w: 650, h: Math.min(700, window.innerHeight - 10) };
 		}
-	}
-
-	onMount(resize);
+	});
 </script>
 
-<svelte:window bind:innerWidth on:resize={resize} />
 <Window name="Tracks">
-	<svelte:fragment let:active>
-		<StandardFrame {size} {active} {maxSize}>
-			<div class="relative flex w-full flex-col items-center">
-				<div class="flex flex-wrap justify-center gap-y-6 py-8 menu-md:justify-evenly">
-					<Card name="Innovation" src="/assets/tracks/ai.png" />
-					<Card name="Environmental & Sustainability" src="/assets/tracks/innovation.png" />
-					<Card name="Health" src="/assets/tracks/health.png" />
-					<Card name="Education" src="/assets/tracks/education.png" />
-					<Card name="Social Good & Human Experience" src="/assets/tracks/social-good.png" />
+	<svelte:fragment let:active let:setActive>
+		<ResizeableFrame bind:size {active} {setActive} {minResize}>
+			<div class="flex h-full w-full items-center">
+				<div class="flex h-full w-full flex-col items-center">
+					<div
+						class="relative flex h-full items-center px-8"
+						class:max-w-[520px]={!small}
+						class:max-w-[350px]={small}
+					>
+						<img
+							class="absolute right-[30px] h-full"
+							class:w-[150px]={!small}
+							class:w-[100px]={small}
+							src="/assets/tracks/rainbow.png"
+							alt="Rainbow"
+						/>
+						<div class="relative flex flex-wrap justify-evenly gap-8 py-8">
+							<Card {small} name="AI" src="/assets/tracks/ai.png" />
+							<Card
+								{small}
+								name="Environmental & Sustainability"
+								src="/assets/tracks/innovation.png"
+							/>
+							<Card {small} name="Health" src="/assets/tracks/health.png" />
+							<Card {small} name="Education" src="/assets/tracks/education.png" />
+							<Card
+								{small}
+								name="Social Good & Human Experience"
+								src="/assets/tracks/social-good.png"
+							/>
+						</div>
+					</div>
 				</div>
-
-				<img
-					class="absolute right-[20px] top-0 h-full w-[150px]"
-					src="/assets/tracks/rainbow.png"
-					alt="Rainbow"
-				/>
 			</div>
-		</StandardFrame>
+		</ResizeableFrame>
 	</svelte:fragment>
 </Window>

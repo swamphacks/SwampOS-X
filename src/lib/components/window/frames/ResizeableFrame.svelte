@@ -8,13 +8,14 @@
 
 	export let size: Size;
 	export let minResize: Resize | null = { w: 150, h: 150 };
+	export let maxResize: Resize | null = null;
 	export let onResizeStart: () => void = () => {};
 	export let color: string = '';
 
 	let startResize: (e: MouseEvent) => void;
 </script>
 
-<Resizeable bind:size bind:startResize {minResize}>
+<Resizeable bind:size bind:startResize {minResize} {maxResize}>
 	<svelte:fragment let:startResize>
 		<Scrollable {size} {active} {setActive} {startResize} {onResizeStart} {color}>
 			<slot />
