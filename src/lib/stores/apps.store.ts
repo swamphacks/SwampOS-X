@@ -25,6 +25,7 @@ export const registerApp = (
 	open: boolean,
 	preferredId: string | null = null
 ): string => {
+	console.log({ name, open, preferredId });
 	const id: string = preferredId && getApp(preferredId) == null ? preferredId : uuidv4();
 	apps.update((prev) => prev.set(id, { id, name, zIndex: 0, open }));
 	setActiveApp(id);

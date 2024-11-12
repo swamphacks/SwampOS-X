@@ -16,9 +16,6 @@ body {
 
 	@font-face {
 		font-family: Chicago;
-		font-style: normal;
-		font-weight: bold;
-		ascent-override: 90%;
 		src: url('/assets/fonts/chicago/ChicagoFLF2.ttf');
 	}
 
@@ -72,6 +69,10 @@ body {
 
 	.icon-text {
 		font-family: Content;
+	}
+
+	.gud-text {
+		font-family: Chicago;
 	}
 
 	.disable-blur {

@@ -6,6 +6,7 @@
 	import { setVisible } from '$lib/stores/apps.store';
 	import type { Position } from '$lib/utils/windows';
 	import { onMount } from 'svelte';
+	import Gud from '$lib/components/pages/GUD.svelte';
 
 	interface DesktopIconProps {
 		icon_name: string;
@@ -85,6 +86,8 @@
 <MenuBar />
 
 <Welcome />
+
+<Gud />
 
 <!-- ICONS -->
 {#each DesktopIconList as icon (icon.id)}

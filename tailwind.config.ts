@@ -64,7 +64,9 @@ export default {
 				sunny: '#D0AF3E',
 				teal: '#477979',
 				turquoise: '#0099CC',
-				'menu-blue': '#333399'
+				'menu-blue': '#333399',
+				'gud-purple': '#D5CEFF',
+				'gud-text': '#15085C'
 			}
 		},
 		fontFamily: {
