@@ -6,7 +6,6 @@
 		setActiveApp,
 		unregisterApp
 	} from '$lib/stores/apps.store';
-	import { onMount } from 'svelte';
 	import { derived } from 'svelte/store';
 
 	export let name: string;
@@ -20,10 +19,6 @@
 	const zIndex = derived(apps, ($apps) => $apps.get(id)?.zIndex ?? 0);
 
 	const open = derived(apps, ($apps) => $apps.get(id)?.open ?? false);
-
-	onMount(() => {
-		console.log('GUD is open = ', $open, startOpen);
-	});
 </script>
 
 {#if $open}
