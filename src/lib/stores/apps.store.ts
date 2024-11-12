@@ -5,6 +5,7 @@ export interface App {
 	id: string;
 	name: string;
 	zIndex: number;
+	open: boolean;
 }
 
 const Z_INDEX_LOWER_BOUND = 1000;
@@ -19,9 +20,13 @@ export const getActiveApp = () => {
 	return null;
 };
 
-export const registerApp = (name: string): string => {
-	const id: string = uuidv4();
-	apps.update((prev) => prev.set(id, { id, name, zIndex: 0 }));
+export const registerApp = (
+	name: string,
+	open: boolean,
+	preferredId: string | null = null
+): string => {
+	const id: string = preferredId && getApp(preferredId) == null ? preferredId : uuidv4();
+	apps.update((prev) => prev.set(id, { id, name, zIndex: 0, open }));
 	setActiveApp(id);
 	return id;
 };
@@ -44,7 +49,14 @@ const getNextZIndex = (): number => {
 
 export const setActiveApp = (id: string) => {
 	if (get(activeAppId) !== id) {
-		apps.update((prev) => prev.set(id, { ...prev.get(id)!, zIndex: getNextZIndex() }));
+		apps.update((prev) => prev.set(id, { ...prev.get(id)!, zIndex: getNextZIndex(), open: true }));
 		activeAppId.set(id);
 	}
+};
+
+// This shoud be called to open or close a specific window with a specific name
+// SHOULD ONLY BE CALLED ON WINDOWS
+export const setVisible = (id: string, open: boolean) => {
+	const app = [...get(apps).values()].find((a) => a.id === id);
+	if (app) apps.update((prev) => prev.set(app.id, { ...app, open }));
 };

@@ -5,10 +5,13 @@
 	import { GRID, type Resize, type Size } from '$lib/utils/windows';
 	import { draggable } from '@neodrag/svelte';
 	import App from '../app/App.svelte';
+	import { setVisible } from '$lib/stores/apps.store';
+
+	let id: string;
 
 	export let name: string = 'Window';
+	export let preferredId: string | null = null;
 	export let expanded: boolean = true;
-
 	export let resizeTo: Resize | undefined = DEFAULT_SIZE;
 
 	export let debug: boolean = false;
@@ -27,8 +30,8 @@
 </script>
 
 <!-- svelte-ignore a11y-no-static-element-interactions -->
-<App {name}>
-	<svelte:fragment let:active let:setActive let:unregister let:zIndex>
+<App {name} {preferredId} bind:id>
+	<svelte:fragment let:active let:setActive let:zIndex>
 		<div
 			class:shadow-window={active}
 			class:bg-gray-400={active}
@@ -48,7 +51,7 @@
 			<TitleBar
 				title={name}
 				{active}
-				onClose={unregister}
+				onClose={() => setVisible(id, false)}
 				onZoom={resize}
 				onCollapse={toggleCollapse}
 			>
