@@ -1,37 +1,44 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import Window from '$lib/components/window/Window.svelte';
 	import ResizeableFrame from '$lib/components/window/frames/ResizeableFrame.svelte';
 	import Accordion from './Accordion.svelte';
 	import Card from './Card.svelte';
+	import { faq } from './faq';
+	import { stickyNoteColors } from '$lib/components/sticky_note/sticky-colors';
+
+	const colors = Object.keys(stickyNoteColors);
+	let colorIdx = 0;
+
+	const nextColor = () => {
+		const color = colors[colorIdx];
+		colorIdx = (colorIdx + 1) % colors.length;
+		return color;
+	};
+	let faqCards: HTMLElement[] = [];
+
+	const onResizeStart = () => {
+		faqCards.forEach((card) => {
+			card.dispatchEvent(new Event('resize-start'));
+		});
+	};
+
+	onMount(() => {
+		faqCards = Array.from(document.querySelectorAll('#faq-card'));
+	});
 </script>
 
 <Window name="Tracks">
 	<svelte:fragment let:size let:active>
-		<ResizeableFrame {size} {active}>
+		<ResizeableFrame {size} {active} {onResizeStart}>
 			<div class="flex h-full flex-col gap-2 bg-gray-300 p-4">
-				<Accordion title="General">
-					<Card
-						question="What is the purpose of this FAQ?"
-						answer="To provide answers to common questions."
-					/>
-					<Card
-						question="What is a hackathon?"
-						answer="A hackathon is an event where people come together to create software or hardware projects."
-					/>
-					<Card question="How do I participate?" answer="You can register on our website." />
-					<Card question="How do I participate?" answer="You can register on our website." />
-					<Card question="How do I participate?" answer="You can register on our website." />
-				</Accordion>
-				<Accordion title="Travel">
-					<Card question="What travel arrangements are provided?" answer="None lmao" />
-				</Accordion>
-				<Accordion title="Accommodations">
-					<Card
-						question="What accomodations are provided?"
-						answer="We provide a list of nearby hotels. You have to buy them though good luck with that."
-					/>
-					<Card question="Will there be food?" answer="If you bring it yourself." />
-				</Accordion>
+				{#each Object.entries(faq) as [title, questions]}
+					<Accordion {title}>
+						{#each questions as { question, answer }}
+							<Card color={nextColor()} {question} {answer} />
+						{/each}
+					</Accordion>
+				{/each}
 			</div>
 		</ResizeableFrame>
 	</svelte:fragment>

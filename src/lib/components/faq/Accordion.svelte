@@ -28,7 +28,7 @@
 		class:open-acc={opened}
 	>
 		<div
-			class="inline-block flex w-full flex-wrap gap-4 overflow-hidden border border-solid border-black p-4"
+			class="qa-container relative inline-block w-full overflow-hidden border border-solid border-black p-4"
 		>
 			<slot />
 		</div>
@@ -36,6 +36,12 @@
 </div>
 
 <style lang="postcss">
+	.qa-container {
+		columns: 300px 3;
+		column-fill: balance;
+		column-gap: 1rem;
+	}
+
 	.open-acc {
 		max-height: 1000px;
 		transition: max-height 0.6s ease-in;

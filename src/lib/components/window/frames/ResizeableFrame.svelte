@@ -8,6 +8,8 @@
 
 	export let minSize: Size = { w: 250, h: 250 };
 	export let size: Size;
+	export let onResizeStart: (e: MouseEvent) => void = () => {};
+	let resizeStarted = false;
 	let startResize: (e: MouseEvent) => void;
 </script>
 
@@ -30,7 +32,16 @@
 					class="h-[16px] w-[16px]"
 					src="/assets/scrollbar/size_box.png"
 					alt="Drag me"
-					on:mousedown={startResize}
+					on:mousedown={(e) => {
+						if (!resizeStarted) {
+							onResizeStart(e);
+							resizeStarted = true;
+						}
+						startResize(e);
+					}}
+					on:mouseup={() => {
+						resizeStarted = false;
+					}}
 					draggable="false"
 				/>
 			</div>
