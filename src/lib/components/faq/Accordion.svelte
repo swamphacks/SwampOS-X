@@ -22,13 +22,9 @@
 	</button>
 
 	<!-- Q&A Cards -->
-	<div
-		class="h-full w-full overflow-hidden bg-white"
-		class:close-acc={!opened}
-		class:open-acc={opened}
-	>
+	<div class="h-full w-full overflow-hidden" class:close-acc={!opened} class:open-acc={opened}>
 		<div
-			class="qa-container relative inline-block w-full overflow-hidden border border-solid border-black p-4"
+			class="qa-container relative inline-block w-full overflow-hidden border border-solid border-black bg-white p-4"
 		>
 			<slot />
 		</div>
