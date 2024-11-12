@@ -70,6 +70,10 @@ body {
 		font-style: normal;
 	}
 
+	.icon-text {
+		font-family: Content;
+	}
+
 	.disable-blur {
 		image-rendering: pixelated;
 	}
