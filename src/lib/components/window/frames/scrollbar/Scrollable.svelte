@@ -9,6 +9,7 @@
 
 	export let active: boolean;
 	export let setActive: () => void;
+	export let color: string = '';
 
 	$: width = `${size.w}px`;
 	$: height = `${size.h}px`;
@@ -18,7 +19,12 @@
 </script>
 
 <div class="svlr-wrapper" style="width: {width}; height: {height}">
-	<StandardFrame size={{ ...size, w: size.w - 16 }} maxSize={{ ...size, w: size.w - 16 }} {active}>
+	<StandardFrame
+		size={{ ...size, w: size.w - 16 }}
+		maxSize={{ ...size, w: size.w - 16 }}
+		{active}
+		{color}
+	>
 		<div bind:this={viewport} class="svlr-viewport mr-4 h-full" style:width={size.w - 16}>
 			<div bind:this={contents} class="svlr-contents">
 				<slot />
