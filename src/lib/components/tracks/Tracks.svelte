@@ -1,14 +1,14 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import type { Size } from '$lib/utils/windows';
 	import Window from '$lib/components/window/Window.svelte';
 	import StandardFrame from '$lib/components/window/frames/StandardFrame.svelte';
 	import Card from './Card.svelte';
 
-	let maxSize: Size, size: Size;
+	let maxSize = { w: 300, h: 684 };
+	let size = { w: 300, h: 684 };
+	let innerWidth = 0;
 
 	function resize() {
-		console.log(window.innerWidth);
 		if (window.innerWidth >= 600) {
 			maxSize = { w: 500, h: 684 };
 			size = { w: 500, h: 684 };
@@ -18,11 +18,10 @@
 		}
 	}
 
-	resize();
 	onMount(resize);
 </script>
 
-<svelte:window on:resize={resize} />
+<svelte:window bind:innerWidth on:resize={resize} />
 <Window name="Tracks">
 	<svelte:fragment let:active>
 		<StandardFrame {size} {active} {maxSize}>
