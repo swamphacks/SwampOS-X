@@ -28,7 +28,7 @@
 	});
 </script>
 
-<Window name="Tracks">
+<Window name="FAQs">
 	<svelte:fragment let:size let:active let:setActive>
 		<ResizeableFrame {size} {active} {setActive} {onResizeStart} color={'#cccccc'}>
 			<div class="flex h-full flex-col gap-2 p-4">
