@@ -16,18 +16,16 @@
 		return color;
 	};
 
-	let faqCards: HTMLElement[] = [];
 	const minResize = { w: 350, h: 450 };
 	let size = { w: 350, h: 450 };
 
 	const onResizeStart = () => {
-		faqCards.forEach((card) => {
+		document.querySelectorAll('#faq-card').forEach((card) => {
 			card.dispatchEvent(new Event('resize-start'));
 		});
 	};
 
 	onMount(() => {
-		faqCards = Array.from(document.querySelectorAll('#faq-card'));
 		if (window.innerWidth < 650) {
 			size = {
 				w: Math.min(window.innerWidth - 10, 350),
