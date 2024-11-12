@@ -13,7 +13,6 @@
 
 	let el: HTMLElement;
 	const onResizeStart = () => {
-		console.log('resize start');
 		el.style.zIndex = '0';
 		position = { x: 0, y: 0 };
 	};
@@ -33,7 +32,7 @@
 
 <div
 	id="faq-card"
-	class="column-settings relative mb-4 max-w-[300px] text-wrap border border-solid p-2 transition duration-75 ease-linear"
+	class="column-settings relative mb-4 max-w-[300px] text-wrap border border-solid p-2 font-chicago transition duration-75 ease-linear"
 	bind:this={el}
 	style="background-color: {colorConfig.main_color}; border-left-color: white; border-top-color: white; border-right-color: {colorConfig.highlight_color}; border-bottom-color: {colorConfig.highlight_color};"
 	on:neodrag:start={() => {
@@ -46,7 +45,7 @@
 		bounds: 'parent'
 	}}
 >
-	<h2 class="pb-2 text-xl font-bold">{question}</h2>
+	<h2 class="pb-2 text-2xl font-bold">{question}</h2>
 	<p class="text-sm">{answer}</p>
 </div>
 

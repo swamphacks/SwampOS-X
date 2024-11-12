@@ -17,8 +17,8 @@
 	};
 
 	let faqCards: HTMLElement[] = [];
+	const minResize = { w: 350, h: 450 };
 	let size = { w: 350, h: 450 };
-	const minResize = { w: 300, h: 450 };
 
 	const onResizeStart = () => {
 		faqCards.forEach((card) => {
@@ -34,7 +34,8 @@
 				h: Math.min(window.innerHeight - 10, 460)
 			};
 		} else {
-			size = { w: 650, h: Math.min(700, window.innerHeight - 10) };
+			size.w = 650;
+			size.h = Math.min(700, window.innerHeight - 10);
 		}
 	});
 </script>
@@ -42,7 +43,7 @@
 <Window name="FAQs">
 	<svelte:fragment let:active let:setActive>
 		<ResizeableFrame {onResizeStart} bind:size {minResize} {active} {setActive} color={'#cccccc'}>
-			<div class="flex h-full flex-col gap-2 p-4">
+			<div class="flex h-full w-full flex-col gap-2 p-4">
 				{#each Object.entries(faq) as [title, questions]}
 					<Accordion {title}>
 						{#each questions as { question, answer }}
