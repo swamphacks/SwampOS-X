@@ -3,8 +3,6 @@
 	import Scrollable from './scrollbar/Scrollable.svelte';
 	import type { Resize, Size } from '$lib/utils/windows';
 
-	// export let verticalResize: boolean = true;
-
 	export let active: boolean;
 	export let setActive: () => void;
 

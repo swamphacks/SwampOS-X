@@ -4,8 +4,10 @@
 </script>
 
 <div
-	class="relative z-10 flex h-[134px] w-[145px] flex-col items-center gap-2 border-2 border-solid border-black bg-white p-4"
+	class="relative z-10 flex h-[190px] w-[190px] items-center text-wrap border-2 border-solid border-black bg-white p-4"
 >
-	<h1 class="text-2xl">{name}</h1>
-	<img {src} alt={name} />
+	<div class="flex w-full flex-col items-center gap-4">
+		<h1 class="text-center font-chicago text-xl">{name}</h1>
+		<img {src} alt={name} />
+	</div>
 </div>

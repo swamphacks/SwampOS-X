@@ -32,7 +32,7 @@
 
 <div
 	id="faq-card"
-	class="column-settings relative mb-4 max-w-[300px] text-wrap border border-solid p-2"
+	class="column-settings relative mb-4 max-w-[300px] text-wrap border border-solid p-2 font-chicago"
 	bind:this={el}
 	style="background-color: {colorConfig.main_color}; border-left-color: white; border-top-color: white; border-right-color: {colorConfig.highlight_color}; border-bottom-color: {colorConfig.highlight_color};"
 	on:neodrag:start={() => {
@@ -45,8 +45,8 @@
 		bounds: 'parent'
 	}}
 >
-	<h2 class="pb-2 text-lg font-bold">{question}</h2>
-	<p>{answer}</p>
+	<h2 class="pb-2 text-xl font-bold">{question}</h2>
+	<p class="text-sm">{answer}</p>
 </div>
 
 <style>

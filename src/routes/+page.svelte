@@ -4,7 +4,7 @@
 	// import ResizeableFrame from '$lib/components/window/frames/ResizeableFrame.svelte';
 	// import StandardFrame from '$lib/components/window/frames/StandardFrame.svelte';
 	// import Window from '$lib/components/window/Window.svelte';
-	// import Tracks from '$lib/components/tracks/Tracks.svelte';
+	import Tracks from '$lib/components/tracks/Tracks.svelte';
 	import FAQ from '$lib/components/faq/FAQ.svelte';
 	// import type { Position } from '$lib/utils/windows';
 
@@ -63,5 +63,6 @@
 <!-- {#each Array.from({ length: K }) as _, i} -->
 <!-- 	{#each Object.keys(stickyNoteColors) as color} -->
 <StickyNote text="Test sticky note" startAt={{ x: 100, y: 100 }} />
+<Tracks />
 <!-- 	{/each} -->
 <!-- {/each} -->

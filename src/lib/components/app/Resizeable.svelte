@@ -2,7 +2,6 @@
 	import type { Position, Resize, Size } from '$lib/utils/windows';
 
 	export let size: Size;
-	export let verticalResize: boolean = true;
 	export let minResize: Resize | null = null;
 
 	let startLocation: Position | null;
@@ -18,7 +17,7 @@
 
 		// Mouse delta
 		const dx = pageX - startLocation.x;
-		const dy = verticalResize ? pageY - startLocation.y : 0;
+		const dy = pageY - startLocation.y;
 
 		// Corresponding size
 		const W = startSize.w + dx,
