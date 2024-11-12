@@ -8,11 +8,13 @@
 	export let margin: { top?: number; right?: number; bottom?: number; left?: number } = {};
 
 	export let startResize: (e: MouseEvent) => void;
+	export let onResizeStart: () => void;
 
 	export let active: boolean;
 	export let setActive: () => void;
 
 	const BUTTONS_HEIGHT = 16;
+	let resized = false;
 
 	let vThumb: HTMLElement;
 
@@ -130,6 +132,18 @@
 		document.removeEventListener('touchend', onThumbUp);
 	}
 
+	function onResize(e: MouseEvent) {
+		startResize(e);
+		if (!resized) {
+			resized = true;
+			onResizeStart();
+		}
+	}
+
+	function onResizeEnd() {
+		resized = false;
+	}
+
 	onDestroy(() => {
 		teardownViewport?.();
 		teardownContents?.();
@@ -161,12 +175,13 @@
 	</div>
 
 	<!-- svelte-ignore a11y-no-static-element-interactions -->
-	<div class="h-4 w-4" on:mousedown={startResize}>
+	<div class="h-4 w-4" on:mousedown={onResize} on:mouseup={onResizeEnd}>
 		<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
 		<img
 			src="/assets/scrollbar/size_box.png"
 			alt="Resize handle"
-			on:mousedown={startResize}
+			on:mousedown={onResize}
+			on:mouseup={onResizeEnd}
 			draggable="false"
 		/>
 	</div>

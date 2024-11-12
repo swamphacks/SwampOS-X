@@ -6,6 +6,8 @@
 	import { setVisible } from '$lib/stores/apps.store';
 	import type { Position } from '$lib/utils/windows';
 	import { onMount } from 'svelte';
+	import Tracks from '$lib/components/tracks/Tracks.svelte';
+	import FAQ from '$lib/components/faq/FAQ.svelte';
 
 	interface DesktopIconProps {
 		icon_name: string;
@@ -83,8 +85,10 @@
 </script>
 
 <MenuBar />
-
 <Welcome />
+
+<Tracks />
+<FAQ />
 
 <!-- ICONS -->
 {#each DesktopIconList as icon (icon.id)}
