@@ -40,7 +40,7 @@
 	});
 </script>
 
-<Window name="FAQs">
+<Window name="FAQs" startOpen={false} preferredId="faqs">
 	<svelte:fragment let:active let:setActive>
 		<ResizeableFrame {onResizeStart} bind:size {minResize} {active} {setActive} color={'#cccccc'}>
 			<div class="flex h-full w-full flex-col gap-2 p-4">

@@ -45,7 +45,8 @@
 				cancel: '.cancel',
 				bounds: {
 					top: 30 + 1 // MenuBar height + border
-				}
+				},
+				defaultPosition: { x: 45, y: 45 }
 			}}
 			on:mousedown={setActive}
 			style="z-index: {zIndex}"
