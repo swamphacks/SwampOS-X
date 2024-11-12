@@ -2,10 +2,30 @@
 	import { clickOutside } from '$lib/utils/clicks';
 	import { draggable } from '@neodrag/svelte';
 	import icons, { type IconName } from './icons';
+	import type { Position } from '$lib/utils/windows';
 
 	export let icon_name: IconName;
 	export let label: string;
 	export let onOpen: () => void = () => {};
+	export let startAt: Position = { x: 0, y: 0 };
+
+	let size = '60px';
+
+	// Check if we are running in the browser
+	if (typeof window !== 'undefined') {
+		const mediaQuery = window.matchMedia('(max-width: 640px)');
+		if (mediaQuery.matches) {
+			size = '45px';
+		}
+
+		mediaQuery.addEventListener('change', (event) => {
+			if (event.matches) {
+				size = '45px';
+			} else {
+				size = '60px';
+			}
+		});
+	}
 
 	let active: boolean = false;
 </script>
@@ -14,9 +34,11 @@
 
 <div
 	use:draggable={{
-		defaultPosition: { x: 0, y: 0 },
+		defaultPosition: startAt,
 		grid: [30, 30],
-		bounds: 'parent',
+		bounds: {
+			top: 30 + 1
+		},
 		onDragStart: () => {
 			active = true;
 		}
@@ -26,7 +48,8 @@
 			active = false;
 		}
 	}}
-	class=" relative flex h-[60px] w-[60px] flex-col items-center justify-center hover:cursor-default"
+	class=" relative flex flex-col items-center justify-center hover:cursor-default"
+	style="height: {size}; width: {size};"
 	on:dblclick={() => {
 		onOpen();
 		active = false;

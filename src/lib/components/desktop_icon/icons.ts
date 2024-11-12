@@ -61,7 +61,10 @@ const icons: { [key: string]: string } = {
 	language_file: '/assets/system/language_file.png',
 	question: '/assets/system/question.png',
 	sound_settings: '/assets/system/sound_settings.png',
-	trash_full: '/assets/system/trash_full.png'
+	trash_full: '/assets/system/trash_full.png',
+	gud_logo: '/assets/desktop/gud-logo.png',
+	speakers: '/assets/desktop/speakers.png',
+	faq: '/assets/desktop/faq.png'
 } as const;
 
 // Create a type for the keys of the icons object

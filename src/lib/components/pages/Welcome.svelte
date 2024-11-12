@@ -1,11 +1,9 @@
 <script>
 	import StandardFrame from '../window/frames/StandardFrame.svelte';
 	import Window from '../window/Window.svelte';
-
-	export let defaultOpen = false;
 </script>
 
-<Window name="Welcome!" {defaultOpen}>
+<Window name="Welcome!" preferredId="welcome">
 	<slot slot="icon">
 		<img
 			class="w-[13px]"

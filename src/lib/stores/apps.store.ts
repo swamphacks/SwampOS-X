@@ -20,8 +20,12 @@ export const getActiveApp = () => {
 	return null;
 };
 
-export const registerApp = (name: string, open: boolean): string => {
-	const id: string = uuidv4();
+export const registerApp = (
+	name: string,
+	open: boolean,
+	preferredId: string | null = null
+): string => {
+	const id: string = preferredId && getApp(preferredId) == null ? preferredId : uuidv4();
 	apps.update((prev) => prev.set(id, { id, name, zIndex: 0, open }));
 	setActiveApp(id);
 	return id;
@@ -50,8 +54,9 @@ export const setActiveApp = (id: string) => {
 	}
 };
 
-// Shoudl ONLY be called by desktop icon component for static pages
-export const openApp = (name: string) => {
-	const app = [...get(apps).values()].find((a) => a.name === name);
-	if (app) setActiveApp(app.id);
+// This shoud be called to open or close a specific window with a specific name
+// SHOULD ONLY BE CALLED ON WINDOWS
+export const setVisible = (id: string, open: boolean) => {
+	const app = [...get(apps).values()].find((a) => a.id === id);
+	if (app) apps.update((prev) => prev.set(app.id, { ...app, open }));
 };
