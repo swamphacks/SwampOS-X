@@ -26,7 +26,7 @@
 				/>
 
 				<h1 class="title-text text-5xl menu-md:text-6xl menu-lg:text-8xl menu-3xl:text-9xl">
-					Swamphacks X
+					SwampHacks X
 				</h1>
 
 				<h2 class="title-text text-2xl menu-md:text-3xl menu-lg:text-5xl menu-3xl:text-6xl">
@@ -34,7 +34,7 @@
 				</h2>
 
 				<h2 class="title-text text-xl menu-md:text-2xl menu-lg:text-4xl menu-3xl:text-5xl">
-					January 24-26th
+					January 25-26th
 				</h2>
 
 				<a

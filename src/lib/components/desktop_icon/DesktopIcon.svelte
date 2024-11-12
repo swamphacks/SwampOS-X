@@ -35,7 +35,7 @@
 <div
 	use:draggable={{
 		defaultPosition: startAt,
-		grid: [30, 30],
+		grid: [5, 5],
 		bounds: {
 			top: 30 + 1
 		},
