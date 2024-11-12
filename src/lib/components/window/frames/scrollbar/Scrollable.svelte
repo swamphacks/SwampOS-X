@@ -5,6 +5,7 @@
 
 	export let size: Size;
 	export let startResize: (e: MouseEvent) => void;
+	export let onResizeStart: () => void;
 
 	export let active: boolean;
 	export let setActive: () => void;
@@ -25,7 +26,16 @@
 		</div>
 	</StandardFrame>
 
-	<Scrollbar {viewport} {contents} {active} {setActive} {startResize} on:show on:hide />
+	<Scrollbar
+		{viewport}
+		{contents}
+		{active}
+		{setActive}
+		{startResize}
+		{onResizeStart}
+		on:show
+		on:hide
+	/>
 </div>
 
 <style>

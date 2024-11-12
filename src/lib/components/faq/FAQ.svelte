@@ -29,8 +29,8 @@
 </script>
 
 <Window name="Tracks">
-	<svelte:fragment let:size let:active>
-		<ResizeableFrame {size} {active} {onResizeStart}>
+	<svelte:fragment let:size let:active let:setActive>
+		<ResizeableFrame {size} {active} {setActive} {onResizeStart}>
 			<div class="flex h-full flex-col gap-2 bg-gray-300 p-4">
 				{#each Object.entries(faq) as [title, questions]}
 					<Accordion {title}>
