@@ -16,6 +16,7 @@
 			class={opened ? 'open-arrow' : 'close-arrow'}
 			height={8}
 			width={15}
+			draggable="false"
 		/>
 		<img src="/assets/faq/help.png" alt={title} width={33} height={33} />
 		<h1 class="text-lg">{title}</h1>

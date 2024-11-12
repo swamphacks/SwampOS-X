@@ -36,6 +36,7 @@
 							class:w-[100px]={small}
 							src="/assets/tracks/rainbow.png"
 							alt="Rainbow"
+							draggable="false"
 						/>
 						<div class="relative flex flex-wrap justify-evenly gap-8 py-8">
 							<Card {small} name="AI" src="/assets/tracks/ai.png" />

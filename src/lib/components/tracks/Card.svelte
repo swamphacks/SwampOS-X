@@ -11,7 +11,7 @@
 >
 	<div class="flex w-full flex-col items-center gap-4">
 		<h1 class="text-center font-chicago">{name}</h1>
-		<img {src} alt={name} width={small ? 30 : 50} height={small ? 30 : 50} />
+		<img {src} alt={name} width={small ? 30 : 50} height={small ? 30 : 50} draggable="false" />
 	</div>
 </div>
 
