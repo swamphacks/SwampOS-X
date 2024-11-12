@@ -4,6 +4,7 @@
 	export let size: Size;
 	export let active: boolean;
 	export let infinitelyWide: boolean = false;
+	export let maxSize: Size | null = null;
 </script>
 
 <div
@@ -13,6 +14,8 @@
 	class:whitespace-nowrap={infinitelyWide}
 	class="h-full w-full overflow-scroll border-[1px] border-primary-black bg-primary-white"
 	style="min-width: {size.w}px; min-height: {size.h}px"
+	style:max-width={maxSize?.w ? `${maxSize.w}px` : 'none'}
+	style:max-height={maxSize?.h ? `${maxSize.h}px` : 'none'}
 >
 	<slot />
 </div>

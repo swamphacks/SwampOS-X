@@ -15,10 +15,27 @@ body {
 	}
 
 	@font-face {
+		font-family: Chicago;
+		font-style: normal;
+		font-weight: bold;
+		ascent-override: 90%;
+		src: url('/assets/fonts/chicago/ChicagoFLF2.ttf');
+	}
+
+	@font-face {
 		font-family: Content;
 		font-style: normal;
 		font-weight: normal;
 		src: url('/assets/fonts/geneva/geneva.ttf');
+	}
+
+	@font-face {
+		font-family: AppleGaramond;
+		src: url('/assets/fonts/apple_garamond/AppleGaramond-Light.ttf');
+	}
+	@font-face {
+		font-family: AppleGaramondItalic;
+		src: url('/assets/fonts/apple_garamond/AppleGaramond-Italic.ttf');
 	}
 
 	body {
@@ -29,12 +46,21 @@ body {
 		resize: none;
 	}
 
+	.title-text {
+		font-family: AppleGaramond;
+	}
+
+	.link-text {
+		font-family: AppleGaramondItalic;
+	}
+
 	.headline {
 		font-family: Headlines;
 		font-size: 12px;
 		font-style: normal;
 		font-weight: 400;
-		line-height: 98%; /* 11.76px */
+		line-height: 98%;
+		/* 11.76px */
 		letter-spacing: 0.42px;
 	}
 
