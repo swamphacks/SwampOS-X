@@ -26,7 +26,7 @@ export const SwampHacksMenu: MenuSetting = {
 			{
 				name: 'About SwampHacks',
 				enabled: true,
-				action: () => console.log('About SwampHacks')
+				action: () => (window.location.href = 'https://www.instagram.com/ufswamphacks/')
 			}
 		]
 	]

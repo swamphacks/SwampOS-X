@@ -7,79 +7,86 @@
 	let apps: AppInfo[] = [
 		{
 			el: undefined as unknown as HTMLButtonElement,
-			name: 'AppleTalk',
-			src: 'apple_talk.png',
-			url: 'https://en.wikipedia.org/wiki/AppleTalk',
-			display: true
+			name: 'Discord',
+			src: 'discord.png',
+			display: true,
+			url: 'https://discord.gg/NfRPv9JtAG'
 		},
 		{
 			el: undefined as unknown as HTMLButtonElement,
-			name: 'CD',
-			src: 'cd.png',
-			url: 'https://www.apple.com/shop/product/MD564LL/A/apple-usb-superdrive',
-			display: true
+			name: 'Instagram',
+			src: 'instagram.png',
+			display: true,
+			url: 'https://www.instagram.com/ufswamphacks/'
 		},
 		{
 			el: undefined as unknown as HTMLButtonElement,
-			name: 'File Sharing',
-			src: 'file_sharing.png',
-			url: 'https://support.apple.com/guide/mac-help/set-up-file-sharing-on-mac-mh17131/mac',
-			display: true
+			name: 'Printer',
+			src: 'printer.png',
+			display: true,
+			url: 'mailto:contact@swamphacks.com'
 		},
 		{
 			el: undefined as unknown as HTMLButtonElement,
 			name: 'iTunes',
 			src: 'itunes.png',
-			url: 'https://www.apple.com/itunes/',
+			display: true,
+			url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
+		},
+		{
+			el: undefined as unknown as HTMLButtonElement,
+			name: 'Web Sharing',
+			src: 'web_sharing.png',
 			display: true
 		},
+		// {
+		// 	el: undefined as unknown as HTMLButtonElement,
+		// 	name: 'AppleTalk',
+		// 	src: 'apple_talk.png',
+		// 	display: true
+		// },
+		// {
+		// 	el: undefined as unknown as HTMLButtonElement,
+		// 	name: 'CD',
+		// 	src: 'cd.png',
+		// 	display: true
+		// },
+		// {
+		// 	el: undefined as unknown as HTMLButtonElement,
+		// 	name: 'File Sharing',
+		// 	src: 'file_sharing.png',
+		// 	display: true
+		// },
+
 		{
 			el: undefined as unknown as HTMLButtonElement,
 			name: 'Keychain',
 			src: 'keychain_strip.png',
-			url: 'https://support.apple.com/en-us/109016',
 			display: true
 		},
 		{
 			el: undefined as unknown as HTMLButtonElement,
 			name: 'Monitor Resolution',
 			src: 'monitor_resolution.png',
-			url: 'https://www.apple.com/studio-display/specs/',
 			display: true
 		},
 		{
 			el: undefined as unknown as HTMLButtonElement,
 			name: 'Remote Access',
 			src: 'remote_access.png',
-			url: 'https://www.apple.com/shop/product/MW5G3AM/A/siri-remote?fnode=e5e98a68b7ea2facf7ec647de751e6ec25015cb6c1a69da7a217c0d2d31198673584645910873dcb527fd608caf353dd16bd25c4d504f2bdf2f43bd21b035d931c25a78eb49e301b51a2793d8595694566eaa586ba0a685482e7727326eb3314b34ef3d65903111295df307ab9690c9a',
 			display: true
 		},
 		{
 			el: undefined as unknown as HTMLButtonElement,
 			name: 'Monitor Bitdepth',
 			src: 'monitor_bitdepth.png',
-			url: 'https://discussions.apple.com/thread/251820885?sortBy=rank',
 			display: true
 		},
-		{
-			el: undefined as unknown as HTMLButtonElement,
-			name: 'Printer',
-			src: 'printer.png',
-			url: 'https://en.wikipedia.org/wiki/Printer_(computing)',
-			display: true
-		},
+
 		{
 			el: undefined as unknown as HTMLButtonElement,
 			name: 'Volume',
 			src: 'sound_volume.png',
-			url: 'https://en.wikipedia.org/wiki/Volume_(computing)',
-			display: true
-		},
-		{
-			el: undefined as unknown as HTMLButtonElement,
-			name: 'Web Sharing',
-			src: 'web_sharing.png',
-			url: 'https://en.wikipedia.org/wiki/World_Wide_Web',
 			display: true
 		}
 	];
