@@ -19,7 +19,7 @@
 
 <div class="svlr-wrapper" style="width: {width}; height: {height}">
 	<StandardFrame size={{ ...size, w: size.w - 16 }} maxSize={{ ...size, w: size.w - 16 }} {active}>
-		<div bind:this={viewport} class="svlr-viewport mr-4 h-full" style:width={size.w - 16}>
+		<div bind:this={viewport} class="svlr-viewport h-full bg-gray-200" style:width={size.w - 16}>
 			<div bind:this={contents} class="svlr-contents">
 				<slot />
 			</div>

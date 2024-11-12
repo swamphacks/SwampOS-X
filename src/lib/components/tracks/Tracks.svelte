@@ -1,13 +1,13 @@
 <script lang="ts">
 	import Window from '$lib/components/window/Window.svelte';
-	import ResizeableFrame from '$lib/components/window/frames/ResizeableFrame.svelte';
+	import StandardFrame from '../window/frames/StandardFrame.svelte';
 	import Card from './Card.svelte';
 </script>
 
 <Window name="Tracks">
 	<svelte:fragment let:size let:active>
-		<ResizeableFrame {size} {active} verticalResize={false} infinitelyWide={true}>
-			<div class="flex min-w-[350px] flex-col items-center justify-center">
+		<StandardFrame {size} {active}>
+			<div class="flex flex-col items-center justify-center">
 				<div class="relative">
 					<div class="grid grid-cols-2 gap-x-10 gap-y-6 py-8">
 						<Card name="Media" src="/assets/tracks/media.png" />
@@ -24,6 +24,6 @@
 					/>
 				</div>
 			</div>
-		</ResizeableFrame>
+		</StandardFrame>
 	</svelte:fragment>
 </Window>
