@@ -10,6 +10,8 @@
 	export let startAt: Position = { x: 0, y: 0 };
 
 	let size = '60px';
+	let lastTapTime = 0;
+	const doubleTapDelay = 300;
 
 	// Check if we are running in the browser
 	if (typeof window !== 'undefined') {
@@ -25,6 +27,23 @@
 				size = '60px';
 			}
 		});
+	}
+
+	function doubleClick() {
+		onOpen();
+		active = false;
+	}
+
+	function handleDoubleTap() {
+		const currentTime = new Date().getTime();
+		const timeSinceLastTap = currentTime - lastTapTime;
+
+		// Handle double tap
+		if (timeSinceLastTap < doubleTapDelay && timeSinceLastTap > 0) {
+			doubleClick();
+		}
+
+		lastTapTime = currentTime;
 	}
 
 	let active: boolean = false;
@@ -50,10 +69,8 @@
 	}}
 	class=" relative flex flex-col items-center justify-center hover:cursor-default"
 	style="height: {size}; width: {size};"
-	on:dblclick={() => {
-		onOpen();
-		active = false;
-	}}
+	on:touchend={handleDoubleTap}
+	on:dblclick={doubleClick}
 	role="button"
 	tabindex="0"
 >

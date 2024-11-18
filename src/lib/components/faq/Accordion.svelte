@@ -19,7 +19,7 @@
 			draggable="false"
 		/>
 		<img src="/assets/faq/help.png" alt={title} width={33} height={33} />
-		<h1 class="text-lg">{title}</h1>
+		<h1 class="font-chicago text-lg">{title}</h1>
 	</button>
 
 	<!-- Q&A Cards -->
