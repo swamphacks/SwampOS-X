@@ -52,6 +52,10 @@ export const faq: Record<string, QA[]> = {
 			question: 'What happens after the Hackathon ends?',
 			answer:
 				"After the 24-hour hacking period, teams will present their projects to judges. Awards will be given, and you'll have a chance to showcase your hard work."
+		},
+		{
+			question: "What are some important rules I need to know before the hackathon?",
+			answer: "All hackers are required to follow the MLH Code of Conduct which can be found at https://bit.ly/4eXbbDe"
 		}
 	],
 	'Venue & Food': [
