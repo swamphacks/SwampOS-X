@@ -1,12 +1,12 @@
 <script lang="ts">
 	import MenuBar from '$lib/components/menu_bar/MenuBar.svelte';
 	import ControlStrip from '$lib/components/control_strip/ControlStrip.svelte';
-	import Welcome from '$lib/components/pages/Welcome.svelte';
+	import Welcome from '$lib/components/Welcome/Welcome.svelte';
 	import DesktopIcon from '$lib/components/desktop_icon/DesktopIcon.svelte';
 	import { setActiveApp, setVisible } from '$lib/stores/apps.store';
 	import type { Position } from '$lib/utils/windows';
 	import { onMount } from 'svelte';
-	import GUD from '$lib/components/pages/GUD.svelte';
+	import GUD from '$lib/components/GUD/GUD.svelte';
 	import Tracks from '$lib/components/tracks/Tracks.svelte';
 	import FAQ from '$lib/components/faq/FAQ.svelte';
 
