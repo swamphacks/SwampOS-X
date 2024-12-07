@@ -3,14 +3,14 @@
 	import Window from '../window/Window.svelte';
 </script>
 
-<Window name="Welcome!" preferredId="sponsors">
+<Window name="Sponsors" preferredId="sponsors">
 	<slot slot="icon">
 		<img
 			class="w-[13px]"
 			draggable="false"
 			on:contextmenu={(e) => e.preventDefault()}
-			src="/assets/applications/website.png"
-			alt="Globe icon"
+			src="/assets/folders/favorites.png"
+			alt="Favorites folder icon"
 		/>
 	</slot>
 
