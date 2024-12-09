@@ -56,7 +56,10 @@
 		defaultPosition: startAt,
 		grid: [5, 5],
 		bounds: {
-			top: 30 + 1
+			top: 30 + 1,
+			bottom: 30 + 1,
+			left: 5,
+			right: 5
 		},
 		onDragStart: () => {
 			active = true;
@@ -67,7 +70,7 @@
 			active = false;
 		}
 	}}
-	class=" relative flex flex-col items-center justify-center hover:cursor-default"
+	class="absolute flex flex-col items-center justify-center hover:cursor-default"
 	style="height: {size}; width: {size};"
 	on:touchend={handleDoubleTap}
 	on:dblclick={doubleClick}

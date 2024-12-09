@@ -9,6 +9,7 @@
 	import GUD from '$lib/components/GUD/GUD.svelte';
 	import Tracks from '$lib/components/tracks/Tracks.svelte';
 	import FAQ from '$lib/components/faq/FAQ.svelte';
+	import Sponsors from '$lib/components/sponsors/Sponsors.svelte';
 
 	interface DesktopIconProps {
 		icon_name: string;
@@ -21,25 +22,25 @@
 		icons: Omit<DesktopIconProps, 'pos'>[],
 		windowWidth: number,
 		windowHeight: number,
-		iconSize: number = 0,
-		padding: number = 40
+		iconSize: number = 60,
+		padding: number = 40,
+		beginningXOffset: number = 30,
+		rightMargin: number = 120
 	): DesktopIconProps[] {
-		// Calculate how many columns we can fit
-		const rightMargin = iconSize; // Distance from right edge
-		const maxIconsPerColumn = Math.floor(windowHeight / (iconSize + padding));
+		const maxIconsPerColumn = Math.floor(windowHeight / (iconSize + padding + 20)); // Calcuklate how many icons can fit in a column
 
 		console.log(maxIconsPerColumn);
 
-		// Start positions
+		// Position declarations
 		let currentX = windowWidth - rightMargin;
-		let currentY = padding;
+		let currentY = beginningXOffset;
 		let itemsInCurrentColumn = 0;
 
 		return icons.map((icon) => {
-			// If we've filled the current column, start a new one
+			// Check if column is filled up. If so, move to the next column.
 			if (itemsInCurrentColumn >= maxIconsPerColumn) {
-				currentX -= iconSize + 20;
-				currentY = 40;
+				currentX -= iconSize + padding - 10;
+				currentY = beginningXOffset;
 				itemsInCurrentColumn = 0;
 			}
 
@@ -48,8 +49,7 @@
 				y: currentY
 			};
 
-			// Prepare for next icon
-			currentY += padding + 40;
+			currentY += padding + iconSize;
 			itemsInCurrentColumn++;
 
 			console.log(icon.icon_name, position);
@@ -111,20 +111,10 @@
 				icon_name: 'itunes',
 				label: 'Sponsors',
 				id: 'sponsors'
-			},
-			{
-				icon_name: 'itunes',
-				label: 'Bro',
-				id: 'bro'
-			},
-			{
-				icon_name: 'itunes',
-				label: 'AHHH',
-				id: 'dude'
 			}
 		];
 
-		DesktopIconList = generateIconPositions(icons, width, height, init);
+		DesktopIconList = generateIconPositions(icons, width, height, 60, 60, 30, init);
 	});
 
 	onMount(() => {
@@ -134,11 +124,12 @@
 
 <MenuBar />
 
+<!-- CONTENT -->
 <Welcome />
-
 <Tracks />
 <FAQ />
 <GUD />
+<Sponsors />
 
 <!-- ICONS -->
 {#each DesktopIconList as icon (icon.id)}
