@@ -8,10 +8,10 @@
 	export let tier: Tiers;
 
 	const size = {
-		Tier1: 'h-24',
-		Tier2: 'h-26',
-		Tier3: 'h-44',
-		Food: 'h-16'
+		Tier1: 'h-16 menu-lg:h-24',
+		Tier2: 'h-20 menu-lg:h-26',
+		Tier3: 'h-36 menu-lg:h-44',
+		Food: 'h-10 menu-lg:h-16'
 	}[tier];
 </script>
 
