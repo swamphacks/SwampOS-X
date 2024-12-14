@@ -20,12 +20,15 @@
 		<!-- Size is set to 0 to allow for text size to determine size of the window -->
 		<StandardFrame size={{ w: 0, h: 0 }} {active} infinitelyWide={false}>
 			<div
-				class="flex flex-col items-center justify-center gap-y-10 px-5 py-5 menu-md:px-20 menu-md:py-10"
+				class="flex flex-col items-center justify-center gap-y-6 px-5 py-5 menu-md:gap-y-10 menu-md:px-20 menu-md:py-10"
 			>
 				<h1 class="gud-text text-xl menu-md:text-3xl">Sponsored by</h1>
 				<div class="flex flex-col gap-y-3 menu-md:gap-y-10">
 					{#if sponsors.Tier3}
-						<div class="flex w-full flex-row items-center justify-center">
+						<!-- Margin left is hotfix for weird NextEra Logo -->
+						<div
+							class="ml-4 flex w-full flex-row items-center justify-center menu-md:ml-6 menu-lg:ml-10"
+						>
 							{#each sponsors.Tier3 as sponsor}
 								<SponsorImage
 									tier="Tier3"

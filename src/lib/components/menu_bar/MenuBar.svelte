@@ -83,7 +83,7 @@
 <section
 	class="flex h-menu-lg w-screen items-center border-y border-solid border-b-gray-600 border-t-gray-200 bg-gray-300 px-[8px] font-chicago text-[12px]"
 >
-	<div class="flex flex-nowrap items-center">
+	<div class="flex flex-nowrap items-center" style="z-index: 99999;">
 		<div id="menu-btn" class="relative">
 			<MenuButton name={$swamphacksMenu.name} bind:hoverable bind:display>
 				<img
