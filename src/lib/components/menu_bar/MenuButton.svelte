@@ -26,7 +26,7 @@
 	on:focusout={mouseLeave}
 	class:hover={hoverable}
 	class:selected={display[name]}
-	class="btn-container group z-10"
+	class="btn-container group"
 >
 	<slot />
 </button>
