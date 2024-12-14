@@ -6,6 +6,7 @@
 	import Card from './Card.svelte';
 	import { faq } from './faq';
 	import { stickyNoteColors } from '$lib/components/sticky_note/sticky-colors';
+	import MlhCard from './MlhCard.svelte';
 
 	const colors = Object.keys(stickyNoteColors);
 	let colorIdx = 0;
@@ -44,6 +45,10 @@
 			<div class="flex h-full w-full flex-col gap-2 p-4">
 				{#each Object.entries(faq) as [title, questions]}
 					<Accordion {title}>
+						{#if title == 'Rules & Day of Event'}
+							<MlhCard color={nextColor()} />
+						{/if}
+
 						{#each questions as { question, answer }}
 							<Card color={nextColor()} {question} {answer} />
 						{/each}
