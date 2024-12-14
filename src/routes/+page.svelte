@@ -1,14 +1,15 @@
 <script lang="ts">
 	import MenuBar from '$lib/components/menu_bar/MenuBar.svelte';
 	import ControlStrip from '$lib/components/control_strip/ControlStrip.svelte';
-	import Welcome from '$lib/components/pages/Welcome.svelte';
+	import Welcome from '$lib/components/Welcome/Welcome.svelte';
 	import DesktopIcon from '$lib/components/desktop_icon/DesktopIcon.svelte';
 	import { setActiveApp, setVisible } from '$lib/stores/apps.store';
 	import type { Position } from '$lib/utils/windows';
 	import { onMount } from 'svelte';
-	import GUD from '$lib/components/pages/GUD.svelte';
+	import GUD from '$lib/components/GUD/GUD.svelte';
 	import Tracks from '$lib/components/tracks/Tracks.svelte';
 	import FAQ from '$lib/components/faq/FAQ.svelte';
+	import Sponsors from '$lib/components/sponsors/Sponsors.svelte';
 
 	interface DesktopIconProps {
 		icon_name: string;
@@ -17,20 +18,61 @@
 		pos: Position;
 	}
 
-	// let height: number;
+	function generateIconPositions(
+		icons: Omit<DesktopIconProps, 'pos'>[],
+		windowWidth: number,
+		windowHeight: number,
+		iconSize: number = 60,
+		padding: number = 40,
+		beginningXOffset: number = 30,
+		rightMargin: number = 120
+	): DesktopIconProps[] {
+		const maxIconsPerColumn = Math.floor(windowHeight / (iconSize + padding + 20)); // Calcuklate how many icons can fit in a column
+
+		console.log(maxIconsPerColumn);
+
+		// Position declarations
+		let currentX = windowWidth - rightMargin;
+		let currentY = beginningXOffset;
+		let itemsInCurrentColumn = 0;
+
+		return icons.map((icon) => {
+			// Check if column is filled up. If so, move to the next column.
+			if (itemsInCurrentColumn >= maxIconsPerColumn) {
+				currentX -= iconSize + padding - 10;
+				currentY = beginningXOffset;
+				itemsInCurrentColumn = 0;
+			}
+
+			const position: Position = {
+				x: currentX,
+				y: currentY
+			};
+
+			currentY += padding + iconSize;
+			itemsInCurrentColumn++;
+
+			console.log(icon.icon_name, position);
+
+			return {
+				...icon,
+				pos: position
+			};
+		});
+	}
+
+	let height: number;
 	let width: number;
 
 	let DesktopIconList: DesktopIconProps[] = [];
 
 	let init: number = 120;
 
-	// Check if we are running in the browser
 	if (typeof window !== 'undefined') {
 		const mediaQuery = window.matchMedia('(max-width: 640px)');
 		if (mediaQuery.matches) {
 			init = 100;
 		}
-
 		mediaQuery.addEventListener('change', (event) => {
 			if (event.matches) {
 				init = 100;
@@ -41,47 +83,38 @@
 	}
 
 	onMount(() => {
-		// height = window.innerHeight;
 		width = window.innerWidth;
+		height = window.innerHeight;
 
-		DesktopIconList = [
+		const icons: Omit<DesktopIconProps, 'pos'>[] = [
 			{
 				icon_name: 'internet_browse',
 				label: 'Welcome!',
-				id: 'welcome',
-				pos: {
-					x: width - init,
-					y: 30
-				}
+				id: 'welcome'
 			},
 			{
 				icon_name: 'gud_logo',
 				label: 'GUD',
-				id: 'gud',
-				pos: {
-					x: width - init,
-					y: 100
-				}
+				id: 'gud'
 			},
 			{
 				icon_name: 'tracks',
 				label: 'Tracks',
-				id: 'tracks',
-				pos: {
-					x: width - init,
-					y: 170
-				}
+				id: 'tracks'
 			},
 			{
 				icon_name: 'faq',
 				label: 'FAQs',
-				id: 'faqs',
-				pos: {
-					x: width - init,
-					y: 240
-				}
+				id: 'faqs'
+			},
+			{
+				icon_name: 'itunes',
+				label: 'Sponsors',
+				id: 'sponsors'
 			}
 		];
+
+		DesktopIconList = generateIconPositions(icons, width, height, 60, 60, 30, init);
 	});
 
 	onMount(() => {
@@ -91,11 +124,12 @@
 
 <MenuBar />
 
+<!-- CONTENT -->
 <Welcome />
-
 <Tracks />
 <FAQ />
 <GUD />
+<Sponsors />
 
 <!-- ICONS -->
 {#each DesktopIconList as icon (icon.id)}
