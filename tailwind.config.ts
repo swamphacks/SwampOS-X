@@ -80,6 +80,20 @@ export default {
 			'menu-xl': '800px',
 			'menu-2xl': '960px',
 			'menu-3xl': '1120px'
+		},
+		animation: {
+			'infinite-scroll-left': 'infinite-scroll-left 60s linear infinite',
+			'infinite-scroll-right': 'infinite-scroll-right 60s linear infinite'
+		},
+		keyframes: {
+			'infinite-scroll-left': {
+				'0%': { transform: 'translateX(0)' },
+				'100%': { transform: 'translateX(-100%)' }
+			},
+			'infinite-scroll-right': {
+				'0%': { transform: 'translateX(-80%)' },
+				'100%': { transform: 'translateX(0%)' }
+			}
 		}
 	},
 
