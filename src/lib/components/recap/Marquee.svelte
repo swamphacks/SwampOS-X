@@ -34,7 +34,7 @@
 						<img
 							src={image}
 							alt="SwampHacks X Recap"
-							class="pointer-events-none h-36 w-48 select-none rounded-lg object-cover shadow-lg menu-lg:h-52 menu-lg:w-72"
+							class="pointer-events-none h-36 w-48 select-none rounded-lg bg-gray-200 object-cover shadow-lg menu-lg:h-52 menu-lg:w-72"
 						/>
 					{/each}
 				</div>
@@ -51,7 +51,7 @@
 						<img
 							src={image}
 							alt="SwampHacks X Recap"
-							class="pointer-events-none h-36 w-48 select-none rounded-lg object-cover shadow-lg menu-lg:h-52 menu-lg:w-72"
+							class="pointer-events-none h-36 w-48 select-none rounded-lg bg-gray-200 object-cover shadow-lg menu-lg:h-52 menu-lg:w-72"
 						/>
 					{/each}
 				</div>
