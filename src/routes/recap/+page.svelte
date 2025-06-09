@@ -26,7 +26,7 @@
 	<Marquee />
 	<section class="flex w-full items-center justify-center pt-6">
 		<a
-			class="link-text text-lg text-blue-600 underline underline-offset-4 menu-md:text-lg menu-lg:text-2xl menu-3xl:text-3xl" 
+			class="link-text text-lg text-blue-600 underline underline-offset-4 menu-md:text-lg menu-lg:text-2xl menu-3xl:text-3xl"
 			href="https://photos.app.goo.gl/GiS4hwhuqVWmEJ7n7"
 			target="_blank"
 		>

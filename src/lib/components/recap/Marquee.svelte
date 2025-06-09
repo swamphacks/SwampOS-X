@@ -34,7 +34,7 @@
 						<img
 							src={image}
 							alt="SwampHacks X Recap"
-							class="h-36 w-48 rounded-lg object-cover shadow-lg menu-lg:h-52 menu-lg:w-72"
+							class="pointer-events-none h-36 w-48 select-none rounded-lg object-cover shadow-lg menu-lg:h-52 menu-lg:w-72"
 						/>
 					{/each}
 				</div>
@@ -44,14 +44,14 @@
 	<!-- Marquee Image Gallery Right -->
 	<div class="relative w-full overflow-x-hidden">
 		<div class="flex whitespace-nowrap">
-			<!-- First set of images -->
+			<!-- Second set of images -->
 			{#each Array.from([1, 2]) as i (i)}
 				<div class="flex min-w-max animate-infinite-scroll-right gap-4 pr-4">
 					{#each rightImages as image}
 						<img
 							src={image}
 							alt="SwampHacks X Recap"
-							class="h-36 w-48 rounded-lg object-cover shadow-lg menu-lg:h-52 menu-lg:w-72"
+							class="pointer-events-none h-36 w-48 select-none rounded-lg object-cover shadow-lg menu-lg:h-52 menu-lg:w-72"
 						/>
 					{/each}
 				</div>
