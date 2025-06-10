@@ -9,7 +9,7 @@
 		/>
 
 		<!-- Dark overlay -->
-		<div class="absolute inset-0 bg-black bg-opacity-70"></div>
+		<div class="absolute inset-0 bg-black bg-opacity-60"></div>
 
 		<!-- Text overlay: left aligned -->
 		<div
@@ -47,5 +47,15 @@
 		<img src="/assets/sponsors/mlh.png" alt="Sponsor 4" class="object-contain" />
 
 		<!-- Add more logos as needed -->
+	</div>
+
+	<div class="mt-16 max-w-3xl">
+		<h3 class="title-text mb-4 text-left text-2xl font-semibold menu-sm:text-3xl">
+			Want to sponsor SH XI?
+		</h3>
+		<p class="title-text text-left text-xl text-gray-700 menu-sm:text-2xl">
+			Please send an email to contact@swamphacks.com. We are a small organization, and appreciate
+			any help offered.
+		</p>
 	</div>
 </section>

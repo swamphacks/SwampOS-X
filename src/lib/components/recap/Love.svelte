@@ -1,3 +1,3 @@
 <section>
-	<p>Made with ❤️ by SwampHacks</p>
+	<p class="title-text text-md"><strong>Made with ❤️ by SwampHacks</strong></p>
 </section>
