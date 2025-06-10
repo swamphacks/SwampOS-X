@@ -51,7 +51,7 @@
 
 	<div class="mt-16 max-w-3xl">
 		<h3 class="title-text mb-4 text-left text-2xl font-semibold menu-sm:text-3xl">
-			Want to sponsor SH XI?
+			Interested in Sponsoring Us?
 		</h3>
 		<p class="title-text text-left text-xl text-gray-700 menu-sm:text-2xl">
 			Please send an email to contact@swamphacks.com. We are a small organization, and appreciate
