@@ -43,10 +43,11 @@
 	</div>
 	<!-- Marquee Image Gallery Right -->
 	<div class="relative w-full overflow-x-hidden">
-		<div class="flex whitespace-nowrap">
+		<div class="flex -scale-x-100 whitespace-nowrap">
 			<!-- Second set of images -->
 			{#each Array.from([1, 2]) as i (i)}
-				<div class="flex min-w-max animate-infinite-scroll-right gap-4 pr-4">
+				<!-- infinite-scroll-right is misaligned and has an abrupt reset, so -scale-x is used instead -->
+				<div class="flex min-w-max animate-infinite-scroll-left gap-4 pr-4">
 					{#each rightImages as image}
 						<img
 							src={image}
