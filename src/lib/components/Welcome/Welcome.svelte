@@ -32,18 +32,26 @@
 				<h2 class="title-text text-2xl menu-md:text-3xl menu-lg:text-5xl menu-3xl:text-6xl">
 					The University of Florida
 				</h2>
-
+				<!-- 
 				<h2 class="title-text text-xl menu-md:text-2xl menu-lg:text-4xl menu-3xl:text-5xl">
 					January 25-26th
-				</h2>
+				</h2> -->
+
+				<div class="flex w-full flex-col items-center justify-center">
+					<h3 class="title-text text-lg menu-md:text-xl menu-lg:text-2xl menu-3xl:text-3xl">
+						Thank you all for a wonderful year
+					</h3>
+					<h3 class="title-text text-lg menu-md:text-xl menu-lg:text-2xl menu-3xl:text-3xl">
+						SwampHacks XI coming soon...
+					</h3>
+				</div>
 
 				<a
-					class="link-text text-xl text-blue-600 underline menu-md:text-2xl menu-lg:text-4xl menu-3xl:text-5xl"
-					href="https://app.swamphacks.com/api/auth/signin"
-					target="_blank"
+					class="link-text text-xl text-blue-600 underline underline-offset-4 menu-md:text-2xl menu-lg:text-4xl menu-3xl:text-5xl"
+					href="/recap"
 					rel="noopener noreferrer"
 				>
-					Apply now!
+					Recap
 				</a>
 			</div>
 		</StandardFrame>

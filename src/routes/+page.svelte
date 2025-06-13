@@ -10,7 +10,6 @@
 	import FAQ from '$lib/components/faq/FAQ.svelte';
 	import Sponsors from '$lib/components/sponsors/Sponsors.svelte';
 	import { generateIconPositions, type DesktopIconProps } from '$lib/utils/icon';
-
 	let DesktopIconList: DesktopIconProps[] = [];
 
 	let init: number = 120;
@@ -75,39 +74,41 @@
 	});
 </script>
 
-<MenuBar />
+<div class="h-screen w-screen overflow-hidden bg-capsules bg-cover bg-no-repeat">
+	<MenuBar />
 
-<!-- CONTENT -->
-<Welcome />
-<Tracks />
-<FAQ />
-<GUD />
-<Sponsors />
+	<!-- CONTENT -->
+	<Welcome />
+	<Tracks />
+	<FAQ />
+	<GUD />
+	<Sponsors />
 
-<a
-	id="mlh-trust-badge"
-	style="display:block;position:fixed;top:30px;z-index:10000"
-	class="left-5 w-[10%] min-w-[60px] max-w-[100px] menu-md:left-10 menu-lg:left-20"
-	href="https://mlh.io/na?utm_source=na-hackathon&utm_medium=TrustBadge&utm_campaign=2025-season&utm_content=white"
-	target="_blank"
-	><img
-		src="https://s3.amazonaws.com/logged-assets/trust-badge/2025/mlh-trust-badge-2025-white.svg"
-		alt="Major League Hacking 2025 Hackathon Season"
-		class="w-full"
-	/></a
->
+	<a
+		id="mlh-trust-badge"
+		style="display:block;position:fixed;top:30px;z-index:10000"
+		class="left-5 w-[10%] min-w-[60px] max-w-[100px] menu-md:left-10 menu-lg:left-20"
+		href="https://mlh.io/na?utm_source=na-hackathon&utm_medium=TrustBadge&utm_campaign=2025-season&utm_content=white"
+		target="_blank"
+		><img
+			src="https://s3.amazonaws.com/logged-assets/trust-badge/2025/mlh-trust-badge-2025-white.svg"
+			alt="Major League Hacking 2025 Hackathon Season"
+			class="w-full"
+		/></a
+	>
 
-<!-- ICONS -->
-{#each DesktopIconList as icon (icon.id)}
-	<DesktopIcon
-		icon_name={icon.icon_name}
-		label={icon.label}
-		onOpen={() => {
-			setVisible(icon.id, true);
-			setActiveApp(icon.id);
-		}}
-		startAt={icon.pos}
-	/>
-{/each}
+	<!-- ICONS -->
+	{#each DesktopIconList as icon (icon.id)}
+		<DesktopIcon
+			icon_name={icon.icon_name}
+			label={icon.label}
+			onOpen={() => {
+				setVisible(icon.id, true);
+				setActiveApp(icon.id);
+			}}
+			startAt={icon.pos}
+		/>
+	{/each}
 
-<ControlStrip />
+	<ControlStrip />
+</div>

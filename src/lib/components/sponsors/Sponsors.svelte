@@ -22,7 +22,7 @@
 			<div
 				class="flex flex-col items-center justify-center gap-y-6 px-5 py-5 menu-md:gap-y-10 menu-md:px-20 menu-md:py-10"
 			>
-				<h1 class="gud-text text-xl menu-md:text-3xl">Sponsored by</h1>
+				<h1 class="gud-text text-xl menu-md:text-3xl">Thank you to</h1>
 				<div class="flex flex-col gap-y-3 menu-md:gap-y-10">
 					{#if sponsors.Tier3}
 						<!-- Margin left is hotfix for weird NextEra Logo -->
