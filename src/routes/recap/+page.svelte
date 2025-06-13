@@ -2,7 +2,7 @@
 	import Letter from '$lib/components/recap/Letter.svelte';
 	import Love from '$lib/components/recap/Love.svelte';
 	import Marquee from '$lib/components/recap/Marquee.svelte';
-	import Prizes from '$lib/components/recap/Prizes.svelte';
+	import Awards from '$lib/components/recap/Awards.svelte';
 	import Quote from '$lib/components/recap/Quote.svelte';
 	import SponsorShowcase from '$lib/components/recap/SponsorShowcase.svelte';
 	import Stats from '$lib/components/recap/Stats.svelte';
@@ -30,7 +30,7 @@
 
 	<Quote />
 
-	<Prizes />
+	<Awards />
 
 	<SponsorShowcase />
 
