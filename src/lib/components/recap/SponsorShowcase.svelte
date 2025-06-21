@@ -1,4 +1,4 @@
-<section class="sm:px-8 mx-auto w-full max-w-7xl px-6 py-24">
+<section class="sm:px-8 mx-auto w-full max-w-7xl px-6 py-12">
 	<!-- Header Section -->
 	<div class="relative w-full overflow-hidden rounded-xl shadow-lg">
 		<!-- Background image: shown on tablet and up -->
@@ -58,4 +58,6 @@
 			any help offered.
 		</p>
 	</div>
+
+	<hr class="mt-12 h-1 rounded-md border-0 bg-gray-100" />
 </section>
