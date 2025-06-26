@@ -1,4 +1,4 @@
-<section class="sm:px-8 mx-auto w-full max-w-7xl px-6 py-24">
+<section class="sm:px-8 mx-auto w-full max-w-7xl px-6 py-12">
 	<!-- Header Section -->
 	<div class="relative w-full overflow-hidden rounded-xl shadow-lg">
 		<!-- Background image: shown on tablet and up -->
@@ -54,8 +54,14 @@
 			Interested in Sponsoring Us?
 		</h3>
 		<p class="title-text text-left text-xl text-gray-700 menu-sm:text-2xl">
-			Please send an email to contact@swamphacks.com. We are a small organization, and appreciate
-			any help offered.
+			Please send an email to <a
+				class="underline"
+				href="mailto:sponsors@swamphacks.com"
+				target="_blank"
+				rel="noopener noreferrer">sponsors@swamphacks.com</a
+			>. We are a small organization, and appreciate any help offered.
 		</p>
 	</div>
+
+	<hr class="mt-12 h-1 rounded-md border-0 bg-gray-100" />
 </section>

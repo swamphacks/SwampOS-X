@@ -1,4 +1,4 @@
-<section class="title-text sm:px-6 lg:px-8 mx-auto w-full max-w-7xl px-4 py-20">
+<section class="title-text sm:px-6 lg:px-8 mx-auto w-full max-w-7xl px-4 pb-20">
 	<h2 class="sm:text-4xl md:text-6xl mb-12 text-3xl font-bold">A Letter from Our Organizers</h2>
 	<div class="mx-auto space-y-7 text-2xl leading-relaxed text-gray-900">
 		<p>Dear Hackers, Sponsors, Judges, and Friends,</p>
